@@ -1,4 +1,0 @@
-for 2017:
-
-DP03_0062E = median household income ($)
-DP04_0046PE = % owner occupied units

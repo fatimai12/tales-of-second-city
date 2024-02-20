@@ -1,3 +1,13 @@
+"""
+CAPP 30122
+Team: Tales of Second City
+Author: Suchi Tailor
+
+Code for querying the U.S. Census' API
+
+https://www.census.gov/data/developers/data-sets/acs-5year.html
+"""
+
 from data.census_scrape import variable_defs
 from census import Census
 from us import states
@@ -69,7 +79,7 @@ def extract_2022_acs5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
 
     # make API request and convert to pandas df
     data_2022 = requests.get(full_2022_query)
-    
+
     col_names = ["Name"] + list(variable_defs.variables_2022.values()) + \
         ["State code", "County code", "Tract Code"]
     data_2022 = pd.DataFrame(data = data_2022.json()[1:], 

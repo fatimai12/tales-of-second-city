@@ -7,14 +7,6 @@ import pandas as pd
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv')
 app = Dash(__name__)
 
-# app.layout = html.Div(children=[
-#     html.H1('My Dash App'),
-#     dcc.Graph(id='example-graph'),
-#     dcc.Input(id='input-box', type='text', value='Initial value'),
-#     html.Button('Submit', id='submit-button', n_clicks=0),
-#     html.Div(id='output-container-button',
-#              children='Enter a value and press submit')
-# ])
 app.layout = html.Div([
     dcc.Graph(id='graph-with-slider'),
     dcc.Slider(

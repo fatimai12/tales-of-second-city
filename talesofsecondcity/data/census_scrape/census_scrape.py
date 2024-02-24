@@ -35,6 +35,8 @@ def extract_2012_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     data_2012 = pd.DataFrame(data_2012)
     data_2012 = data_2012.rename(columns = variable_defs.variables_2012)
 
+    data_2012.to_csv("./census_data/acs5_data_2012.csv")
+
 
 
 def extract_2017_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
@@ -58,6 +60,7 @@ def extract_2017_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     data_2017 = pd.DataFrame(data_2017)
     data_2017 = data_2017.rename(columns = variable_defs.variables_2017)
 
+    data_2017.to_csv("./census_data/acs5_data_2017.csv")
 
 def extract_2022_acs5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"): 
     """
@@ -88,3 +91,5 @@ def extract_2022_acs5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
         ["State code", "County code", "Tract Code"]
     data_2022 = pd.DataFrame(data = data_2022.json()[1:], 
                              columns = col_names)
+    
+    data_2022.to_csv("./census_data/acs5_data_2022.csv")

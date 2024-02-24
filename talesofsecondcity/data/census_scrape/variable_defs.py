@@ -8,9 +8,11 @@ Variable dictionaries used in census_scrape.py
 https://www.census.gov/data/developers/data-sets/acs-5year.html
 """
 
-# 2012 variable names DON'T FORGET TO ADD TOTAL POP
+# 2012 variable names 
 
-variables_2012 = {"DP04_0045PE" : "Home: Owner", 
+variables_2012 = {"DP02_0001E:" : "Total HH (#)", 
+                  "DP05_0001E" : "Total Pop (#)",
+                  "DP04_0045PE" : "Home: Owner", 
                   "DP04_0046PE" : "Home: Renter",
                   "DP05_0059PE" : "Race: White",
                   "DP05_0060PE" : "Race: Black/AA",
@@ -30,9 +32,11 @@ variables_2012 = {"DP04_0045PE" : "Home: Owner",
                   "DP05_0018PE" : "Age: 18+", 
                   "DP05_0021PE" : "Age: 65+"}
 
-# 2017 variable names DON'T FORGET TO ADD TOTAL POP
+# 2017 variable names 
 
-variables_2017 = {"DP04_0046PE" : "Home: Owner", 
+variables_2017 = {"DP02_0001E:" : "Total HH (#)", 
+                  "DP05_0001E" : "Total Pop (#)",
+                  "DP04_0046PE" : "Home: Owner", 
                   "DP04_0047PE" : "Home: Renter",
                   "DP05_0064PE" : "Race: White",
                   "DP05_0065PE" : "Race: Black/AA",
@@ -53,9 +57,11 @@ variables_2017 = {"DP04_0046PE" : "Home: Owner",
                   "DP05_0021PE" : "Age: 18+",
                   "DP05_0024PE" : "Age: 65+"}
 
-# 2022 variable names DON'T FORGET TO ADD TOTAL POP
+# 2012 variable names 
 
-variables_2022 = {"DP04_0046PE" : "Home: Owner", 
+variables_2022 = {"DP02_0001E:" : "Total HH (#)", 
+                  "DP05_0001E" : "Total Pop (#)",
+                  "DP04_0046PE" : "Home: Owner", 
                   "DP04_0047PE" : "Home: Renter",
                   "DP05_0066PE" : "Race: White",
                   "DP05_0067PE" : "Race: Black/AA",

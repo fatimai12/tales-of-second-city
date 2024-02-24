@@ -18,8 +18,8 @@ import requests
 def extract_2012_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     """
     Use the Census python package to interact with Census API and collect race,
-    income, age, home ownership and educational attainment data published in 
-    2012.
+    income, age, home ownership and educational attainment data from all Census
+    tracts in Cook County, IL that were published in 2012.
 
     Inputs: API Key 
 
@@ -29,6 +29,7 @@ def extract_2012_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     c = Census(key)
     variables_2012 = ("NAME",) + tuple(variable_defs.variables_2012.keys())
 
+    # Cook county FIPS is '031'
     data_2012 = c.acs5dp.state_county_tract(variables_2012, states.IL.fips, '031', 
                                                    Census.ALL, year = 2012)
     data_2012 = pd.DataFrame(data_2012)
@@ -39,8 +40,8 @@ def extract_2012_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
 def extract_2017_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     """
     Use the Census python package to interact with Census API and collect race,
-    income, age, home ownership and educational attainment data published in 
-    2017.
+    income, age, home ownership and educational attainment data from all Census
+    tracts in Cook County, IL that were published in 2017.
 
     Inputs: API Key 
 
@@ -50,6 +51,7 @@ def extract_2017_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     c = Census(key)
     variables_2017 = ("NAME",) + tuple(variable_defs.variables_2017.keys())
 
+    # Cook county FIPS is '031'
     data_2017 = c.acs5dp.state_county_tract(variables_2017, states.IL.fips, '031', 
                                             Census.ALL, year = 2017)
     
@@ -59,7 +61,9 @@ def extract_2017_ACS5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
 
 def extract_2022_acs5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"): 
     """
-    Create Census API Query for 2022 -- workaround function to accomdate for 
+    Create Census API query and collect race, income, age, home ownership and 
+    educational attainment data from all Census tracts in Cook County, IL that 
+    were published in 2012. -- this workaround function accomdates for 
     the fact that the 2022 census data is not yet in the Census python package.
 
     Input: API Key 
@@ -71,7 +75,7 @@ def extract_2022_acs5_data(key = "7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     base_url = "https://api.census.gov/data/2021/acs/acs5/profile?get="
     variables_2022 = "NAME," + ",".join(variable_defs.variables_2022.keys())
 
-    # feeling unsure about the tract portion of this and need to come back to look at it
+    # COMPARE/REVIEW TRACT DATA
     geo_string = "&for=tract:*&in=county:031&in=state:17"
     key_string = "&key=" + key
 

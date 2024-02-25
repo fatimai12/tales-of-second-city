@@ -1,0 +1,20 @@
+"""
+CAPP 30122
+Team: Tales of Second City
+Author: Fatima Irfan
+
+Map geojson file rows to corresponding census tracts
+"""
+
+import geopandas as gpd
+census_tracts = gpd.read_file("../data/original/Boundaries - Census Tracts - 2010.geojson")
+
+bus_stops = gpd.read_file("../data/original/CTA Bus Stops.geojson")
+bus_stops_with_tracts = gpd.sjoin(bus_stops, census_tracts, how="left", op="within")
+bus_stops_with_tracts.to_csv("talesofsecondcity/data/transformed/busstops_clean.csv", index = False)
+
+divvy_stations = gpd.read_file("../data/original/Divvy Bicycle Stations.geojson")
+divvy_stations_with_tracts = gpd.sjoin(divvy_stops, census_tracts, how="left", op="within")
+divvy_stations_with_tracts.to_csv("talesofsecondcity/data/transformed/divvy_clean.csv", index = False)
+
+##can do for parks too since we have the geojson

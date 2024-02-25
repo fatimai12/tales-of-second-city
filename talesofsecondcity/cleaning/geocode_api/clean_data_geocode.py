@@ -16,7 +16,7 @@ libraries = pd.read_csv("/tales-of-second-city/talesofsecondcity/data/original/l
 parks = parks[["PARK_NO", "LOCATION", "ZIP"]]
 parks.insert(2, "CITY", "Chicago")
 parks.insert(3, "STATE", "IL")
-parks.to_csv("talesofsecondcity/data/original/parks_clean.csv", index = False)
+parks.to_csv("talesofsecondcity/data/transformed/parks_clean.csv", index = False)
 
 libraries = libraries[["NAME", "ADDRESS", "CITY", "STATE", "ZIP"]]
-libraries.to_csv("talesofsecondcity/data/original/libraries_clean.csv", index = False)
+libraries.to_csv("talesofsecondcity/data/transformed/libraries_clean.csv", index = False)

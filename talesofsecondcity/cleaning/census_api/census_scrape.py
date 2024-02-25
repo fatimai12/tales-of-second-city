@@ -31,8 +31,7 @@ def extract_2012_ACS5_data(key="7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
 
     # Cook county FIPS is '031'
     data_2012 = c.acs5dp.state_county_tract(
-        variables_2012, states.IL.fips, "031", Census.ALL, year=2012
-    )
+        variables_2012, states.IL.fips, "031", Census.ALL, year=2012)
     data_2012 = pd.DataFrame(data_2012)
     data_2012 = data_2012.rename(columns=variable_defs.variables_2012)
 

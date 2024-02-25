@@ -6,7 +6,10 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.8"
+dash = "^2.15.0"
+dash-bootstrap-components = "^1.5.0"
+pandas = "^2.2.1"
 
 
 [build-system]

@@ -9,8 +9,8 @@ Clean parks data for use in geocode api
 """
 import pandas as pd
 
-parks = pd.read_csv("/tales-of-second-city/talesofsecondcity/data/original/CPD_Parks.csv", dtype = str)
-libraries = pd.read_csv("/tales-of-second-city/talesofsecondcity/data/original/libraries.csv", dtype = str)
+parks = pd.read_csv("talesofsecondcity/data/original/CPD_Parks.csv", dtype = str)
+libraries = pd.read_csv("talesofsecondcity/data/original/libraries.csv", dtype = str)
 
 # Clean data
 parks = parks[["PARK_NO", "LOCATION", "ZIP"]]

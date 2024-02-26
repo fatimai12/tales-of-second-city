@@ -13,6 +13,8 @@ import pandas as pd
 import io
 import csv
 
+#you can actually use pygris to do this too https://walker-data.com/pygris/04-geocoding/ - fatima
+
 url = 'https://geocoding.geo.census.gov/geocoder/geographies/addressbatch'
 files = {'address_file': ('C:\TEMP\ADDRESS_SAMPLE.csv', 
                           open('C:\TEMP\ADDRESS_SAMPLE.csv', 'rb'), 'text/csv')}

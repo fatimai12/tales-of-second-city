@@ -3,26 +3,23 @@ CAPP 30122
 Team: Tales of Second City
 Author: Victoria Beck
 
-Use Census Geocode API to match zipcodes to census tracts
-
-Code based on https://github.com/greennumbers/python/blob/main/PYTHON_CENSUS_API.ipynb
+Use Census Geocode API nad pygris package to match zipcodes and coordinates
+to census tracts
 
 """
-import requests
 import pandas as pd
-import io
-import csv
+from pygris.geocode import geolookup, batch_geocode
 
-#you can actually use pygris to do this too https://walker-data.com/pygris/04-geocoding/ - fatima
+parks = pd.read_csv("../../data/original/parks_clean.csv", dtype = str)
+libraries = pd.read_csv("../../data/original/libraries_clean.csv", dtype = str)
 
-url = 'https://geocoding.geo.census.gov/geocoder/geographies/addressbatch'
-files = {'address_file': ('C:\TEMP\ADDRESS_SAMPLE.csv', 
-                          open('C:\TEMP\ADDRESS_SAMPLE.csv', 'rb'), 'text/csv')}
-payload = {'benchmark':'Public_AR_Current','vintage':'Current_Current'}
-s = requests.post(url, files=files, data=payload)
+parks_geocode = batch_geocode(parks, id_column = "PARK_NO",
+                          address = "LOCATION", city = "CITY", state = "STATE",
+                          zip = "ZIP")
+parks_geocode.to_csv("../../data/transformed/parks_geocoded.csv", index = False)
 
-df = pd.read_csv(io.StringIO(s.text), sep=',', header=None, quoting=csv.QUOTE_ALL)
-df.columns = ['ID', 'ADDRESS_IN', 'MATCH_INDICATOR', 'MATCH_TYPE', 'ADDRESS_OUT', 
-              'LONG_LAT', 'TIGER_EDGE', 'STREET_SIDE', 'FIPS_STATE', 'FIPS_COUNTY', 
-              'CENSUS_TRACT', 'CENSUS_BLOCK']
+libraries_geocode = batch_geocode(libraries, id_column = "NAME",
+                          address = "ADDRESS", city = "CITY", state = "STATE",
+                          zip = "ZIP")
+libraries_geocode.to_csv("../../data/transformed/libraries_geocoded.csv", index = False)
 

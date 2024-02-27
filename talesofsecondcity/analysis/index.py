@@ -9,13 +9,14 @@ Create index for access to public services
 import pandas as pd 
 
 # Data frames with location data
-parks = pd.read_csv("")
+parks = pd.read_csv("..data/transformed/parks_geocoded.csv")
 parks = parks.set_index("PARK_NO")
-parks_acreage = pd.read_csv("", usecols = ["PARK_NO", "ACRES"])
+parks_acreage = pd.read_csv("..data/original/CPD_Parks.csv", 
+                            usecols = ["PARK_NO", "ACRES"])
 parks_acreage = parks_acreage.set_index("PARK_NO")
 parks = parks.join(parks_acreage)
 
-libraries = pd.read_csv("")
+libraries = pd.read_csv("..data/transformed/libraries_geocoded.csv")
 bus_stops = pd.read_csv("")
 L_stops = pd.read_csv("")
 divvy = pd.read_csv("")

@@ -9,35 +9,46 @@ Create index for access to public services
 import pandas as pd 
 
 # Data frames with location data
-parks = pd.read_csv("..data/transformed/parks_geocoded.csv")
+parks = pd.read_csv("../data/transformed/parks_geocoded.csv", dtype = str, usecols = ["id", "tract"])
 parks = parks.set_index("PARK_NO")
-parks_acreage = pd.read_csv("..data/original/CPD_Parks.csv", 
+parks_acreage = pd.read_csv("../data/original/CPD_Parks.csv",
                             usecols = ["PARK_NO", "ACRES"])
 parks_acreage = parks_acreage.set_index("PARK_NO")
 parks = parks.join(parks_acreage)
 
-libraries = pd.read_csv("..data/transformed/libraries_geocoded.csv")
-bus_stops = pd.read_csv("")
-L_stops = pd.read_csv("")
-divvy = pd.read_csv("")
+libraries = pd.read_csv("../data/transformed/libraries_geocoded.csv", dtype = str,
+                        usecols = ["Tract"])
+bus_stops = pd.read_csv("../data/test_data/bus_test_data.csv", dtype = str,
+                        usecols = ["Tract"])
+L_stops = pd.read_csv("../data/test_data/L_test_data.csv", dtype = str,
+                      usecols = ["Tract"])
+divvy = pd.read_csv("../data/test_data/divvy_test_data.csv", usecols = ["Tract"])
 
-census_data = pd.read_csv("", usecols = ["TRACT", "TOTAL POP"]) 
+census_data = pd.read_csv("../data/test_data/census22_test_data.csv",
+                          usecols = ["Tract Code", "Total Pop"]) 
 
 dataframes = {"Parks": parks, "Libraries": libraries, "Bus": bus_stops,
               "L": L_stops, "Divvy": divvy}
 
+
 def link_data(services_data, pop_data):
     """
     Transforms public services data and links to census data
+
+    Returns dictionary of transformed data
     """
     # For each category group by census and get total acreage (for parks) or
     # count (for libraries and transit stops)
+    transformed_data = {}
     for key, df in services_data.items():
         if key == "Parks":
             df = df.groupby("Tract").sum().reset_index(name = "Total Acreage")
         else:
             df = df.groupby("Tract").count().reset_index(name = "Count")
-        df = df.merge(pop_data, left_on = "Tract", right_on = "Tract")
+        df = df.merge(pop_data, left_on = "Tract", right_on = "Tract Code")
+        transformed_data[key] = df
+
+    return transformed_data
 
 
 def calculate_scores(df, df_name, service_col):
@@ -48,7 +59,7 @@ def calculate_scores(df, df_name, service_col):
     Add score as a column for corresponding row with "Score"
     """
     # divide count by total population
-    df["proportion"] = df[service_col] / df["TOTAL POP"]
+    df["proportion"] = df[service_col] / df["Total Pop"]
 
     # find distribution of proportion and split into 5 groups 
     thresholds = pd.cut(df["proportion"], 5)
@@ -73,10 +84,12 @@ def calculate_scores(df, df_name, service_col):
         elif row.proportion in level_5:
             df.at[index, col_name] = 5
 
-    df = df.drop(columns = ["proportion"])
+    df = df.drop(columns = ["proportion", "Total Pop", service_col])
+
+    return df
 
 
-def calculate_index(data: dict):
+def calculate_index(services_data: dict, census_data: pd):
     """
     Calculates access to public services index
     
@@ -84,21 +97,24 @@ def calculate_index(data: dict):
     and "APS Index"
     
     """
+    linked_data = link_data(data, census_data)
+
+    scored_data = {}
     # Calculate scores for each public services data frame
-    for key, df in data.items():
+    for key, df in linked_data.items():
         if key == "Parks":
-            calculate_scores(df, key, "Total Acreage")
+            df = calculate_scores(df, key, "Total Acreage")
             df = df.reset_index()
         else:
-            calculate_scores(df, key, "Count")
-        df = df.set_index("Tract")
-        df = df[["Tract", "Score"]]
+            df = calculate_scores(df, key, "Count")
+        scored_data[key] = df
 
     # Make one dataframe where each row is a census tract and the columns are the 
     # service scores
-    full_index_df =  pd.concat([data["Parks"], data["Libraries"], data["Bus"],
-                                data["L"], data["Divvy"]])
-    #####
+    full_index_df =  pd.concat([scored_data["Parks"], scored_data["Libraries"], 
+                                scored_data["Bus"], scored_data["L"],
+                                scored_data["Divvy"]])
+    full_index_df = full_index_df.groupby("Tract")
 
 
     full_index_df["Transit Score"] = full_index_df["Bus Score"] + \

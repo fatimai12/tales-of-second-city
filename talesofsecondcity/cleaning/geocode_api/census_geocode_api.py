@@ -3,7 +3,7 @@ CAPP 30122
 Team: Tales of Second City
 Author: Victoria Beck
 
-Use Census Geocode API nad pygris package to match zipcodes and coordinates
+Use Census Geocode API and pygris package to match zipcodes and coordinates
 to census tracts
 
 """

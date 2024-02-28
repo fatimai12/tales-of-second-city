@@ -21,6 +21,12 @@ def clean_parks():
     # Remove the ".0" from the end of the tract column
     parks = parks.replace(to_replace = r'\.0$', value = "", regex = True)
 
+    # Put leading zeros back in
+    parks["tract"] = parks["tract"].str.zfill(6)
+
+    # Drop parks that could not be geocoded (n = 2)
+    parks = parks.drop(parks[parks["tract"].isnull()].index)
+    
     # Rename columns to be consistent across all data
     parks = parks.rename(columns = {"id": "ID", "tract": "Tract"})
 
@@ -35,6 +41,8 @@ def clean_libraries():
 
     # Keep only the ID and tract columns
     libraries = libraries[["id", "tract"]]
+    # Put leading zeros back in
+    libraries["tract"] = libraries["tract"].str.zfill(6)
 
     # Rename columns to be consistent across all data
     libraries = libraries.rename(columns = {"id": "ID", "tract": "Tract"})

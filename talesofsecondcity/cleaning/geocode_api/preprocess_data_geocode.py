@@ -16,6 +16,8 @@ libraries = pd.read_csv("../../data/original/libraries.csv", dtype = str,
 
 # Clean data
 parks = parks[["PARK_NO", "LOCATION", "ZIP"]]
+# Drop row that does not have an address (bike trail)
+parks = parks.drop(parks[parks["LOCATION"].isnull()].index)
 parks.insert(2, "CITY", "Chicago")
 parks.insert(3, "STATE", "IL")
 parks.to_csv("../../data/original/parks_clean.csv", index = False)

@@ -8,8 +8,7 @@ Create index for access to public services
 """
 import pandas as pd 
 
-# Data frames with location data
-
+### Data frames with location data ###
 # Read in parks data and add acreage data to the geocoded parks data
 parks = pd.read_csv("../data/transformed/parks_final.csv", dtype = str)
 parks_acreage = pd.read_csv("../data/original/CPD_Parks.csv", 
@@ -43,7 +42,7 @@ census_data = census_data.rename(columns = {"Tract Code": "Tract"})
 dataframes = {"Parks": parks, "Libraries": libraries, "Bus": bus_stops,
               "L": L_stops, "Divvy": divvy}
 
-
+### Functions to compute index ###
 def link_data(services_data, pop_data):
     """
     Transforms public services data into census tract groups and links to 
@@ -92,7 +91,6 @@ def calculate_scores(df, df_name, service_col):
     # Name the score column and convert scores to integer
     col_name = df_name + " " + ("Score")
     df[col_name] = thresholds.astype(int)
-
     df = df.drop(columns = ["proportion", "Total Pop", service_col])
 
     return df
@@ -108,11 +106,10 @@ def calculate_index(services_data: dict, pop_data: pd):
         pop_data (pd): census data with total population per census tract
  
     Returns:
-        None. Saves indexed df with columns "Tract", "Parks Score", 
-        "Library Score", "Transit Score", and "APS Index" as a csv.
+        full_index_df (pd): df with columns "Tract", "Parks Score", 
+        "Library Score", "Transit Score", and "APS Index".
     """
     linked_data = link_data(services_data, pop_data)
-
     scored_data = {}
     # Calculate scores for each public services data frame
     for key, df in linked_data.items():
@@ -143,7 +140,11 @@ def calculate_index(services_data: dict, pop_data: pd):
     full_index_df["Total Score"] = full_index_df["Parks Score"] + \
         full_index_df["Libraries Score"] + full_index_df["Transit Score"]
 
-    # Normalize score as index from 0 to 1
+    # Normalize score as index from 0 to 1 and save file as csv
     full_index_df["APS Index"] = full_index_df["Total Score"] / 45
+    full_index_df = full_index_df.reset_index()
 
-    full_index_df.to_csv("../data/indexed_data.csv")
+    return full_index_df
+
+indexed_data = calculate_index(dataframes, census_data)
+indexed_data.to_csv("../data/indexed_data.csv", index = False)

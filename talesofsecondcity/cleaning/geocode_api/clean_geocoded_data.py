@@ -19,7 +19,7 @@ def clean_parks():
     parks = parks[["id", "tract"]]
 
     # Remove the ".0" from the end of the tract column
-    parks = parks.replace(to_replace = r'.0$', value = "", regex = True)
+    parks = parks.replace(to_replace = r'\.0$', value = "", regex = True)
 
     # Rename columns to be consistent across all data
     parks = parks.rename(columns = {"id": "ID", "tract": "Tract"})

@@ -14,7 +14,7 @@ parks = pd.read_csv("../data/transformed/parks_final.csv", dtype = str)
 parks_acreage = pd.read_csv("../data/original/CPD_Parks.csv", 
                             dtype = {"PARK_NO": str, "ACRES": float},
                             usecols = ["PARK_NO", "ACRES"])
-parks_acreage = parks_acreage.rename(columns = {"PARK_NO":"ID", "ACRES": "Acres"})
+parks_acreage = parks_acreage.rename(columns = {"PARK_NO":"ID", "ACRES": "Park Acres"})
 
 # Only keep rows with acreage data
 parks = parks.join(parks_acreage.set_index("ID"), on = "ID", how = "inner")
@@ -22,21 +22,20 @@ parks = parks.join(parks_acreage.set_index("ID"), on = "ID", how = "inner")
 # Read in other public services data
 libraries = pd.read_csv("../data/transformed/libraries_final.csv", dtype = str,
                         usecols = ["Tract"])
-bus_stops = pd.read_csv("../data/test_data/bus_test_data.csv", dtype = str,
-                        usecols = ["TRACT"])
-bus_stops = bus_stops.rename(columns = {"TRACT": "Tract"})
-L_stops = pd.read_csv("../data/test_data/L_test_data.csv", dtype = str,
-                      usecols = ["TRACT"])
-L_stops = L_stops.rename(columns = {"TRACT": "Tract"})
-divvy = pd.read_csv("../data/test_data/divvy_test_data.csv", dtype = str,
-                    usecols = ["Tract Code"])
-divvy = divvy.rename(columns = {"Tract Code": "Tract"})
+bus_stops = pd.read_csv("../data/transformed/bus_geocoded.csv", dtype = str,
+                        usecols = ["Tract"])
+L_stops = pd.read_csv("../data/transformed/l_stops_geocoded.csv", dtype = str,
+                      usecols = ["tract"])
+L_stops = L_stops.rename(columns = {"tract": "Tract"})
+divvy = pd.read_csv("../data/transformed/divvy_geocoded.csv", dtype = str,
+                    usecols = ["Tract"])
 
 # Read in census data for population information
-census_data = pd.read_csv("../data/test_data/census22_test_data.csv",
-                          dtype = {"Tract Code": str, "Total Pop": int},
-                          usecols = ["Tract Code", "Total Pop"])
-census_data = census_data.rename(columns = {"Tract Code": "Tract"})
+census_data = pd.read_csv("../data/original/acs5_data_2022.csv",
+                          dtype = {"Tract Code": str, "Total Pop (#)": int},
+                          usecols = ["Tract Code", "Total Pop (#)"])
+census_data = census_data.rename(columns = {"Tract Code": "Tract",
+                                            "Total Pop (#)": "Total Pop"})
 
 # Put all data frames in a dictionary
 dataframes = {"Parks": parks, "Libraries": libraries, "Bus": bus_stops,
@@ -60,9 +59,10 @@ def link_data(services_data, pop_data):
     transformed_data = {}
     for key, df in services_data.items():
         if key == "Parks":
-            df = df.groupby("Tract").sum("Acres").reset_index()
+            df = df.groupby("Tract").sum("Park Acres").reset_index()
         else:
-            df = df.groupby("Tract").size().to_frame("Count").reset_index()
+            count_col_name = key + " " + "Count"
+            df = df.groupby("Tract").size().to_frame(count_col_name).reset_index()
         df = df.merge(pop_data, left_on = "Tract", right_on = "Tract")
         transformed_data[key] = df
 
@@ -72,7 +72,8 @@ def link_data(services_data, pop_data):
 def calculate_scores(df, df_name, service_col, n_bins, bin_labels):
     """
     Calculate score for each tract in a data set based on ratio of public services  
-    to total population with thresholds based on distribution.  Scores are relative.
+    to total population with thresholds based on distribution.  Scores are relative,
+    calculated across all tracts.
 
     Inputs:
         df (pd): data to score
@@ -82,21 +83,23 @@ def calculate_scores(df, df_name, service_col, n_bins, bin_labels):
         bin_labels (list of ints): labels for score options
     
     Returns:
-        None.  Adds score as a column to df.
+        df_short (pd): dataframe with score column and tracts with 0 population dropped
     """
     # Divide count or acres by total population
-    df["proportion"] = df[service_col] / df["Total Pop"]
+    index_pop_0 = df[df["Total Pop"] == 0].index 
+    df_short = df.drop(index_pop_0)
+    df_short["proportion"] = df_short[service_col] / df_short["Total Pop"]
 
     # Find distribution of proportion and split into 5 groups for transit or 15
     # for parks and libraries
-    thresholds = pd.cut(df["proportion"], bins = n_bins, labels = bin_labels)
+    thresholds = pd.cut(df_short["proportion"], bins = n_bins, labels = bin_labels)
 
     # Name the score column and convert scores to integer
     col_name = df_name + " " + ("Score")
-    df[col_name] = thresholds.astype(int)
-    df = df.drop(columns = ["proportion", "Total Pop", service_col])
+    df_short[col_name] = thresholds.astype(int)
+    df_short = df_short.drop(columns = ["proportion"])
 
-    return df
+    return df_short
 
 
 def calculate_index(services_data: dict, pop_data: pd):
@@ -117,15 +120,16 @@ def calculate_index(services_data: dict, pop_data: pd):
     # Calculate scores for each public services data frame
     for key, df in linked_data.items():
         if key == "Parks":
-            df = calculate_scores(df, key, "Acres", 15, list(range(1,16)))
+            df_scored = calculate_scores(df, key, "Park Acres", 15, list(range(1,16)))
         elif key == "Libraries":
-            df = calculate_scores(df, key, "Count", 15, list(range(1,16)))
+            df_scored = calculate_scores(df, key, "Libraries Count", 15, list(range(1,16)))
         else:
-            df = calculate_scores(df, key, "Count", 5, list(range(1,6)))
-        scored_data[key] = df
+            count_col_name = key + " " + "Count"
+            df_scored = calculate_scores(df, key, count_col_name, 5, list(range(1,6)))
+        scored_data[key] = df_scored
 
-    # Make one dataframe where each row is a census tract and the columns are the 
-    # access to public service scores
+    # Make one dataframe where each row is a census tract and the columns are 
+    # public service statistics
     full_index_df =  pd.concat([scored_data["Parks"], scored_data["Libraries"], 
                                 scored_data["Bus"], scored_data["L"],
                                 scored_data["Divvy"]])
@@ -139,16 +143,33 @@ def calculate_index(services_data: dict, pop_data: pd):
     # Create an overall transit score column
     full_index_df["Transit Score"] = full_index_df["Bus Score"] + \
         full_index_df["L Score"] + full_index_df["Divvy Score"]
-    full_index_df = full_index_df.drop(columns = ["Bus Score", "L Score", "Divvy Score"])
 
     # Create an overall access to public service score
     full_index_df["Total Score"] = full_index_df["Parks Score"] + \
         full_index_df["Libraries Score"] + full_index_df["Transit Score"]
 
-    # Normalize score as index from 0 to 1 and save file as csv
+    # Normalize score as index from 0 to 1
     full_index_df["APS Index"] = full_index_df["Total Score"] / 45
     full_index_df = full_index_df.reset_index()
 
+    # Rejoin shortened data without 0 population rows with the data with 0
+    # population
+    pop_0_bus = linked_data["Bus"][linked_data["Bus"]["Total Pop"] == 0]
+    pop_0_l = linked_data["L"][linked_data["L"]["Total Pop"] == 0]
+    pop_0_df =  pd.concat([pop_0_bus, pop_0_l])
+    pop_0_df = pop_0_df.fillna(0)
+    pop_0_df = pop_0_df.groupby("Tract").sum().reset_index()
+    pop_0_df = pop_0_df.drop(columns = ["Total Pop"])
+
+    full_index_df = pd.concat([full_index_df, pop_0_df])
+    full_index_df = full_index_df.loc[:,["Tract", "Total Pop", "Park Acres", 
+                                         "Parks Score", "Libraries Count", 
+                                         "Libraries Score", "Bus Count", 
+                                         "Bus Score", "L Count", "L Score", 
+                                         "Divvy Count", "Divvy Score",
+                                         "Transit Score", "Total Score", 
+                                         "APS Index"]]
+    
     return full_index_df
 
 indexed_data = calculate_index(dataframes, census_data)

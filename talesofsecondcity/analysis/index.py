@@ -8,8 +8,7 @@ Create index for access to public services
 """
 import pandas as pd 
 
-# Data frames with location data
-
+### Data frames with location data ###
 # Read in parks data and add acreage data to the geocoded parks data
 parks = pd.read_csv("../data/transformed/parks_final.csv", dtype = str)
 parks_acreage = pd.read_csv("../data/original/CPD_Parks.csv", 
@@ -43,7 +42,7 @@ census_data = census_data.rename(columns = {"Tract Code": "Tract"})
 dataframes = {"Parks": parks, "Libraries": libraries, "Bus": bus_stops,
               "L": L_stops, "Divvy": divvy}
 
-
+### Functions to compute index ###
 def link_data(services_data, pop_data):
     """
     Transforms public services data into census tract groups and links to 
@@ -70,7 +69,7 @@ def link_data(services_data, pop_data):
     return transformed_data
 
 
-def calculate_scores(df, df_name, service_col):
+def calculate_scores(df, df_name, service_col, n_bins, bin_labels):
     """
     Calculate score for each tract in a data set based on ratio of public services  
     to total population with thresholds based on distribution.  Scores are relative.
@@ -79,6 +78,8 @@ def calculate_scores(df, df_name, service_col):
         df (pd): data to score
         df_name (str): name of dataframe
         service_col (str): column to base score on
+        n_bins (int): number of bins to categorize rows (i.e. highest possible score)
+        bin_labels (list of ints): labels for score options
     
     Returns:
         None.  Adds score as a column to df.
@@ -86,13 +87,13 @@ def calculate_scores(df, df_name, service_col):
     # Divide count or acres by total population
     df["proportion"] = df[service_col] / df["Total Pop"]
 
-    # Find distribution of proportion and split into 5 groups 
-    thresholds = pd.cut(df["proportion"], 5, labels = [1,2,3,4,5])
+    # Find distribution of proportion and split into 5 groups for transit or 15
+    # for parks and libraries
+    thresholds = pd.cut(df["proportion"], bins = n_bins, labels = bin_labels)
 
     # Name the score column and convert scores to integer
     col_name = df_name + " " + ("Score")
     df[col_name] = thresholds.astype(int)
-
     df = df.drop(columns = ["proportion", "Total Pop", service_col])
 
     return df
@@ -108,18 +109,19 @@ def calculate_index(services_data: dict, pop_data: pd):
         pop_data (pd): census data with total population per census tract
  
     Returns:
-        None. Saves indexed df with columns "Tract", "Parks Score", 
-        "Library Score", "Transit Score", and "APS Index" as a csv.
+        full_index_df (pd): df with columns "Tract", "Parks Score", 
+        "Library Score", "Transit Score", and "APS Index".
     """
     linked_data = link_data(services_data, pop_data)
-
     scored_data = {}
     # Calculate scores for each public services data frame
     for key, df in linked_data.items():
         if key == "Parks":
-            df = calculate_scores(df, key, "Acres")
+            df = calculate_scores(df, key, "Acres", 15, list(range(1,16)))
+        elif key == "Libraries":
+            df = calculate_scores(df, key, "Count", 15, list(range(1,16)))
         else:
-            df = calculate_scores(df, key, "Count")
+            df = calculate_scores(df, key, "Count", 5, list(range(1,6)))
         scored_data[key] = df
 
     # Make one dataframe where each row is a census tract and the columns are the 
@@ -143,7 +145,11 @@ def calculate_index(services_data: dict, pop_data: pd):
     full_index_df["Total Score"] = full_index_df["Parks Score"] + \
         full_index_df["Libraries Score"] + full_index_df["Transit Score"]
 
-    # Normalize score as index from 0 to 1
+    # Normalize score as index from 0 to 1 and save file as csv
     full_index_df["APS Index"] = full_index_df["Total Score"] / 45
+    full_index_df = full_index_df.reset_index()
 
-    full_index_df.to_csv("../data/indexed_data.csv")
+    return full_index_df
+
+indexed_data = calculate_index(dataframes, census_data)
+indexed_data.to_csv("../data/indexed_data.csv", index = False)

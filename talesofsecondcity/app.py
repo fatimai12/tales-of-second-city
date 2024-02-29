@@ -12,13 +12,14 @@ app = Dash(__name__)
 # index_map = gen_index_choropleth()
 
 df = pd.read_csv('data/indexed_data.csv')
+json_df = df.to_dict(orient='records')
 census_tracts = gpd.read_file("data/original/Boundaries - Census Tracts - 2010.geojson")
 lat=41.8227
 long=-87.6014
 
 def gen_index_map():
     fig = px.choropleth_mapbox(
-            df, 
+            json_df, 
             geojson = census_tracts, 
             locations = "Tract", 
             featureidkey="properties.tractce10",

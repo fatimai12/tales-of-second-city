@@ -16,20 +16,16 @@ def clean_parks():
     parks = pd.read_csv("../../data/transformed/parks_geocoded.csv", dtype = str)
 
     # Keep only the ID and tract columns
-    parks = parks[["id", "tract"]]
+    parks = parks[["ID", "Tract"]]
 
     # Remove the ".0" from the end of the tract column
     parks = parks.replace(to_replace = r'\.0$', value = "", regex = True)
 
     # Put leading zeros back in
-    parks["tract"] = parks["tract"].str.zfill(6)
+    parks["Tract"] = parks["Tract"].str.zfill(6)
 
     # Drop parks that could not be geocoded (n = 2)
-    parks = parks.drop(parks[parks["tract"].isnull()].index)
-    
-    # Rename columns to be consistent across all data
-    parks = parks.rename(columns = {"id": "ID", "tract": "Tract"})
-
+    parks = parks.drop(parks[parks["Tract"].isnull()].index)
     parks.to_csv("../../data/transformed/parks_final.csv", index = False)
 
 def clean_libraries():
@@ -46,7 +42,6 @@ def clean_libraries():
 
     # Rename columns to be consistent across all data
     libraries = libraries.rename(columns = {"id": "ID", "tract": "Tract"})
-
     libraries.to_csv("../../data/transformed/libraries_final.csv", index = False)
 
 clean_parks()

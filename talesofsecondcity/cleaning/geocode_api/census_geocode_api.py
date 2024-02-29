@@ -1,23 +1,49 @@
 """
 CAPP 30122
 Team: Tales of Second City
-Author: Victoria Beck
+Author: Victoria Beck and Fatima Irfan
 
+Map geojson file rows to corresponding census tracts.
 Use Census Geocode API and pygris package to match zipcodes and coordinates
-to census tracts
+to census tracts.
 
 """
 import pandas as pd
+import geopandas as gpd
 from pygris.geocode import geolookup, batch_geocode
 from geopy.geocoders import Nominatim
 import time
 
+# Batch geocode as many locations as possible
 parks = pd.read_csv("../../data/original/parks_clean.csv", dtype = str)
 libraries = pd.read_csv("../../data/original/libraries_clean.csv", dtype = str)
 
 parks_geocode = batch_geocode(parks, id_column = "PARK_NO",
                           address = "LOCATION", city = "CITY", state = "STATE",
                           zip = "ZIP")
+
+libraries_geocode = batch_geocode(libraries, id_column = "NAME",
+                          address = "ADDRESS", city = "CITY", state = "STATE",
+                          zip = "ZIP")
+libraries_geocode.to_csv("../../data/transformed/libraries_geocoded.csv", index = False)
+
+census_tracts = gpd.read_file("../../data/original/Boundaries - Census Tracts - 2010.geojson")
+bus_stops = gpd.read_file("../../data/original/CTA Bus Stops.geojson")
+bus_geocode = gpd.sjoin(bus_stops, census_tracts, how="left", predicate="within")
+divvy_stations = gpd.read_file("../../data/original/Divvy Bicycle Stations.geojson")
+divvy_geocode = gpd.sjoin(divvy_stations, census_tracts, how="left", predicate="within")
+
+# Clean up formatting to find tracts that are missing after batch geocoding
+parks_geocode = parks_geocode.rename(columns = {"id": "ID", "tract": "Tract"})
+
+bus_geocode = bus_geocode[["geometry", "tractce10"]]
+bus_geocode = bus_geocode.rename(columns = {"tractce10": "Tract"})
+bus_geocode["geometry"] = bus_geocode["geometry"].astype(str)
+bus_geocode["geometry"] = bus_geocode["geometry"].str.strip('POINT ()')
+bus_geocode[["longitude", "latitude"]] = bus_geocode["geometry"].str.split(' ', n = 1, expand=True)
+
+divvy_geocode = divvy_geocode[["latitude", "longitude", "tractce10"]]
+divvy_geocode = divvy_geocode.rename(columns = {"tractce10": "Tract"})
 
 
 def find_lat_lon(address):
@@ -36,29 +62,36 @@ def find_lat_lon(address):
         return None
     
 
-def geocode_missing_parks(parks_data):
+def geocode_missing_locations(df: pd, need_lat_lon: bool):
     """
+    Geocode missing data
     """
-    missing_parks_data = parks_data[parks_data["tract"].isnull()]
-    for i, row in missing_parks_data.iterrows():
-        if find_lat_lon(row["address"]) is None:
-            continue
+    missing_data = df[df["Tract"].isnull()]
+    for i, row in missing_data.iterrows():
+        if need_lat_lon:
+            if find_lat_lon(row["address"]) is None:
+                continue
+            else:
+                latitude, longitude = find_lat_lon(row["address"])
         else:
-            latitude, longitude = find_lat_lon(row["address"])
+            latitude = row["latitude"]
+            longitude = row["longitude"]
             geocoded_addr = geolookup(longitude = longitude, latitude = latitude, 
                                     geography = "Census Tracts", keep_geo_cols = True)
             tract = str(geocoded_addr["TRACT"].to_string(index = False))
-            parks_data.at[i, "tract"] = tract
+            df.at[i, "Tract"] = tract
 
-    return parks_data
+    return df
 
-parks_geocode = geocode_missing_parks(parks_geocode)
-
+parks_geocode = geocode_missing_locations(parks_geocode, True)
 parks_geocode.to_csv("../../data/transformed/parks_geocoded.csv", index = False)
 
+bus_geocode = geocode_missing_locations(bus_geocode, False)
+bus_geocode.to_csv("../../data/transformed/bus_geocoded.csv", index = False)
 
-libraries_geocode = batch_geocode(libraries, id_column = "NAME",
-                          address = "ADDRESS", city = "CITY", state = "STATE",
-                          zip = "ZIP")
-libraries_geocode.to_csv("../../data/transformed/libraries_geocoded.csv", index = False)
+divvy_geocode = geocode_missing_locations(divvy_geocode, False)
+divvy_geocode.to_csv("../../data/transformed/divvy_geocoded.csv", index = False)
+
+
+
 

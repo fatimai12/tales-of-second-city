@@ -7,6 +7,7 @@ Create index for access to public services
 
 """
 import pandas as pd 
+import numpy as np
 
 ### Data frames with location data ###
 # Read in parks data and add acreage data to the geocoded parks data
@@ -102,7 +103,7 @@ def calculate_scores(df, df_name, service_col, n_bins, bin_labels):
     return df_short
 
 
-def calculate_index(services_data: dict, pop_data: pd):
+def produce_indexed_data(services_data: dict, pop_data: pd):
     """
     Calculates access to public services index based on previously calculated
     individual public service scores.
@@ -120,12 +121,12 @@ def calculate_index(services_data: dict, pop_data: pd):
     # Calculate scores for each public services data frame
     for key, df in linked_data.items():
         if key == "Parks":
-            df_scored = calculate_scores(df, key, "Park Acres", 15, list(range(1,16)))
+            df_scored = calculate_scores(df, key, "Park Acres", 100, list(range(1,101)))
         elif key == "Libraries":
-            df_scored = calculate_scores(df, key, "Libraries Count", 15, list(range(1,16)))
+            df_scored = calculate_scores(df, key, "Libraries Count", 100, list(range(1,101)))
         else:
             count_col_name = key + " " + "Count"
-            df_scored = calculate_scores(df, key, count_col_name, 5, list(range(1,6)))
+            df_scored = calculate_scores(df, key, count_col_name, 100, list(range(1,101)))
         scored_data[key] = df_scored
 
     # Make one dataframe where each row is a census tract and the columns are 
@@ -141,15 +142,16 @@ def calculate_index(services_data: dict, pop_data: pd):
     full_index_df = full_index_df.groupby("Tract").sum()
 
     # Create an overall transit score column
-    full_index_df["Transit Score"] = full_index_df["Bus Score"] + \
-        full_index_df["L Score"] + full_index_df["Divvy Score"]
+    full_index_df["Transit Count"] = (full_index_df["Bus Count"] + \
+        full_index_df["L Count"] + full_index_df["Divvy Count"])
+    full_index_df = calculate_scores(full_index_df, "Transit", "Transit Count", \
+                                    100, list(range(1,101)))
 
-    # Create an overall access to public service score
-    full_index_df["Total Score"] = full_index_df["Parks Score"] + \
-        full_index_df["Libraries Score"] + full_index_df["Transit Score"]
+    # Calculate index as weighted average
+    full_index_df["APS Index"] = ((full_index_df["Parks Score"] / 100) * 0.3333) + \
+                    ((full_index_df["Libraries Score"] / 100) * 0.3333) + \
+                    ((full_index_df["Transit Score"] / 100) * 0.3333)
 
-    # Normalize score as index from 0 to 1
-    full_index_df["APS Index"] = full_index_df["Total Score"] / 45
     full_index_df = full_index_df.reset_index()
 
     # Rejoin shortened data without 0 population rows with the data with 0
@@ -167,10 +169,12 @@ def calculate_index(services_data: dict, pop_data: pd):
                                          "Libraries Score", "Bus Count", 
                                          "Bus Score", "L Count", "L Score", 
                                          "Divvy Count", "Divvy Score",
-                                         "Transit Score", "Total Score", 
-                                         "APS Index"]]
+                                         "Transit Score", "APS Index"]]
+    full_index_df = full_index_df.rename({"Bus Count": "Bus Stop Count",
+                                          "L Count": "L Stop Count",
+                                          "Divvy Count": "Divvy Station Count"})
     
     return full_index_df
 
-indexed_data = calculate_index(dataframes, census_data)
+indexed_data = produce_indexed_data(dataframes, census_data)
 indexed_data.to_csv("../data/indexed_data.csv", index = False)

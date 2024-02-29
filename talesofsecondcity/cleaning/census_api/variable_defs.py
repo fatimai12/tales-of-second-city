@@ -10,8 +10,8 @@ https://www.census.gov/data/developers/data-sets/acs-5year.html
 
 # 2012 variable names 
 
-variables_2012 = {"DP02_0001E:" : "Total HH (#)", 
-                  "DP05_0001E" : "Total Pop (#)",
+variables_2012 = {"DP05_0001E" : "Total Pop (#)",
+                  "DP02_0001E" : "Total HH (#)", 
                   "DP04_0045PE" : "Home: Owner", 
                   "DP04_0046PE" : "Home: Renter",
                   "DP05_0059PE" : "Race: White",
@@ -34,8 +34,8 @@ variables_2012 = {"DP02_0001E:" : "Total HH (#)",
 
 # 2017 variable names 
 
-variables_2017 = {"DP02_0001E:" : "Total HH (#)", 
-                  "DP05_0001E" : "Total Pop (#)",
+variables_2017 = {"DP05_0001E" : "Total Pop (#)",
+                  "DP02_0001E" : "Total HH (#)", 
                   "DP04_0046PE" : "Home: Owner", 
                   "DP04_0047PE" : "Home: Renter",
                   "DP05_0064PE" : "Race: White",
@@ -59,8 +59,8 @@ variables_2017 = {"DP02_0001E:" : "Total HH (#)",
 
 # 2012 variable names 
 
-variables_2022 = {"DP02_0001E:" : "Total HH (#)", 
-                  "DP05_0001E" : "Total Pop (#)",
+variables_2022 = {"DP05_0001E" : "Total Pop (#)",
+                  "DP02_0001E" : "Total HH (#)", 
                   "DP04_0046PE" : "Home: Owner", 
                   "DP04_0047PE" : "Home: Renter",
                   "DP05_0066PE" : "Race: White",

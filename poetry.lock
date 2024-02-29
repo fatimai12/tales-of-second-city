@@ -545,6 +545,17 @@ files = [
 ]
 
 [[package]]
+name = "matplotlip"
+version = "0.2"
+description = "supporting matplotlib"
+optional = false
+python-versions = ">=3"
+files = [
+    {file = "matplotlip-0.2-py3-none-any.whl", hash = "sha256:b7700c6d2f7656e9e4d1e5e763985277f82dbe543e1742d5b1751046ee56c923"},
+    {file = "matplotlip-0.2.tar.gz", hash = "sha256:2aa0c64ad6f5855619182eda23d75c5d5fc1a37221c0cc4e3f67dac3ca7d9039"},
+]
+
+[[package]]
 name = "nest-asyncio"
 version = "1.6.0"
 description = "Patch asyncio to allow nested event loops"
@@ -1019,4 +1030,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "4571a8a51af6ce0c0a9370f6fc0386c853d2b27bf1b12f9a3d2ca485c0dd309d"
+content-hash = "5076cee2572416512c86c52e3af80bd40c146a50dfc023bc7ee68bebd25ad71e"

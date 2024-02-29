@@ -7,17 +7,49 @@ Map geojson file rows to corresponding census tracts
 """
 
 import geopandas as gpd
+from pygris.geocode import geolookup
 census_tracts = gpd.read_file("../data/original/Boundaries - Census Tracts - 2010.geojson")
 
 bus_stops = gpd.read_file("../data/original/CTA Bus Stops.geojson")
 bus_stops_with_tracts = gpd.sjoin(bus_stops, census_tracts, how="left", predicate="within")
-bus_stops_with_tracts.to_csv("../data/transformed/busstops_clean.csv", index = False)
+# bus_stops_with_tracts.to_csv("../data/transformed/bus_stops_geocoded.csv", index = False)
 
 divvy_stations = gpd.read_file("../data/original/Divvy Bicycle Stations.geojson")
 divvy_stations_with_tracts = gpd.sjoin(divvy_stations, census_tracts, how="left", predicate="within")
-divvy_stations_with_tracts.to_csv("../data/transformed/divvy_clean.csv", index = False)
+divvy_stations_with_tracts.to_csv("../data/transformed/divvy_geocoded.csv", index = False)
 
-# parks = gpd.read_file("../data/original/Parks - Chicago Park District Park Boundaries (current).geojson")
-# parks = gpd.sjoin(parks, census_tracts, how="left", predicate="within")
-# parks.to_csv("../data/transformed/parks_clean.csv", index = False)
+def geocode_missing_bus_stops(data):
+    """
+    """
+    missing_bus_data = data[data["namelsad10"].isnull()]
+    for i, row in missing_bus_data.iterrows():
+        # latitude = bus_stops.geometry.y
+        # longitude = bus_stops.geometry.x
+        pt = str(row["geometry"])
+        latitude, longitude = pt.strip('POINT ()').split()
+        geocoded_addr = geolookup(longitude = longitude, latitude = latitude, 
+                                geography = "Census Tracts", keep_geo_cols = True)
+        tract = str(geocoded_addr["TRACT"].to_string(index = False))
+        data.at[i, "namelsad10"] = tract
 
+    return data
+
+def geocode_missing_divvy(data):
+    """
+    """
+    missing_divvy_data = data[data["namelsad10"].isnull()]
+    for i, row in missing_divvy_data.iterrows():
+        latitude = row["latitude"]
+        longitude = row["longitude"]
+        geocoded_addr = geolookup(longitude = longitude, latitude = latitude, 
+                                geography = "Census Tracts", keep_geo_cols = True)
+        tract = str(geocoded_addr["TRACT"].to_string(index = False))
+        data.at[i, "namelsad10"] = tract
+
+    return data
+
+# bus_geocode = geocode_missing_bus_stops(bus_stops_with_tracts)
+# bus_geocode.to_csv("../../data/transformed/bus_geocoded.csv", index = False)
+
+divvy_geocode = geocode_missing_divvy(divvy_stations_with_tracts)
+divvy_geocode.to_csv("../data/transformed/divvy_geocoded.csv", index = False)

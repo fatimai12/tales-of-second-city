@@ -9,7 +9,7 @@ Map point data file rows to corresponding census tracts
 from geopy.geocoders import Nominatim
 import pandas as pd
 import geopandas as gpd
-from pygris.geocode import geolookup, batch_geocode
+from pygris.geocode import geolookup
 
 geolocator = Nominatim(user_agent="talesofsecondcity")
 census_tracts = gpd.read_file("../data/original/Boundaries - Census Tracts - 2010.geojson")

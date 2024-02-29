@@ -6,8 +6,7 @@ Author: Victoria Beck
 Create index for access to public services
 
 """
-import pandas as pd 
-import numpy as np
+import pandas as pd
 
 ### Data frames with location data ###
 # Read in parks data and add acreage data to the geocoded parks data

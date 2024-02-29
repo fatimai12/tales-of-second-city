@@ -8,8 +8,8 @@ from pygris.data import get_census
 
 #fatima's work
 # shapefile_path = "../data/original/tl_2022_17_tract.shp"
-census_shapefile_path = "talesofsecondcity/data/original/Boundaries - Census Tracts - 2010.geojson"
-city_shapefile_path = "talesofsecondcity/data/original/Boundaries - City.geojson"
+census_shapefile_path = "data/original/Boundaries - Census Tracts - 2010.geojson"
+city_shapefile_path = "data/original/Boundaries - City.geojson"
 
 census_map = gpd.read_file(census_shapefile_path)
 city_map = gpd.read_file(city_shapefile_path)
@@ -19,6 +19,8 @@ city_map.plot(ax = ax[1])
 ax[0].set_title("Census tracts")
 ax[1].set_title("City boundary")
 plt.show()
+
+census_tracts_in_city = gpd.overlay(census_shapefile_path, city_shapefile_path, how = "intersection")
 
 tracts_cartographic_21 = tracts(state = "IL", county = "Cook", cb = True, cache = True, year = 2021)
 tracts_cartographic_20 = tracts(state = "IL", county = "Cook", cb = True, cache = True, year = 2020)

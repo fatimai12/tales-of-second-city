@@ -18,6 +18,7 @@ divvy_stations = gpd.read_file("../data/original/Divvy Bicycle Stations.geojson"
 divvy_stations_with_tracts = gpd.sjoin(divvy_stations, census_tracts, how="left", predicate="within")
 divvy_stations_with_tracts.to_csv("../data/transformed/divvy_geocoded.csv", index = False)
 
+#can add if census tract exists, code, otherwise drop?
 def geocode_missing_bus_stops(data):
     """
     """

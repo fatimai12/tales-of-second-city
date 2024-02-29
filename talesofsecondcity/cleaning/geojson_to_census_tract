@@ -10,11 +10,14 @@ import geopandas as gpd
 census_tracts = gpd.read_file("../data/original/Boundaries - Census Tracts - 2010.geojson")
 
 bus_stops = gpd.read_file("../data/original/CTA Bus Stops.geojson")
-bus_stops_with_tracts = gpd.sjoin(bus_stops, census_tracts, how="left", op="within")
-bus_stops_with_tracts.to_csv("talesofsecondcity/data/transformed/busstops_clean.csv", index = False)
+bus_stops_with_tracts = gpd.sjoin(bus_stops, census_tracts, how="left", predicate="within")
+bus_stops_with_tracts.to_csv("../data/transformed/busstops_clean.csv", index = False)
 
 divvy_stations = gpd.read_file("../data/original/Divvy Bicycle Stations.geojson")
-divvy_stations_with_tracts = gpd.sjoin(divvy_stops, census_tracts, how="left", op="within")
-divvy_stations_with_tracts.to_csv("talesofsecondcity/data/transformed/divvy_clean.csv", index = False)
+divvy_stations_with_tracts = gpd.sjoin(divvy_stations, census_tracts, how="left", predicate="within")
+divvy_stations_with_tracts.to_csv("../data/transformed/divvy_clean.csv", index = False)
 
-##can do for parks too since we have the geojson
+# parks = gpd.read_file("../data/original/Parks - Chicago Park District Park Boundaries (current).geojson")
+# parks = gpd.sjoin(parks, census_tracts, how="left", predicate="within")
+# parks.to_csv("../data/transformed/parks_clean.csv", index = False)
+

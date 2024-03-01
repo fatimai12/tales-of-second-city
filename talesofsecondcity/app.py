@@ -12,7 +12,7 @@ long=-87.6014
 app = Dash(__name__)
 
 def display_index_choropleth():
-    df = pd.read_csv('data/indexed_data.csv',dtype=str)
+    df = pd.read_csv('data/index_data.csv',dtype=str)
     df['APS Index'] = pd.to_numeric(df['APS Index'])
     census_tracts = gpd.read_file("data/original/Boundaries - Census Tracts - 2010.geojson")
 

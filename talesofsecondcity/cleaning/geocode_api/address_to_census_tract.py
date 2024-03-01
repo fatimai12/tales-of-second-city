@@ -21,8 +21,8 @@ def run():
     # Batch geocode as many locations as possible
     census_tracts = gpd.read_file("../../data/original/Boundaries - Census Tracts - 2010.geojson")
 
-    parks = pd.read_csv("../../data/cleaned/parks_clean.csv", dtype = str)
-    libraries = pd.read_csv("../../data/cleaned/libraries_clean.csv", dtype = str)
+    parks = pd.read_csv("../../data/preprocessed/parks_clean.csv", dtype = str)
+    libraries = pd.read_csv("../../data/preprocessed/libraries_clean.csv", dtype = str)
 
     parks_geocode = batch_geocode(parks, id_column = "PARK_NO",
                             address = "LOCATION", city = "CITY", state = "STATE",
@@ -32,7 +32,7 @@ def run():
                             address = "ADDRESS", city = "CITY", state = "STATE",
                             zip = "ZIP")
 
-    libraries_geocode.to_csv("../../data/transformed/libraries_geocoded.csv", index = False)
+    libraries_geocode.to_csv("../../data/geocoded/libraries_geocoded.csv", index = False)
 
     bus_stops = gpd.read_file("../../data/original/CTA Bus Stops.geojson")
     bus_geocode = gpd.sjoin(bus_stops, census_tracts, how="left", predicate="within")
@@ -50,13 +50,13 @@ def run():
     divvy_geocode = divvy_geocode.rename(columns = {"tractce10": "Tract"})
 
     # parks_geocode = geocode_missing_locations(parks_geocode, True)
-    parks_geocode.to_csv("../../data/transformed/parks_geocoded.csv", index = False)
+    parks_geocode.to_csv("../../data/geocoded/parks_geocoded.csv", index = False)
 
     # bus_geocode = geocode_missing_locations(bus_geocode, False)
-    bus_geocode.to_csv("../../data/transformed/bus_geocoded.csv", index = False)
+    bus_geocode.to_csv("../../data/geocoded/bus_geocoded.csv", index = False)
 
     # divvy_geocode = geocode_missing_locations(divvy_geocode, False)
-    divvy_geocode.to_csv("../../data/transformed/divvy_geocoded.csv", index = False)
+    divvy_geocode.to_csv("../../data/geocoded/divvy_geocoded.csv", index = False)
 
 
 # def find_lat_lon(address):

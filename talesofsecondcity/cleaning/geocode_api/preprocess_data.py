@@ -20,7 +20,7 @@ parks = parks[["PARK_NO", "LOCATION", "ZIP"]]
 parks = parks.drop(parks[parks["LOCATION"].isnull()].index)
 parks.insert(2, "CITY", "Chicago")
 parks.insert(3, "STATE", "IL")
-parks.to_csv("../data/cleaned/parks_clean.csv", index = False)
+parks.to_csv("../data/preprocessed/parks_clean.csv", index = False)
 
 libraries = libraries[["NAME", "ADDRESS", "CITY", "STATE", "ZIP"]]
-libraries.to_csv("../data/cleaned/libraries_clean.csv", index = False)
+libraries.to_csv("../data/preprocessed/libraries_clean.csv", index = False)

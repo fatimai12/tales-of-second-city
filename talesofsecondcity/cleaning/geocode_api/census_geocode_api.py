@@ -15,8 +15,8 @@ from geopy.geocoders import Nominatim
 import time
 
 # Batch geocode as many locations as possible
-parks = pd.read_csv("../../data/original/parks_clean.csv", dtype = str)
-libraries = pd.read_csv("../../data/original/libraries_clean.csv", dtype = str)
+parks = pd.read_csv("../data/cleaned/parks_clean.csv", dtype = str)
+libraries = pd.read_csv("../data/cleaned/libraries_clean.csv", dtype = str)
 
 parks_geocode = batch_geocode(parks, id_column = "PARK_NO",
                           address = "LOCATION", city = "CITY", state = "STATE",
@@ -27,8 +27,8 @@ libraries_geocode = batch_geocode(libraries, id_column = "NAME",
                           zip = "ZIP")
 libraries_geocode.to_csv("../../data/transformed/libraries_geocoded.csv", index = False)
 
-census_tracts = gpd.read_file("../../data/original/Boundaries - Census Tracts - 2010.geojson")
-bus_stops = gpd.read_file("../../data/original/CTA Bus Stops.geojson")
+census_tracts = gpd.read_file("../data/original/Boundaries - Census Tracts - 2010.geojson")
+bus_stops = gpd.read_file("../data/original/CTA Bus Stops.geojson")
 bus_geocode = gpd.sjoin(bus_stops, census_tracts, how="left", predicate="within")
 divvy_stations = gpd.read_file("../../data/original/Divvy Bicycle Stations.geojson")
 divvy_geocode = gpd.sjoin(divvy_stations, census_tracts, how="left", predicate="within")

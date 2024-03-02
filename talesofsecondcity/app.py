@@ -1,15 +1,21 @@
-from dash import Dash, html, dcc, Input, Output, State
+from dash import Dash, html, dcc, Input, Output, State, dash_table, callback
 import plotly.express as px
 import dash_bootstrap_components as dbc
 import pandas as pd
 import geopandas as gpd
 import plotly.colors as colors
 import matplotlib.pyplot as plt
+from dash_bootstrap_templates import load_figure_template
+
+load_figure_template("SOLAR")
 
 lat=41.8227
 long=-87.6014
 
-app = Dash(__name__)
+app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
+
+# Index data
+index_data = pd.read_csv("data/index_data.csv")
 
 def display_index_choropleth():
     df = pd.read_csv('data/index_data.csv',dtype=str)
@@ -33,25 +39,78 @@ def display_index_choropleth():
 
 fig_idx = display_index_choropleth()
 
-# app.layout = html.Div([
-#     html.H4('Political candidate voting pool analysis'),
-#     dcc.Graph(id="fig", figure = fig_idx),
-# ])
 
+# App layout
 app.layout = dbc.Container([
-    # header
     dbc.Row([
         dbc.Col([
-            # html.Br(), 
-            html.H1(children='Hello Dash'), 
-                    # style={'text-align':'center'}),
-            html.Div(children='''
-                Dash: A web application framework for your data.
-            ''')
-            # style={'text-align':'center'}),
-        # ], width=12) 
-    ], align='end')]),
-    
+            html.Div([
+
+                html.Div([
+                    html.H1(children = "Tales of Second City", 
+                            style = {"textAlign": "center", "color": "#BFD9BF", 
+                                     "fontSize": 50,
+                                     "marginTop": 20, "marginBottom": 0}),
+                    html.H2(children = "Mapping Demographic Change and Access to \
+                            Public Services in the City of Chicago", 
+                            style = {"textAlign": "center", "color": "#FFEFD5", 
+                                     "marginTop": 0}),
+                ]),
+                html.Div([
+                    html.Label("We are interested in visualizing and analyzing access \
+                               to public services across Chicago in addition to mapping \
+                               demographic change across the city.  We hope to be able to \
+                               track socioeconomic changes across census tracts and \
+                               determine which areas of the city have the highest \
+                               access to public services like libraries, parks, and transit.")
+                ], style = {"marginBottom": 20, "fontSize": 20, "color": "#FFFFFF"})
+            ])
+        
+        ])
+    ]),
+    dbc.Row([
+        dbc.Col([
+            html.Div([
+                html.H3(children = "Access to Public Services (APS) Index", 
+                        style = {"textAlign": "center", "color": "#FFEFD5", 
+                                 "fontSize": 25, "marginBottom": 20})
+            ]),
+        ]),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            html.Div(children="Public Service Scores (out of 100) and Access \
+                     to Public Services Index (0 to  1) by Census Tract", 
+                     style = {"color": "#FFFFFF", "fontSize": 18}),
+            dash_table.DataTable(data = index_data.to_dict("records"),
+                                 fixed_columns = {"headers": True, "data": 1},
+                                 style_table={'minWidth': '100%'},
+                                 page_size = 15,
+                                 style_cell = {"backgroundColor": "#FFFAF0", "color": "#2F4F4F"},
+                                 style_header = {"backgroundColor": "#BFD9BF", 
+                                                 "fontWeight": "bold", "color": "#002633"}
+                                )
+
+        ], width = 6),
+        dbc.Col([
+            html.Div([
+                dcc.Dropdown(
+                    index_data.columns.unique(),
+                    "Park Acres",
+                    id = "xaxis")
+                    ]),
+            html.Div([
+                dcc.Dropdown(
+                    index_data.columns.unique(),
+                    "Parks Score",
+                    id = "yaxis")
+                    ]),
+            dcc.Graph(
+                id = "Index graph",
+                figure  = index_bar_chart
+             )
+        ], width = 6)
+    ]),
     # index map
     dbc.Row([
         dbc.Col([
@@ -63,8 +122,33 @@ app.layout = dbc.Container([
                 id='map-idx',
                 figure = fig_idx)
         ], width=12)
-    ], align='center')
+    ], align='center'),
+    dbc.Row([
+        dbc.Col([
+            html.Br(),
+            html.Div([
+                html.H3(children = "Demographic Change 2002-2022", 
+                        style = {"textAlign":"center", "color": "#FFEFD5", "fontSize": 25})
+            ])
+        ])
+    ])
+
+
 ])
+
+@callback(
+    Output("Index graph", "figure"),
+    Input("xaxis", "value"),
+    Input("yaxis", "value")
+)
+
+def update_graph(x_axis_name, y_axis_name):
+    index_bar_chart = px.scatter(index_data, x = x_axis_name, 
+                                 y = y_axis_name, 
+                                 color = "APS Index", 
+                                 hover_name = "Tract")
+    return index_bar_chart
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

@@ -6,7 +6,8 @@ Author: Victoria Beck and Fatima Irfan
 Generate final database with all public service and census data
 """
 import pandas as pd
-from geocode_api import point_to_census_tract, address_to_census_tract, geocode_missing_tracts
+# from .geocode_api.point_to_census_tract import geocode_l_stops
+from geocode_api import point_to_census_tract
 
 l_stops_geocode = point_to_census_tract.geocode_l_stops()
 

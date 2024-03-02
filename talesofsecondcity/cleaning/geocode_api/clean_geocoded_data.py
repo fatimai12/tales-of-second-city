@@ -21,6 +21,8 @@ def clean_parks(df):
     # Remove the ".0" from the end of the tract column
     df = df.replace(to_replace = r'\.0$', value = "", regex = True)
 
+    df["Tract"] = df["Tract"].astype(str)
+    
     # Put leading zeros back in
     df["Tract"] = df["Tract"].str.zfill(6)
 

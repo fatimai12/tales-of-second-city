@@ -1,7 +1,7 @@
 """
 CAPP 30122
 Team: Tales of Second City
-Author: Fatima Irfan
+Author: Fatima Irfan and Victoria Beck
 
 Map point data file rows to corresponding census tracts
 """

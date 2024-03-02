@@ -13,8 +13,6 @@ def clean_parks(df):
     """
     Clean parks data
     """
-    # parks = pd.read_csv("../data/geocoded/parks_geocoded.csv", dtype = str)
-
     # Keep only the ID and tract columns
     df = df[["ID", "Tract"]]
 
@@ -22,7 +20,7 @@ def clean_parks(df):
     df = df.replace(to_replace = r'\.0$', value = "", regex = True)
 
     df["Tract"] = df["Tract"].astype(str)
-    
+
     # Put leading zeros back in
     df["Tract"] = df["Tract"].str.zfill(6)
 
@@ -66,6 +64,8 @@ def clean_divvy(df):
     """
     #### check to drop cols after non chicago census tracts id'd
     
+    df["Tract"] = df["Tract"].astype(str)
+
     # Remove the ".0" from the end of the tract column
     df = df.replace(to_replace = r'\.0$', value = "", regex = True)
 
@@ -86,8 +86,16 @@ def clean_bus(df):
     """
     #### check to drop cols after non chicago census tracts id'd
 
+    df["tractce10"] = df["tractce10"].astype(str)
+    
+    # Remove the ".0" from the end of the tract column
+    df = df.replace(to_replace = r'\.0$', value = "", regex = True)
+
+    # Put leading zeros back in
+    df["tractce10"] = df["tractce10"].str.zfill(6)
+
     #Keep only the ID and tract columns
-    df = df[["public_nam", "Tract"]]
+    df = df[["public_nam", "tractce10"]]
 
     # Rename columns to be consistent across all data
     df = df.rename(columns = {"public_nam": "Public Name", "tractce10": "Tract"})

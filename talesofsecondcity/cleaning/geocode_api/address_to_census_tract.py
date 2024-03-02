@@ -49,53 +49,8 @@ def run():
     bus_geocode = bus_geocode.rename(columns = {"tractce10": "Tract"})
     divvy_geocode = divvy_geocode.rename(columns = {"tractce10": "Tract"})
 
-    # parks_geocode = geocode_missing_locations(parks_geocode, True)
     parks_geocode.to_csv("../data/geocoded/parks_geocoded.csv", index = False)
-
-    # bus_geocode = geocode_missing_locations(bus_geocode, False)
     bus_geocode.to_csv("../data/geocoded/bus_geocoded.csv", index = False)
-
-    # divvy_geocode = geocode_missing_locations(divvy_geocode, False)
     divvy_geocode.to_csv("../data/geocoded/divvy_geocoded.csv", index = False)
-
-
-# def find_lat_lon(address):
-#     """
-#     Find lat and long for missing parks
-#     """
-#     geolocator = Nominatim(user_agent = "tales_of_second_city", timeout = 5)
-
-#     location = geolocator.geocode(address)
-
-#     if location:
-#         latitude = location.latitude
-#         longitude = location.longitude
-#         return latitude, longitude
-#     else:
-#         return None
-    
-
-# def geocode_missing_locations(df: pd, need_lat_lon: bool):
-#     """
-#     Geocode missing data
-#     """
-#     missing_data = df[df["Tract"].isnull()]
-#     for i, row in missing_data.iterrows():
-#         if need_lat_lon:
-#             if find_lat_lon(row["address"]) is None:
-#                 continue
-#             else:
-#                 latitude, longitude = find_lat_lon(row["address"])
-#         else:
-#             latitude = row["latitude"]
-#             longitude = row["longitude"]
-#             geocoded_addr = geolookup(longitude = longitude, latitude = latitude, 
-#                                     geography = "Census Tracts", keep_geo_cols = True)
-#             tract = str(geocoded_addr["TRACT"].to_string(index = False))
-#             df.at[i, "Tract"] = tract
-
-#     return df
-
-
 
 

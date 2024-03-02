@@ -11,8 +11,8 @@ import pandas as pd
 import geopandas as gpd
 from pygris.geocode import geolookup
 
-census_tracts = gpd.read_file("../../data/original/Boundaries - Census Tracts - 2010.geojson")
-l_stops_df = pd.read_csv("../../data/original/CTA_-_System_Information_-_List_of__L__Stops_-_Map.csv")
+census_tracts = gpd.read_file("../data/original/Boundaries - Census Tracts - 2010.geojson")
+l_stops_df = pd.read_csv("../data/original/CTA_-_System_Information_-_List_of__L__Stops_-_Map.csv")
 
 def geocode_l_stops():
     """

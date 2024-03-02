@@ -1,301 +1,301 @@
-STOP_ID,STOP_NAME,STATION_NAME,MAP_ID,ADA,RED,BLUE,G,BRN,P,Pexp,Y,Pnk,O,Location,tract
-30082,Cicero (Loop-bound),Cicero,40420,True,False,False,False,False,False,False,False,True,False,"(41.85182, -87.745336)",813702
-30151,Central Park (Loop-bound),Central Park,40780,True,False,False,False,False,False,False,False,True,False,"(41.853839, -87.714842)",844700
-30184,Halsted/63rd (Ashland-bound),Halsted,40940,True,False,False,True,False,False,False,False,False,False,"(41.778943, -87.644244)",680900
-30044,Cumberland (O'Hare-bound),Cumberland,40230,True,False,True,False,False,False,False,False,False,False,"(41.984246, -87.838028)",760801
-30092,Racine (O'Hare-bound),Racine,40470,False,False,True,False,False,False,False,False,False,False,"(41.87592, -87.659458)",832900
-30253,Paulina (Kimball-bound),Paulina,41310,True,False,False,False,True,False,False,False,False,False,"(41.943623, -87.670907)",831900
-30162,18th (54th/Cermak-bound),18th,40830,True,False,False,False,False,False,False,False,True,False,"(41.857908, -87.669147)",310800
-30374,Clark/Lake (Forest Pk-bound),Clark/Lake,40380,True,False,True,False,False,False,False,False,False,False,"(41.885737, -87.630886)",839100
-30248,Jefferson Park (Forest Pk-bound),Jefferson Park,41280,True,False,True,False,False,False,False,False,False,False,"(41.970634, -87.760892)",110502
-30104,Diversey (Loop-bound),Diversey,40530,True,False,False,False,True,False,True,False,False,False,"(41.932732, -87.653131)",063000
-30287,Montrose (Kimball-bound),Montrose,41500,True,False,False,False,True,False,False,False,False,False,"(41.961756, -87.675047)",830800
-30068,UIC-Halsted (O'Hare-bound),UIC-Halsted,40350,True,False,True,False,False,False,False,False,False,False,"(41.875474, -87.649707)",841900
-30214,35-Bronzeville-IIT (63rd-bound),35th-Bronzeville-IIT,41120,True,False,False,True,False,False,False,False,False,False,"(41.831677, -87.625826)",842000
-30102,Foster (Howard-Loop-bound),Foster,40520,False,False,False,False,False,True,True,False,False,False,"(42.05416, -87.68356)",809300
-30008,Quincy/Wells (Outer Loop),Quincy/Wells,40040,True,False,False,False,True,False,False,False,False,False,"(41.878723, -87.63374)",839100
-30070,Southport (Kimball-bound),Southport,40360,True,False,False,False,True,False,False,False,False,False,"(41.943744, -87.663619)",061500
-30252,Loyola (95th-bound),Loyola,41300,True,True,False,False,False,False,False,False,False,False,"(42.001073, -87.661061)",010503
-30237,47th (Howard-bound),47th,41230,True,True,False,False,False,False,False,False,False,False,"(41.810318, -87.63094)",835500
-30267,Bryn Mawr (Howard-bound),Bryn Mawr,41380,False,True,False,False,False,False,False,False,False,False,"(41.983504, -87.65884)",030701
-30190,Harlem (Forest Pk Branch) (Terminal arrival),Harlem,40980,False,False,True,False,False,False,False,False,False,False,"(41.87349, -87.806961)",816100
-30173,Howard (Terminal arrival),Howard,40900,True,True,False,False,False,False,False,False,False,False,"(42.019063, -87.672892)",010202
-30207,Kedzie (63rd-bound),Kedzie,41070,True,False,False,True,False,False,False,False,False,False,"(41.884321, -87.706155)",837100
-30218,King Drive (Harlem-bound),King Drive,41140,True,False,False,True,False,False,False,False,False,False,"(41.78013, -87.615546)",420700
-30057,Ashland/63rd (Terminal arrival),Ashland/63rd,40290,True,False,False,True,False,False,False,False,False,False,"(41.77886, -87.663766)",671100
-30088,95th/Dan Ryan (Howard-bound),95th/Dan Ryan,40450,True,True,False,False,False,False,False,False,False,False,"(41.722377, -87.624342)",834000
-30129,Western (O'Hare Branch) (O'Hare-bound),Western,40670,True,False,True,False,False,False,False,False,False,False,"(41.916157, -87.687364)",222200
-30128,Armitage (Loop-bound),Armitage,40660,True,False,False,False,True,False,True,False,False,False,"(41.918217, -87.652644)",071100
-30089,95th/Dan Ryan (95th-bound),95th/Dan Ryan,40450,True,True,False,False,False,False,False,False,False,False,"(41.722377, -87.624342)",834000
-30269,Roosevelt (Howard-bound),Roosevelt,41400,True,True,False,False,False,False,False,False,False,False,"(41.867368, -87.627402)",330200
-30256,Belmont (95th-bound),Belmont,41320,True,True,False,False,False,False,False,False,False,False,"(41.939751, -87.65338)",063000
-30114,54th/Cermak (Terminal arrival),54th/Cermak,40580,True,False,False,False,False,False,False,False,True,False,"(41.85177331, -87.75669201)",813701
-30217,King Drive (Cottage Grove-bound),King Drive,41140,True,False,False,True,False,False,False,False,False,False,"(41.78013, -87.615546)",420700
-30134,Dempster (Howard-Loop-bound),Dempster,40690,False,False,False,False,False,True,True,False,False,False,"(42.041655, -87.681602)",809401
-30236,Fullerton (Loop-bound),Fullerton,41220,True,False,False,False,True,False,True,False,False,False,"(41.925051, -87.652866)",071100
-30149,Lawrence (Howard-bound),Lawrence,40770,False,True,False,False,False,False,False,False,False,False,"(41.969139, -87.658493)",031200
-30158,Illinois Medical District (Forest Pk-bound),Illinois Medical District,40810,True,False,True,False,False,False,False,False,False,False,"(41.875706, -87.673932)",838100
-30290,Lake (95th-bound),Lake,41660,True,True,False,False,False,False,False,False,False,False,"(41.884809, -87.627813)",320102
-30047,79th (95th-bound),79th,40240,True,True,False,False,False,False,False,False,False,False,"(41.750419, -87.625112)",842400
-30243,Austin (63rd-bound),Austin,41260,False,False,False,True,False,False,False,False,False,False,"(41.887293, -87.774135)",251400
-30084,Clinton (O'Hare-bound),Clinton,40430,False,False,True,False,False,False,False,False,False,False,"(41.875539, -87.640984)",841900
-30231,Wellington (Kimball-Linden-bound),Wellington,41210,True,False,False,False,True,False,True,False,False,False,"(41.936033, -87.653266)",063000
-30175,"Howard (Linden, Skokie-bound)",Howard,40900,True,False,False,False,False,True,True,True,False,False,"(42.019063, -87.672892)",010202
-30263,Oak Park (63rd-bound),Oak Park,41350,False,False,False,True,False,False,False,False,False,False,"(41.886988, -87.793783)",812301
-30130,Western (O'Hare Branch) (Forest Pk-bound),Western,40670,True,False,True,False,False,False,False,False,False,False,"(41.916157, -87.687364)",222200
-30268,Bryn Mawr (95th-bound),Bryn Mawr,41380,False,True,False,False,False,False,False,False,False,False,"(41.983504, -87.65884)",030701
-30279,Chicago (Howard-bound),Chicago,41450,True,True,False,False,False,False,False,False,False,False,"(41.896671, -87.628176)",081500
-30155,Sedgwick (Kimball-Linden-bound),Sedgwick,40800,True,False,False,False,True,False,True,False,False,False,"(41.910409, -87.639302)",080400
-30239,Addison (O'Hare-bound),Addison,41240,True,False,True,False,False,False,False,False,False,False,"(41.94738, -87.71906)",160900
-30288,Montrose (Loop-bound),Montrose,41500,True,False,False,False,True,False,False,False,False,False,"(41.961756, -87.675047)",830800
-30015,Jackson/Dearborn (Forest Pk-bound),Jackson,40070,True,False,True,False,False,False,False,False,False,False,"(41.878183, -87.629296)",839100
-30202,Kedzie (54th/Cermak-bound),Kedzie,41040,True,False,False,False,False,False,False,False,True,False,"(41.853964, -87.705408)",844700
-30154,Monroe (Forest Pk-bound),Monroe,40790,False,False,True,False,False,False,False,False,False,False,"(41.880703, -87.629378)",839100
-30195,Rockwell (Kimball-bound),Rockwell,41010,True,False,False,False,True,False,False,False,False,False,"(41.966115, -87.6941)",040700
-30041,Damen (54th/Cermak-bound),Damen,40210,True,False,False,False,False,False,False,False,True,False,"(41.854517, -87.675975)",310900
-30180,Pulaski (Forest Pk-bound),Pulaski,40920,False,False,True,False,False,False,False,False,False,False,"(41.873797, -87.725663)",260700
-30101,Foster (Linden-bound),Foster,40520,False,False,False,False,False,True,True,False,False,False,"(42.05416, -87.68356)",809300
-30004,Harlem (Terminal arrival),Harlem/Lake,40020,True,False,False,True,False,False,False,False,False,False,"(41.886848, -87.803176)",812301
-30384,Washington/Wabash (Inner Loop),Washington/Wabash,41700,True,False,False,True,False,False,True,False,True,True,"(41.88322, -87.626189)",320102
-30266,California (Harlem-bound),California,41360,True,False,False,True,False,False,False,False,False,False,"(41.88422, -87.696234)",837100
-30021,Morse (95th-bound),Morse,40100,False,True,False,False,False,False,False,False,False,False,"(42.008362, -87.665909)",010600
-30060,Western (Loop-bound),Western,40310,True,False,False,False,False,False,False,False,False,True,"(41.804546, -87.684019)",630600
-30096,Grand/Milwaukee (Forest Pk-bound),Grand,40490,False,False,True,False,False,False,False,False,False,False,"(41.891189, -87.647578)",842300
-30375,Clark/Lake (O'Hare-bound),Clark/Lake,40380,True,False,True,False,False,False,False,False,False,False,"(41.885737, -87.630886)",839100
-30095,Grand/Milwaukee (O'Hare-bound),Grand,40490,False,False,True,False,False,False,False,False,False,False,"(41.891189, -87.647578)",842300
-30062,Division (O'Hare-bound),Division,40320,False,False,True,False,False,False,False,False,False,False,"(41.903355, -87.666496)",242000
-30185,Pulaski (Loop-bound),Pulaski,40960,True,False,False,False,False,False,False,False,False,True,"(41.799756, -87.724493)",620200
-30161,18th (Loop-bound),18th,40830,True,False,False,False,False,False,False,False,True,False,"(41.857908, -87.669147)",310800
-30293,Sheridan (Howard-Linden-bound),Sheridan,40080,False,False,False,False,False,False,False,False,False,False,"(41.953775, -87.654929)",832100
-30272,Chicago (Forest Pk-bound),Chicago,41410,False,False,True,False,False,False,False,False,False,False,"(41.896075, -87.655214)",243500
-30090,Merchandise Mart (Kimball-Linden-bound),Merchandise Mart,40460,True,False,False,False,True,False,True,False,False,False,"(41.888969, -87.633924)",081700
-30061,Western (Midway-bound),Western,40310,True,False,False,False,False,False,False,False,False,True,"(41.804546, -87.684019)",630600
-30171,O'Hare (Terminal Arrival),O'Hare,40890,True,False,True,False,False,False,False,False,False,False,"(41.97766526, -87.90422307)",980000
-30245,43rd (Harlem-bound),43rd,41270,True,False,False,True,False,False,False,False,False,False,"(41.816462, -87.619021)",835800
-30093,Racine (Forest Pk-bound),Racine,40470,False,False,True,False,False,False,False,False,False,False,"(41.87592, -87.659458)",832900
-30265,California (63rd-bound),California,41360,True,False,False,True,False,False,False,False,False,False,"(41.88422, -87.696234)",837100
-30063,Division (Forest Pk-bound),Division,40320,False,False,True,False,False,False,False,False,False,False,"(41.903355, -87.666496)",242000
-30036,Sox-35th (Howard-bound),Sox-35th,40190,True,True,False,False,False,False,False,False,False,False,"(41.831191, -87.630636)",340500
-30083,Cicero (54th/Cermak-bound),Cicero,40420,True,False,False,False,False,False,False,False,True,False,"(41.85182, -87.745336)",813702
-30198,Logan Square (Forest Pk-bound),Logan Square,41020,True,False,True,False,False,False,False,False,False,False,"(41.929728, -87.708541)",220602
-30020,Morse (Howard-bound),Morse,40100,False,True,False,False,False,False,False,False,False,False,"(42.008362, -87.665909)",010600
-30115,Damen/Milwaukee (O'Hare-bound),Damen,40590,False,False,True,False,False,False,False,False,False,False,"(41.909744, -87.677437)",241400
-30156,Sedgwick (Loop-bound),Sedgwick,40800,True,False,False,False,True,False,True,False,False,False,"(41.910409, -87.639302)",080400
-30240,Addison (Forest Pk-bound),Addison,41240,True,False,True,False,False,False,False,False,False,False,"(41.94738, -87.71906)",160900
-30032,Ashland (Loop-63rd-bound),Ashland,40170,True,False,False,True,False,False,False,False,True,False,"(41.885269, -87.666969)",280400
-30108,Irving Park (O'Hare Branch) (Forest Pk-bound),Irving Park,40550,False,False,True,False,False,False,False,False,False,False,"(41.952925, -87.729229)",161000
-30386,Wilson (Linden-bound),Wilson,40540,True,False,False,False,False,False,True,False,False,False,"(41.964273, -87.657588)",830700
-30193,Cermak-Chinatown (Howard-bound),Cermak-Chinatown,41000,True,True,False,False,False,False,False,False,False,False,"(41.853206, -87.630968)",841100
-30262,LaSalle (Forest Pk-bound),LaSalle,41340,False,False,True,False,False,False,False,False,False,False,"(41.875568, -87.631722)",839100
-30169,Thorndale (Howard-bound),Thorndale,40880,False,True,False,False,False,False,False,False,False,False,"(41.990259, -87.659076)",030101
-30046,79th (Howard-bound),79th,40240,True,True,False,False,False,False,False,False,False,False,"(41.750419, -87.625112)",842400
-30147,Granville (Howard-bound),Granville,40760,True,True,False,False,False,False,False,False,False,False,"(41.993664, -87.659202)",030102
-30014,Jackson/Dearborn (O'Hare-bound),Jackson,40070,True,False,True,False,False,False,False,False,False,False,"(41.878183, -87.629296)",839100
-30274,Addison (95th-bound),Addison,41420,True,True,False,False,False,False,False,False,False,False,"(41.947428, -87.653626)",061000
-30085,Clinton (Forest Pk-bound),Clinton,40430,False,False,True,False,False,False,False,False,False,False,"(41.875539, -87.640984)",841900
-30264,Oak Park (Harlem-bound),Oak Park,41350,False,False,False,True,False,False,False,False,False,False,"(41.886988, -87.793783)",812301
-30196,Rockwell (Loop-bound),Rockwell,41010,True,False,False,False,True,False,False,False,False,False,"(41.966115, -87.6941)",040700
-30150,Lawrence (95th-bound),Lawrence,40770,False,True,False,False,False,False,False,False,False,False,"(41.969139, -87.658493)",031200
-30054,Central (63rd-bound),Central,40280,True,False,False,True,False,False,False,False,False,False,"(41.887389, -87.76565)",251400
-30292,Conservatory (Harlem-bound),Conservatory,41670,True,False,False,True,False,False,False,False,False,False,"(41.884904, -87.716523)",836800
-30232,Wellington (Loop-bound),Wellington,41210,True,False,False,False,True,False,True,False,False,False,"(41.936033, -87.653266)",063000
-30078,Noyes (Linden-bound),Noyes,40400,False,False,False,False,False,True,True,False,False,False,"(42.058282, -87.683337)",809300
-30157,Illinois Medical District (O'Hare-bound),Illinois Medical District,40810,True,False,True,False,False,False,False,False,False,False,"(41.875706, -87.673932)",838100
-30209,47th (Harlem-bound),47th,41080,True,False,False,True,False,False,False,False,False,False,"(41.809209, -87.618826)",381400
-30289,Lake (Howard-bound),Lake,41660,True,True,False,False,False,False,False,False,False,False,"(41.884809, -87.627813)",320102
-30257,Belmont (Kimball-Linden-bound),Belmont,41320,True,False,False,False,True,False,True,False,False,False,"(41.939751, -87.65338)",063000
-30228,Jarvis (95th-bound),Jarvis,41190,False,True,False,False,False,False,False,False,False,False,"(42.015876, -87.669092)",010300
-30216,Halsted (Midway-bound),Halsted,41130,True,False,False,False,False,False,False,False,False,True,"(41.84678, -87.648088)",840200
-30011,Davis (Howard-Loop-bound),Davis,40050,True,False,False,False,False,True,True,False,False,False,"(42.04771, -87.683543)",809402
-30270,Roosevelt (95th-bound),Roosevelt,41400,True,True,False,False,False,False,False,False,False,False,"(41.867368, -87.627402)",330200
-30233,Fullerton (Howard-bound),Fullerton,41220,True,True,False,False,False,False,False,False,False,False,"(41.925051, -87.652866)",071100
-30079,Noyes (Howard-Loop-bound),Noyes,40400,False,False,False,False,False,True,True,False,False,False,"(42.058282, -87.683337)",809300
-30137,Chicago (Kimball-Linden-bound),Chicago,40710,True,False,False,False,True,False,True,False,False,False,"(41.89681, -87.635924)",081800
-30261,LaSalle (O'Hare-bound),LaSalle,41340,False,False,True,False,False,False,False,False,False,False,"(41.875568, -87.631722)",839100
-30211,Monroe (Howard-bound),Monroe,41090,False,True,False,False,False,False,False,False,False,False,"(41.880745, -87.627696)",320400
-30291,Conservatory (63rd-bound),Conservatory,41670,True,False,False,True,False,False,False,False,False,False,"(41.884904, -87.716523)",836800
-30225,Kedzie (Kimball-bound),Kedzie,41180,True,False,False,False,True,False,False,False,False,False,"(41.965996, -87.708821)",140701
-30024,51st (Harlem-bound),51st,40130,True,False,False,True,False,False,False,False,False,False,"(41.80209, -87.618487)",381800
-30099,Garfield (Harlem-bound),Garfield,40510,True,False,False,True,False,False,False,False,False,False,"(41.795172, -87.618327)",400300
-30206,Ashland (Midway-bound),Ashland,41060,True,False,False,False,False,False,False,False,False,True,"(41.839234, -87.665317)",843200
-30064,Grand/State (Howard-bound),Grand,40330,True,True,False,False,False,False,False,False,False,False,"(41.891665, -87.628021)",081500
-30381,Cermak-McCormick Place (Harlem-bound),Cermak-McCormick Place,41690,True,False,False,True,False,False,False,False,False,False,"(41.853115, -87.626402)",330103
-30100,Garfield (63rd-bound),Garfield,40510,True,False,False,True,False,False,False,False,False,False,"(41.795172, -87.618327)",400300
-30200,Polk (54th/Cermak-bound),Polk,41030,True,False,False,False,False,False,False,False,True,False,"(41.871551, -87.66953)",838200
-30018,Damen (Kimball-bound),Damen,40090,True,False,False,False,True,False,False,False,False,False,"(41.966286, -87.678639)",830800
-30029,Pulaski (54th/Cermak-bound),Pulaski,40150,True,False,False,False,False,False,False,False,True,False,"(41.853732, -87.724311)",292400
-30022,35th/Archer (Loop-bound),35th/Archer,40120,True,False,False,False,False,False,False,False,False,True,"(41.829353, -87.680622)",590500
-30164,South Blvd (Howard-Loop-bound),South Boulevard,40840,False,False,False,False,False,True,True,False,False,False,"(42.027612, -87.678329)",810000
-30052,Main (Linden-bound),Main,40270,False,False,False,False,False,True,True,False,False,False,"(42.033456, -87.679538)",810000
-30106,Wilson (95th-bound),Wilson,40540,True,True,False,False,False,False,False,False,False,False,"(41.964273, -87.657588)",830700
-30110,Jackson/State (95th-bound),Jackson,40560,True,True,False,False,False,False,False,False,False,False,"(41.878153, -87.627596)",320400
-30273,Addison (Howard-bound),Addison,41420,True,True,False,False,False,False,False,False,False,False,"(41.947428, -87.653626)",061000
-30229,Argyle (Howard-bound),Argyle,41200,False,True,False,False,False,False,False,False,False,False,"(41.973453, -87.65853)",031200
-30165,H.W. Library (Outer Loop),Harold Washington Library-State/Van Buren,40850,True,False,False,False,True,False,False,False,False,False,"(41.876862, -87.628196)",839100
-30016,Sheridan (Howard-bound),Sheridan,40080,False,True,False,False,False,False,False,False,False,False,"(41.953775, -87.654929)",832100
-30001,Austin (O'Hare-bound),Austin,40010,False,False,True,False,False,False,False,False,False,False,"(41.870851, -87.776812)",813100
-30107,Irving Park (O'Hare Branch) (O'Hare-bound),Irving Park,40550,False,False,True,False,False,False,False,False,False,False,"(41.952925, -87.729229)",161000
-30072,Washington (O'Hare-bound),Washington,40370,False,False,True,False,False,False,False,False,False,False,"(41.883164, -87.62944)",839100
-30055,Central (Harlem-bound),Central,40280,True,False,False,True,False,False,False,False,False,False,"(41.887389, -87.76565)",251400
-30048,Kedzie-Homan (O'Hare-bound),Kedzie-Homan,40250,True,False,True,False,False,False,False,False,False,False,"(41.874341, -87.70604)",271300
-30385,Wilson (Loop-bound),Wilson,40540,True,False,False,False,False,False,True,False,False,False,"(41.964273, -87.657588)",830700
-30177,63rd (Howard-bound),63rd,40910,True,True,False,False,False,False,False,False,False,False,"(41.780536, -87.630952)",834600
-30166,H.W. Library (Inner Loop),Harold Washington Library-State/Van Buren,40850,True,False,False,False,False,False,True,False,True,True,"(41.876862, -87.628196)",839100
-30219,Kedzie (Loop-bound),Kedzie,41150,True,False,False,False,False,False,False,False,False,True,"(41.804236, -87.704406)",630300
-30135,Laramie (63rd-bound),Laramie,40700,True,False,False,True,False,False,False,False,False,False,"(41.887163, -87.754986)",251800
-30276,87th (95th-bound),87th,41430,True,True,False,False,False,False,False,False,False,False,"(41.735372, -87.624717)",842400
-30002,Austin (Forest Pk-bound),Austin,40010,False,False,True,False,False,False,False,False,False,False,"(41.870851, -87.776812)",813100
-30043,Western (Forest Pk Branch) (Forest Pk-bound),Western,40220,False,False,True,False,False,False,False,False,False,False,"(41.875478, -87.688436)",282700
-30283,Western (Kimball-bound),Western,41480,True,False,False,False,True,False,False,False,False,False,"(41.966163, -87.688502)",040600
-30111,California (O'Hare-bound),California,40570,False,False,True,False,False,False,False,False,False,False,"(41.921939, -87.69689)",221400
-30076,Forest Park (O'Hare-bound),Forest Park,40390,True,False,True,False,False,False,False,False,False,False,"(41.874257, -87.817318)",816000
-30383,Washington/Wabash (Outer Loop),Washington/Wabash,41700,True,False,False,True,True,False,False,False,False,False,"(41.88322, -87.626189)",320102
-30053,Main (Howard-Loop-bound),Main,40270,False,False,False,False,False,True,True,False,False,False,"(42.033456, -87.679538)",810000
-30159,Rosemont (O'Hare-bound),Rosemont,40820,True,False,True,False,False,False,False,False,False,False,"(41.983507, -87.859388)",770700
-30132,Adams/Wabash (Inner Loop),Adams/Wabash,40680,False,False,False,True,False,False,True,False,True,True,"(41.879507, -87.626037)",320400
-30194,Cermak-Chinatown (95th-bound),Cermak-Chinatown,41000,True,True,False,False,False,False,False,False,False,False,"(41.853206, -87.630968)",841100
-30025,51st (63rd-bound),51st,40130,True,False,False,True,False,False,False,False,False,False,"(41.80209, -87.618487)",381800
-30067,Berwyn (95th-bound),Berwyn,40340,False,True,False,False,False,False,False,False,False,False,"(41.977984, -87.658668)",030703
-30145,Harlem (O'Hare Branch) (O'Hare-bound),Harlem,40750,True,False,True,False,False,False,False,False,False,False,"(41.98227, -87.8089)",100500
-30012,Belmont (O'Hare Branch) (O'Hare-bound),Belmont,40060,False,False,True,False,False,False,False,False,False,False,"(41.938132, -87.712359)",210601
-30199,Polk (Loop-bound),Polk,41030,True,False,False,False,False,False,False,False,True,False,"(41.871551, -87.66953)",838200
-30049,Kedzie-Homan (Forest Pk-bound),Kedzie-Homan,40250,True,False,True,False,False,False,False,False,False,False,"(41.874341, -87.70604)",271300
-30121,Clark/Division (Howard-bound),Clark/Division,40630,True,True,False,False,False,False,False,False,False,False,"(41.90392, -87.631412)",080202
-30059,Indiana (63rd-bound),Indiana,40300,True,False,False,True,False,False,False,False,False,False,"(41.821732, -87.621371)",380600
-30117,Kostner (Loop-bound),Kostner,40600,True,False,False,False,False,False,False,False,True,False,"(41.853751, -87.733258)",292500
-30226,Kedzie (Loop-bound),Kedzie,41180,True,False,False,False,True,False,False,False,False,False,"(41.965996, -87.708821)",140701
-30027,Dempster-Skokie (Howard-bound),Dempster-Skokie,40140,True,False,False,False,False,False,False,True,False,False,"(42.038951, -87.751919)",807300
-30296,Morgan (Harlem-54th/Cermak-bound),Morgan,41510,True,False,False,True,False,False,False,False,True,False,"(41.885586, -87.652193)",833000
-30170,Thorndale (95th-bound),Thorndale,40880,False,True,False,False,False,False,False,False,False,False,"(41.990259, -87.659076)",030101
-30187,Cicero (O'Hare-bound),Cicero,40970,False,False,True,False,False,False,False,False,False,False,"(41.871574, -87.745154)",831400
-30297,Oakton-Skokie (Dempster-Skokie-bound),Oakton-Skokie,41680,True,False,False,False,False,False,False,True,False,False,"(42.02624348, -87.74722084)",807700
-30138,Chicago (Loop-bound),Chicago,40710,True,False,False,False,True,False,True,False,False,False,"(41.89681, -87.635924)",081800
-30246,43rd (63rd-bound),43rd,41270,True,False,False,True,False,False,False,False,False,False,"(41.816462, -87.619021)",835800
-30028,Pulaski (Loop-bound),Pulaski,40150,True,False,False,False,False,False,False,False,True,False,"(41.853732, -87.724311)",292400
-30033,Ashland (Harlem-54th/Cermak-bound),Ashland,40170,True,False,False,True,False,False,False,False,True,False,"(41.885269, -87.666969)",280400
-30140,Cottage Grove (Harlem-bound),Cottage Grove,40720,True,False,False,True,False,False,False,False,False,False,"(41.780309, -87.605857)",420800
-30037,Sox-35th (95th-bound),Sox-35th,40190,True,True,False,False,False,False,False,False,False,False,"(41.831191, -87.630636)",340500
-30182,Midway (Arrival),Midway,40930,True,False,False,False,False,False,False,False,False,True,"(41.78661, -87.737875)",980100
-30116,Damen/Milwaukee (Forest Pk-bound),Damen,40590,False,False,True,False,False,False,False,False,False,False,"(41.909744, -87.677437)",241400
-30215,Halsted (Loop-bound),Halsted,41130,True,False,False,False,False,False,False,False,False,True,"(41.84678, -87.648088)",840200
-30212,Monroe (95th-bound),Monroe,41090,False,True,False,False,False,False,False,False,False,False,"(41.880745, -87.627696)",320400
-30075,Clark/Lake (Outer Loop),Clark/Lake,40380,True,False,False,True,True,False,False,False,False,False,"(41.885737, -87.630886)",839100
-30241,Central (Linden-bound),Central,41250,False,False,False,False,False,True,True,False,False,False,"(42.063987, -87.685617)",809300
-30005,Pulaski (63rd-bound),Pulaski,40030,True,False,False,True,False,False,False,False,False,False,"(41.885412, -87.725404)",260100
-30120,Ridgeland (Harlem-bound),Ridgeland,40610,False,False,False,True,False,False,False,False,False,False,"(41.887159, -87.783661)",812500
-30176,Howard (Terminal arrival),Howard,40900,True,False,False,False,False,True,True,True,False,False,"(42.019063, -87.672892)",010202
-30204,Linden (Howard-Loop-bound),Linden,41050,True,False,False,False,False,True,True,False,False,False,"(42.073153, -87.69073)",801300
-30010,Davis (Linden-bound),Davis,40050,True,False,False,False,False,True,True,False,False,False,"(42.04771, -87.683543)",809402
-30223,Garfield (Howard-bound),Garfield,41170,True,True,False,False,False,False,False,False,False,False,"(41.79542, -87.631157)",835600
-30073,Washington (Forest Pk-bound),Washington,40370,False,False,True,False,False,False,False,False,False,False,"(41.883164, -87.62944)",839100
-30126,North/Clybourn (95th-bound),North/Clybourn,40650,False,True,False,False,False,False,False,False,False,False,"(41.910655, -87.649177)",842200
-30065,Grand/State (95th-bound),Grand,40330,True,True,False,False,False,False,False,False,False,False,"(41.891665, -87.628021)",081500
-30105,Wilson (Howard-bound),Wilson,40540,True,True,False,False,False,False,False,False,False,False,"(41.964273, -87.657588)",830700
-30035,Oak Park (Forest Pk-bound),Oak Park,40180,False,False,True,False,False,False,False,False,False,False,"(41.872108, -87.791602)",813200
-30023,35th/Archer (Midway-bound),35th/Archer,40120,True,False,False,False,False,False,False,False,False,True,"(41.829353, -87.680622)",590500
-30163,South Blvd (Linden-bound),South Boulevard,40840,False,False,False,False,False,True,True,False,False,False,"(42.027612, -87.678329)",810000
-30006,Pulaski (Harlem-bound),Pulaski,40030,True,False,False,True,False,False,False,False,False,False,"(41.885412, -87.725404)",260100
-30188,Cicero (Forest Pk-bound),Cicero,40970,False,False,True,False,False,False,False,False,False,False,"(41.871574, -87.745154)",831400
-30109,Jackson/State (Howard-bound),Jackson,40560,True,True,False,False,False,False,False,False,False,False,"(41.878153, -87.627596)",320400
-30230,Argyle (95th-bound),Argyle,41200,False,True,False,False,False,False,False,False,False,False,"(41.973453, -87.65853)",031200
-30281,Irving Park (Kimball-bound),Irving Park,41460,True,False,False,False,True,False,False,False,False,False,"(41.954521, -87.674868)",050100
-30080,Roosevelt (Loop-Harlem-bound),Roosevelt,41400,True,False,False,True,False,False,False,False,False,True,"(41.867405, -87.62659)",330102
-30181,Midway (Loop-bound),Midway,40930,True,False,False,False,False,False,False,False,False,True,"(41.78661, -87.737875)",980100
-30026,Dempster-Skokie (Arrival),Dempster-Skokie,40140,True,False,False,False,False,False,False,True,False,False,"(42.038951, -87.751919)",807300
-30167,Francisco (Kimball-bound),Francisco,40870,True,False,False,False,True,False,False,False,False,False,"(41.966046, -87.701644)",140800
-30030,LaSalle/Van Buren (Outer Loop),LaSalle/Van Buren,40160,False,False,False,False,True,False,False,False,False,False,"(41.8768, -87.631739)",839100
-30146,Harlem (O'Hare Branch) (Forest Pk-bound),Harlem,40750,True,False,True,False,False,False,False,False,False,False,"(41.98227, -87.8089)",100500
-30013,Belmont (O'Hare Branch) (Forest Pk-bound),Belmont,40060,False,False,True,False,False,False,False,False,False,False,"(41.938132, -87.712359)",210601
-30086,California (Loop-bound),California,40440,True,False,False,False,False,False,False,False,True,False,"(41.854109, -87.694774)",840700
-30143,Western (Loop-bound),Western,40740,True,False,False,False,False,False,False,False,True,False,"(41.854225, -87.685129)",841200
-30192,69th (95th-bound),69th,40990,True,True,False,False,False,False,False,False,False,False,"(41.768367, -87.625724)",690300
-30141,Washington/Wells (Inner Loop),Washington/Wells,40730,True,False,False,False,False,False,True,False,True,True,"(41.882695, -87.63378)",839100
-30286,Harrison (95th-bound),Harrison,41490,False,True,False,False,False,False,False,False,False,False,"(41.874039, -87.627479)",320600
-30221,Clinton (Loop-63rd-bound),Clinton,41160,True,False,False,True,False,False,False,False,True,False,"(41.885678, -87.641782)",280100
-30294,Sheridan (Loop-bound),Sheridan,40080,False,False,False,False,False,False,False,False,False,False,"(41.953775, -87.654929)",832100
-30258,Belmont (Loop-bound),Belmont,41320,True,False,False,False,True,False,True,False,False,False,"(41.939751, -87.65338)",063000
-30242,Central (Howard-Loop-bound),Central,41250,False,False,False,False,False,True,True,False,False,False,"(42.063987, -87.685617)",809300
-30203,Linden (Linden-bound),Linden,41050,True,False,False,False,False,True,True,False,False,False,"(42.073153, -87.69073)",801300
-30220,Kedzie (Midway-bound),Kedzie,41150,True,False,False,False,False,False,False,False,False,True,"(41.804236, -87.704406)",630300
-30250,Kimball (Loop-bound),Kimball,41290,True,False,False,False,True,False,False,False,False,False,"(41.967901, -87.713065)",140701
-30178,63rd (95th-bound),63rd,40910,True,True,False,False,False,False,False,False,False,False,"(41.780536, -87.630952)",834600
-30234,Fullerton (95th-bound),Fullerton,41220,True,True,False,False,False,False,False,False,False,False,"(41.925051, -87.652866)",071100
-30278,Addison (Loop-bound),Addison,41440,True,False,False,False,True,False,False,False,False,False,"(41.947028, -87.674642)",050600
-30174,Howard (95th-Bound),Howard,40900,True,True,False,False,False,False,False,False,False,False,"(42.019063, -87.672892)",010202
-30238,47th (95th-bound),47th,41230,True,True,False,False,False,False,False,False,False,False,"(41.810318, -87.63094)",835500
-30382,Cermak-McCormick Place (63rd-bound),Cermak-McCormick Place,41690,True,False,False,True,False,False,False,False,False,False,"(41.853115, -87.626402)",330103
-30208,Kedzie (Harlem-bound),Kedzie,41070,True,False,False,True,False,False,False,False,False,False,"(41.884321, -87.706155)",837100
-30189,Harlem (Forest Pk Branch) (O'Hare-bound),Harlem,40980,False,False,True,False,False,False,False,False,False,False,"(41.87349, -87.806961)",816100
-30056,Ashland/63rd (Harlem-bound),Ashland/63rd,40290,True,False,False,True,False,False,False,False,False,False,"(41.77886, -87.663766)",671100
-30119,Ridgeland (63rd-bound),Ridgeland,40610,False,False,False,True,False,False,False,False,False,False,"(41.887159, -87.783661)",812500
-30298,Oakton-Skokie (Howard-bound),Oakton-Skokie,41680,True,False,False,False,False,False,False,True,False,False,"(42.02624348, -87.74722084)",807700
-30139,Cottage Grove (Terminal arrival),Cottage Grove,40720,True,False,False,True,False,False,False,False,False,False,"(41.780309, -87.605857)",420800
-30122,Clark/Division (95th-bound),Clark/Division,40630,True,True,False,False,False,False,False,False,False,False,"(41.90392, -87.631412)",080202
-30251,Loyola (Howard-bound),Loyola,41300,True,True,False,False,False,False,False,False,False,False,"(42.001073, -87.661061)",010503
-30295,Morgan (Loop-63rd-bound),Morgan,41510,True,False,False,True,False,False,False,False,True,False,"(41.885586, -87.652193)",833000
-30019,Damen (Loop-bound),Damen,40090,True,False,False,False,True,False,False,False,False,False,"(41.966286, -87.678639)",830800
-30205,Ashland (Loop-bound),Ashland,41060,True,False,False,False,False,False,False,False,False,True,"(41.839234, -87.665317)",843200
-30131,Adams/Wabash (Outer Loop),Adams/Wabash,40680,False,False,False,True,True,False,False,False,False,False,"(41.879507, -87.626037)",320400
-30160,Rosemont (Forest Pk-bound),Rosemont,40820,True,False,True,False,False,False,False,False,False,False,"(41.983507, -87.859388)",770700
-30058,Indiana (Harlem-bound),Indiana,40300,True,False,False,True,False,False,False,False,False,False,"(41.821732, -87.621371)",380600
-30118,Kostner (54th/Cermak-bound),Kostner,40600,True,False,False,False,False,False,False,False,True,False,"(41.853751, -87.733258)",292500
-30066,Berwyn (Howard-bound),Berwyn,40340,False,True,False,False,False,False,False,False,False,False,"(41.977984, -87.658668)",030703
-30103,Diversey (Kimball-Linden-bound),Diversey,40530,True,False,False,False,True,False,True,False,False,False,"(41.932732, -87.653131)",063000
-30247,Jefferson Park (O'Hare-bound),Jefferson Park,41280,True,False,True,False,False,False,False,False,False,False,"(41.970634, -87.760892)",110502
-30183,Halsted/63rd (Harlem-bound),Halsted,40940,True,False,False,True,False,False,False,False,False,False,"(41.778943, -87.644244)",680900
-30275,87th (Howard-bound),87th,41430,True,True,False,False,False,False,False,False,False,False,"(41.735372, -87.624717)",842400
-30210,47th (63rd-bound),47th,41080,True,False,False,True,False,False,False,False,False,False,"(41.809209, -87.618826)",381400
-30271,Chicago (O'Hare-bound),Chicago,41410,False,False,True,False,False,False,False,False,False,False,"(41.896075, -87.655214)",243500
-30284,Western (Loop-bound),Western,41480,True,False,False,False,True,False,False,False,False,False,"(41.966163, -87.688502)",040600
-30077,Forest Park (Terminal Arrival),Forest Park,40390,True,False,True,False,False,False,False,False,False,False,"(41.874257, -87.817318)",816000
-30112,California (Forest Pk-bound),California,40570,False,False,True,False,False,False,False,False,False,False,"(41.921939, -87.69689)",221400
-30254,Paulina (Loop-bound),Paulina,41310,True,False,False,False,True,False,False,False,False,False,"(41.943623, -87.670907)",831900
-30007,Quincy/Wells (Inner Loop),Quincy/Wells,40040,True,False,False,False,False,False,True,False,True,True,"(41.878723, -87.63374)",839100
-30091,Merchandise Mart (Loop-bound),Merchandise Mart,40460,True,False,False,False,True,False,True,False,False,False,"(41.888969, -87.633924)",081700
-30051,State/Lake (Outer Loop),State/Lake,40260,False,False,False,True,True,False,False,False,False,False,"(41.88574, -87.627835)",320102
-30094,Cicero (63rd-bound),Cicero,40480,True,False,False,True,False,False,False,False,False,False,"(41.886519, -87.744698)",251800
-30260,Montrose (Forest Pk-bound),Montrose,41330,False,False,True,False,False,False,False,False,False,False,"(41.961539, -87.743574)",160100
-30042,Western (Forest Pk Branch) (O'Hare-bound),Western,40220,False,False,True,False,False,False,False,False,False,False,"(41.875478, -87.688436)",282700
-30285,Harrison (Howard-bound),Harrison,41490,False,True,False,False,False,False,False,False,False,False,"(41.874039, -87.627479)",320600
-30127,Armitage (Kimball-Linden-bound),Armitage,40660,True,False,False,False,True,False,True,False,False,False,"(41.918217, -87.652644)",071100
-30227,Jarvis (Howard-bound),Jarvis,41190,False,True,False,False,False,False,False,False,False,False,"(42.015876, -87.669092)",010300
-30017,Sheridan (95th-bound),Sheridan,40080,False,True,False,False,False,False,False,False,False,False,"(41.953775, -87.654929)",832100
-30003,Harlem (63rd-bound),Harlem/Lake,40020,True,False,False,True,False,False,False,False,False,False,"(41.886848, -87.803176)",812301
-30277,Addison (Kimball-bound),Addison,41440,True,False,False,False,True,False,False,False,False,False,"(41.947028, -87.674642)",050600
-30255,Belmont (Howard-bound),Belmont,41320,True,True,False,False,False,False,False,False,False,False,"(41.939751, -87.65338)",063000
-30136,Laramie (Harlem-bound),Laramie,40700,True,False,False,True,False,False,False,False,False,False,"(41.887163, -87.754986)",251800
-30249,Kimball (Terminal arrival),Kimball,41290,True,False,False,False,True,False,False,False,False,False,"(41.967901, -87.713065)",140701
-30191,69th (Howard-bound),69th,40990,True,True,False,False,False,False,False,False,False,False,"(41.768367, -87.625724)",690300
-30050,State/Lake (Inner Loop),State/Lake,40260,False,False,False,True,False,False,True,False,True,True,"(41.88574, -87.627835)",320102
-30153,Monroe (O'Hare-bound),Monroe,40790,False,False,True,False,False,False,False,False,False,False,"(41.880703, -87.629378)",839100
-30040,Damen (Loop-bound),Damen,40210,True,False,False,False,False,False,False,False,True,False,"(41.854517, -87.675975)",310900
-30179,Pulaski (O'Hare-bound),Pulaski,40920,False,False,True,False,False,False,False,False,False,False,"(41.873797, -87.725663)",260700
-30186,Pulaski (Midway-bound),Pulaski,40960,True,False,False,False,False,False,False,False,False,True,"(41.799756, -87.724493)",620200
-30213,35-Bronzeville-IIT (Harlem-bound),35th-Bronzeville-IIT,41120,True,False,False,True,False,False,False,False,False,False,"(41.831677, -87.625826)",842000
-30144,Western (54th/Cermak-bound),Western,40740,True,False,False,False,False,False,False,False,True,False,"(41.854225, -87.685129)",841200
-30235,Fullerton (Kimball-Linden-bound),Fullerton,41220,True,False,False,False,True,False,True,False,False,False,"(41.925051, -87.652866)",071100
-30148,Granville (95th-bound),Granville,40760,True,True,False,False,False,False,False,False,False,False,"(41.993664, -87.659202)",030102
-30071,Southport (Loop-bound),Southport,40360,True,False,False,False,True,False,False,False,False,False,"(41.943744, -87.663619)",061500
-30280,Chicago (95th-bound),Chicago,41450,True,True,False,False,False,False,False,False,False,False,"(41.896671, -87.628176)",081500
-30031,LaSalle/Van Buren (Inner Loop),LaSalle/Van Buren,40160,False,False,False,False,False,False,True,False,True,True,"(41.8768, -87.631739)",839100
-30222,Clinton (Harlem-54th/Cermak-bound),Clinton,41160,True,False,False,True,False,False,False,False,True,False,"(41.885678, -87.641782)",280100
-30142,Washington/Wells (Outer Loop),Washington/Wells,40730,True,False,False,False,True,False,False,False,False,False,"(41.882695, -87.63378)",839100
-30224,Garfield (95th-bound),Garfield,41170,True,True,False,False,False,False,False,False,False,False,"(41.79542, -87.631157)",835600
-30244,Austin (Harlem-bound),Austin,41260,False,False,False,True,False,False,False,False,False,False,"(41.887293, -87.774135)",251400
-30113,54th/Cermak (Loop-bound),54th/Cermak,40580,True,False,False,False,False,False,False,False,True,False,"(41.85177331, -87.75669201)",813701
-30282,Irving Park (Loop-bound),Irving Park,41460,True,False,False,False,True,False,False,False,False,False,"(41.954521, -87.674868)",050100
-30197,Logan Square (O'Hare-bound),Logan Square,41020,True,False,True,False,False,False,False,False,False,False,"(41.929728, -87.708541)",220602
-30152,Central Park (54th/Cermak-bound),Central Park,40780,True,False,False,False,False,False,False,False,True,False,"(41.853839, -87.714842)",844700
-30087,California (54th/Cermak-bound),California,40440,True,False,False,False,False,False,False,False,True,False,"(41.854109, -87.694774)",840700
-30201,Kedzie (Loop-bound),Kedzie,41040,True,False,False,False,False,False,False,False,True,False,"(41.853964, -87.705408)",844700
-30069,UIC-Halsted (Forest Pk-bound),UIC-Halsted,40350,True,False,True,False,False,False,False,False,False,False,"(41.875474, -87.649707)",841900
-30074,Clark/Lake (Inner Loop),Clark/Lake,40380,True,False,False,True,False,False,True,False,True,True,"(41.885737, -87.630886)",839100
-30133,Dempster (Linden-bound),Dempster,40690,False,False,False,False,False,True,True,False,False,False,"(42.041655, -87.681602)",809401
-30081,Roosevelt (Midway-63rd-bound),Roosevelt,41400,True,False,False,True,False,False,False,False,False,True,"(41.867405, -87.62659)",330102
-30034,Oak Park (O'Hare-bound),Oak Park,40180,False,False,True,False,False,False,False,False,False,False,"(41.872108, -87.791602)",813200
-30168,Francisco (Loop-bound),Francisco,40870,True,False,False,False,True,False,False,False,False,False,"(41.966046, -87.701644)",140800
-30009,Cicero (Harlem-bound),Cicero,40480,True,False,False,True,False,False,False,False,False,False,"(41.886519, -87.744698)",251800
-30259,Montrose (O'Hare-bound),Montrose,41330,False,False,True,False,False,False,False,False,False,False,"(41.961539, -87.743574)",160100
-30125,North/Clybourn (Howard-bound),North/Clybourn,40650,False,True,False,False,False,False,False,False,False,False,"(41.910655, -87.649177)",842200
-30172,O'Hare (Forest Pk-bound),O'Hare,40890,True,False,True,False,False,False,False,False,False,False,"(41.97766526, -87.90422307)",980000
-30045,Cumberland (Forest Pk-bound),Cumberland,40230,True,False,True,False,False,False,False,False,False,False,"(41.984246, -87.838028)",760801
+ID,Tract
+30082,813702
+30151,844700
+30184,680900
+30044,760801
+30092,832900
+30253,831900
+30162,310800
+30374,839100
+30248,110502
+30104,063000
+30287,830800
+30068,841900
+30214,842000
+30102,809300
+30008,839100
+30070,061500
+30252,010503
+30237,835500
+30267,030701
+30190,816100
+30173,010202
+30207,837100
+30218,420700
+30057,671100
+30088,834000
+30129,222200
+30128,071100
+30089,834000
+30269,330200
+30256,063000
+30114,813701
+30217,420700
+30134,809401
+30236,071100
+30149,031200
+30158,838100
+30290,320102
+30047,842400
+30243,251400
+30084,841900
+30231,063000
+30175,010202
+30263,812301
+30130,222200
+30268,030701
+30279,081500
+30155,080400
+30239,160900
+30288,830800
+30015,839100
+30202,844700
+30154,839100
+30195,040700
+30041,310900
+30180,260700
+30101,809300
+30004,812301
+30384,320102
+30266,837100
+30021,010600
+30060,630600
+30096,842300
+30375,839100
+30095,842300
+30062,242000
+30185,620200
+30161,310800
+30293,832100
+30272,243500
+30090,081700
+30061,630600
+30171,980000
+30245,835800
+30093,832900
+30265,837100
+30063,242000
+30036,340500
+30083,813702
+30198,220602
+30020,010600
+30115,241400
+30156,080400
+30240,160900
+30032,280400
+30108,161000
+30386,830700
+30193,841100
+30262,839100
+30169,030101
+30046,842400
+30147,030102
+30014,839100
+30274,061000
+30085,841900
+30264,812301
+30196,040700
+30150,031200
+30054,251400
+30292,836800
+30232,063000
+30078,809300
+30157,838100
+30209,381400
+30289,320102
+30257,063000
+30228,010300
+30216,840200
+30011,809402
+30270,330200
+30233,071100
+30079,809300
+30137,081800
+30261,839100
+30211,320400
+30291,836800
+30225,140701
+30024,381800
+30099,400300
+30206,843200
+30064,081500
+30381,330103
+30100,400300
+30200,838200
+30018,830800
+30029,292400
+30022,590500
+30164,810000
+30052,810000
+30106,830700
+30110,320400
+30273,061000
+30229,031200
+30165,839100
+30016,832100
+30001,813100
+30107,161000
+30072,839100
+30055,251400
+30048,271300
+30385,830700
+30177,834600
+30166,839100
+30219,630300
+30135,251800
+30276,842400
+30002,813100
+30043,282700
+30283,040600
+30111,221400
+30076,816000
+30383,320102
+30053,810000
+30159,770700
+30132,320400
+30194,841100
+30025,381800
+30067,030703
+30145,100500
+30012,210601
+30199,838200
+30049,271300
+30121,080202
+30059,380600
+30117,292500
+30226,140701
+30027,807300
+30296,833000
+30170,030101
+30187,831400
+30297,807700
+30138,081800
+30246,835800
+30028,292400
+30033,280400
+30140,420800
+30037,340500
+30182,980100
+30116,241400
+30215,840200
+30212,320400
+30075,839100
+30241,809300
+30005,260100
+30120,812500
+30176,010202
+30204,801300
+30010,809402
+30223,835600
+30073,839100
+30126,842200
+30065,081500
+30105,830700
+30035,813200
+30023,590500
+30163,810000
+30006,260100
+30188,831400
+30109,320400
+30230,031200
+30281,050100
+30080,330102
+30181,980100
+30026,807300
+30167,140800
+30030,839100
+30146,100500
+30013,210601
+30086,840700
+30143,841200
+30192,690300
+30141,839100
+30286,320600
+30221,280100
+30294,832100
+30258,063000
+30242,809300
+30203,801300
+30220,630300
+30250,140701
+30178,834600
+30234,071100
+30278,050600
+30174,010202
+30238,835500
+30382,330103
+30208,837100
+30189,816100
+30056,671100
+30119,812500
+30298,807700
+30139,420800
+30122,080202
+30251,010503
+30295,833000
+30019,830800
+30205,843200
+30131,320400
+30160,770700
+30058,380600
+30118,292500
+30066,030703
+30103,063000
+30247,110502
+30183,680900
+30275,842400
+30210,381400
+30271,243500
+30284,040600
+30077,816000
+30112,221400
+30254,831900
+30007,839100
+30091,081700
+30051,320102
+30094,251800
+30260,160100
+30042,282700
+30285,320600
+30127,071100
+30227,010300
+30017,832100
+30003,812301
+30277,050600
+30255,063000
+30136,251800
+30249,140701
+30191,690300
+30050,320102
+30153,839100
+30040,310900
+30179,260700
+30186,620200
+30213,842000
+30144,841200
+30235,071100
+30148,030102
+30071,061500
+30280,081500
+30031,839100
+30222,280100
+30142,839100
+30224,835600
+30244,251400
+30113,813701
+30282,050100
+30197,220602
+30152,844700
+30087,840700
+30201,844700
+30069,841900
+30074,839100
+30133,809401
+30081,330102
+30034,813200
+30168,140800
+30009,251800
+30259,160100
+30125,842200
+30172,980000
+30045,760801

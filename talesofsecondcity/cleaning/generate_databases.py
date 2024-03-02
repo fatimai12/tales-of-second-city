@@ -11,6 +11,7 @@ from geocode_api import address_to_census_tract
 from geocode_api.point_to_census_tract import geocode_missing_tracts, geocode_l_stops, find_lat_lon
 from geocode_api.preprocess_data import preprocess
 from geocode_api.clean_geocoded_data import clean_libraries, clean_parks, clean_l_stops, clean_divvy, clean_bus
+from ..analysis import index
 
 preprocess()
 address_to_census_tract.run()
@@ -25,14 +26,15 @@ parks_geocoded = geocode_missing_tracts(parks_with_missing, True)
 bus_geocoded = geocode_missing_tracts(bus_with_missing, False)
 divvy_geocoded = geocode_missing_tracts(divvy_with_missing, False)
 
+#can use dict/mapping for cleaning???
 clean_parks(parks_geocoded)
 clean_libraries()
 clean_l_stops(l_stops_geocoded)
 clean_divvy(divvy_geocoded)
 clean_bus(bus_geocoded)
 
-#can use dict/mapping for cleaning???
-
+#generate index file
+index.run()
 
 #any ACS cleaning??
 #read in ACS files here and

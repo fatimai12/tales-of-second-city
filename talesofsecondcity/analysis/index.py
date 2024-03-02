@@ -174,5 +174,6 @@ def produce_indexed_data(services_data: dict, pop_data: pd):
     
     return full_index_df
 
-indexed_data = produce_indexed_data(dataframes, census_data)
-indexed_data.to_csv("../data/index_data.csv", index = False)
+def run():
+    indexed_data = produce_indexed_data(dataframes, census_data)
+    indexed_data.to_csv("../data/index_data.csv", index = False)

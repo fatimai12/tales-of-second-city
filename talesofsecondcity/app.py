@@ -144,9 +144,8 @@ app.layout = dbc.Container([
                     {"label": "Race: White", "value": "Race: White"},
                     ])
             ]),
-            html.Div(
-                children = [
-                    html.Div(id = "Layer Map")
+            html.Div([
+                html.Iframe(id = "Layer Map", srcDoc = None, style = {'width': '100%', 'height': '600px'})
             ])
         ])
     ])
@@ -168,14 +167,17 @@ def update_graph(x_axis_name, y_axis_name):
     return index_bar_chart
 
 @callback(
-    Output("Layer Map", "children"),
+    Output("Layer Map", "srcDoc"),
     Input("map_variable", "value")
 )
 
 def generate_layer_map(variable_name):
     layer_map = display_demo_chloropleth(variable_name)
+    layer_map.save("layer_map.html")
+    
+    return open("layer_map.html", 'r').read()
 
-    return html.Iframe(srcDoc = layer_map)
+    # return html.Iframe(srcDoc = layer_map, style = {'width': '100%', 'height': '600px'})
 
 if __name__ == '__main__':
     app.run_server(debug=True)

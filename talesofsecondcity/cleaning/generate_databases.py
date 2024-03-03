@@ -9,7 +9,7 @@ import pandas as pd
 import geopandas as gpd
 from geocode_api import address_to_census_tract
 from geocode_api import address_to_census_tract
-from geocode_api.point_to_census_tract import geocode_missing_tracts, geocode_l_stops, find_lat_lon
+from geocode_api.point_to_census_tract import geocode_missing_tracts, geocode_l_stops
 from geocode_api.preprocess_data import preprocess
 from geocode_api.clean_geocoded_data import clean_libraries, clean_parks, clean_l_stops, clean_divvy, clean_bus
 from ..analysis import index
@@ -38,7 +38,7 @@ clean_bus(bus_geocoded)
 #generate index file
 index.run()
 
-#generate demographics file with shapes
+#generate full demographics file with shapes
 full_acs_data = census_scrape.merge_dfs()
 census_tract_shapes = gpd.read_file("../data/geocoded/tiger_22_final.geojson")
 merged_demo = census_tract_shapes.merge(

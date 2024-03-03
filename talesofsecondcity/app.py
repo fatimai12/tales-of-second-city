@@ -151,8 +151,8 @@ def update_graph(x_axis_name, y_axis_name):
 
 
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
+#if __name__ == '__main__':
+#    app.run_server(debug=True)
     
 #layout
 # NAVBAR = dbc.Navbar(

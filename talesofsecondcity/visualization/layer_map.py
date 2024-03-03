@@ -14,9 +14,9 @@ from dash import html
 def display_demo_chloropleth(col):
 
     # load geojson files
-    tiger_12 = gpd.read_file('../data/original/tiger_12_final.geojson')
-    tiger_17 = gpd.read_file('../data/original/tiger_17_final.geojson')
-    tiger_22 = gpd.read_file('../data/original/tiger_22_final.geojson')
+    tiger_12 = gpd.read_file('../geocoded/original/tiger_12_final.geojson')
+    tiger_17 = gpd.read_file('../geocoded/original/tiger_17_final.geojson')
+    tiger_22 = gpd.read_file('../geocoded/original/tiger_22_final.geojson')
     city_boundaries = gpd.read_file('../data/original/Boundaries - City.geojson')
     neighborhoods = gpd.read_file('../data/original/Boundaries - Neighborhoods.geojson')
 
@@ -31,8 +31,17 @@ def display_demo_chloropleth(col):
 
     #generate map & base layers
     base_map = folium.Map(location=[41.7377, -87.6976], zoom_start=11, overlay = False, name = "base")
-    # folium.GeoJson(city_boundaries, name = "City Boundaries").add_to(base_map)
-    folium.GeoJson(neighborhoods, name = "Neigborhood Boundaries").add_to(base_map)
+    folium.GeoJson(city_boundaries, name = "city boundaries", fill = False, color = "black").add_to(base_map)
+    folium.GeoJson(neighborhoods, name = "Neigborhood Boundaries", 
+               zoom_on_click= True,
+               fill = False,     
+                style_function=lambda feature: {
+                    # "fillColor": "#ffff00",
+                    "color": "maroon",
+                    "weight": 3,
+                    "dashArray": "5, 5",
+                },
+            ).add_to(base_map)
 
     # develop Choropleth maps
     map_12 = folium.Choropleth(

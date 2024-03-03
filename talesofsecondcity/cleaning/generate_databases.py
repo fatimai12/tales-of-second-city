@@ -29,11 +29,11 @@ bus_geocoded = geocode_missing_tracts(bus_with_missing, False)
 divvy_geocoded = geocode_missing_tracts(divvy_with_missing, False)
 
 #can use dict/mapping for cleaning???
-clean_parks(parks_geocoded)
-clean_libraries()
-clean_l_stops(l_stops_geocoded)
-clean_divvy(divvy_geocoded)
-clean_bus(bus_geocoded)
+parks_final = clean_parks(parks_geocoded)
+libraries_final = clean_libraries()
+l_stops_final = clean_l_stops(l_stops_geocoded)
+divvy_final = clean_divvy(divvy_geocoded)
+bus_final = clean_bus(bus_geocoded)
 
 #generate index file
 index.run()
@@ -44,6 +44,19 @@ census_tract_shapes = gpd.read_file("../data/geocoded/tiger_22_final.geojson")
 merged_demo = census_tract_shapes.merge(
     full_acs_data, how = "left", right_on = 'tract', left_on = 'Tract Code'
 )
-
 merged_demo.to_csv('../data/full_demo_data.csv',index=False)
+
+#generate public services with lat/long file
+ps_with_type = [
+    (bus_final, 'bus stop'),
+    (divvy_final, 'divvy station'),
+    (l_stops_final, 'l stop'),
+    (parks_final, 'park'),
+    (libraries_final, 'library')
+]
+
+combined_df = pd.concat([df.assign(service_type=service_type) for df, service_type in ps_with_type], ignore_index=True)
+combined_df.drop(columns=['ID'], inplace=True)
+combined_df.to_csv('../data/full_ps_data.csv',index=False)
+
 

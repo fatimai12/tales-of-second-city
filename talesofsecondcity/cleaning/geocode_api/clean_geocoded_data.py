@@ -24,9 +24,13 @@ def clean_parks(df):
     # Put leading zeros back in
     df["Tract"] = df["Tract"].str.zfill(6)
 
+    df = df[["ID", "Tract", "latitude", "longitude"]]
+
     # Drop parks that could not be geocoded (n = 2)
     df = df.drop(df[df["Tract"].isnull()].index)
     df.to_csv("../data/geocoded/parks_geocoded.csv", index = False)
+
+    return df
 
 def clean_libraries():
     """
@@ -44,8 +48,10 @@ def clean_libraries():
     libraries["tract"] = libraries["tract"].str.zfill(6)
 
     # Rename columns to be consistent across all data
-    libraries = libraries.rename(columns = {"id": "ID", "tract": "Tract"})
+    libraries = libraries.rename(columns = {"id": "Name", "tract": "Tract"})
     libraries.to_csv("../data/geocoded/libraries_geocoded.csv", index = False)
+
+    return libraries
 
 def clean_l_stops(df):
     """
@@ -54,12 +60,14 @@ def clean_l_stops(df):
     df[['latitude','longitude']] = df['Location'].str.strip("()").str.split(",", expand=True)
 
     #Keep only the ID and tract columns
-    df = df[["STOP_ID", "tract", "latitude", "longitude"]]
+    df = df[["STOP_NAME", "tract", "latitude", "longitude"]]
 
     # Rename columns to be consistent across all data
-    df = df.rename(columns = {"STOP_ID": "ID", "tract": "Tract"})
+    df = df.rename(columns = {"STOP_NAME": "Name", "tract": "Tract"})
 
     df.to_csv("../data/geocoded/l_stops_geocoded.csv", index = False)
+
+    return df
 
 def clean_divvy(df):
     """
@@ -74,9 +82,11 @@ def clean_divvy(df):
     df["Tract"] = df["Tract"].str.zfill(6)
 
     # Rename columns to be consistent across all data
-    df = df.rename(columns = {"station_name": "Station Name"})
+    df = df.rename(columns = {"station_name": "Name"})
 
     df.to_csv("../data/geocoded/divvy_geocoded.csv", index = False)
+
+    return df
 
 def clean_bus(df):
     """
@@ -95,6 +105,8 @@ def clean_bus(df):
     df = df[["public_nam", "Tract", "latitude", "longitude"]]
 
     # Rename columns to be consistent across all data
-    df = df.rename(columns = {"public_nam": "Public Name"})
+    df = df.rename(columns = {"public_nam": "Name"})
 
     df.to_csv("../data/geocoded/bus_geocoded.csv", index = False)
+
+    return df

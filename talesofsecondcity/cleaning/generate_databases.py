@@ -19,8 +19,7 @@ preprocess()
 address_to_census_tract.run()
 l_stops_geocoded = geocode_l_stops()
 
-#loops? or fine
-parks_with_missing = pd.read_csv("../data/geocoded/parks_geocoded.csv", index_col = False)
+sparks_with_missing = pd.read_csv("../data/geocoded/parks_geocoded.csv", index_col = False)
 bus_with_missing = pd.read_csv("../data/geocoded/bus_geocoded.csv", index_col = False)
 divvy_with_missing = pd.read_csv("../data/geocoded/divvy_geocoded.csv", index_col = False)
 
@@ -28,7 +27,6 @@ parks_geocoded = geocode_missing_tracts(parks_with_missing, True)
 bus_geocoded = geocode_missing_tracts(bus_with_missing, False)
 divvy_geocoded = geocode_missing_tracts(divvy_with_missing, False)
 
-#can use dict/mapping for cleaning???
 parks_final = clean_parks(parks_geocoded)
 libraries_final = clean_libraries()
 l_stops_final = clean_l_stops(l_stops_geocoded)

@@ -10,7 +10,7 @@ import pandas as pd
 
 ### Data frames with location data ###
 # Read in parks data and add acreage data to the geocoded parks data
-parks = pd.read_csv("../data/geocoded/parks_final.csv", dtype = str)
+parks = pd.read_csv("../data/geocoded/parks_geocoded.csv", dtype = str)
 parks_acreage = pd.read_csv("../data/original/CPD_Parks.csv", 
                             dtype = {"PARK_NO": str, "ACRES": float},
                             usecols = ["PARK_NO", "ACRES"])
@@ -20,13 +20,12 @@ parks_acreage = parks_acreage.rename(columns = {"PARK_NO":"ID", "ACRES": "Park A
 parks = parks.join(parks_acreage.set_index("ID"), on = "ID", how = "inner")
 
 # Read in other public services data
-libraries = pd.read_csv("../data/geocoded/libraries_final.csv", dtype = str,
+libraries = pd.read_csv("../data/geocoded/libraries_geocoded.csv", dtype = str,
                         usecols = ["Tract"])
 bus_stops = pd.read_csv("../data/geocoded/bus_geocoded.csv", dtype = str,
                         usecols = ["Tract"])
 L_stops = pd.read_csv("../data/geocoded/l_stops_geocoded.csv", dtype = str,
-                      usecols = ["tract"])
-L_stops = L_stops.rename(columns = {"tract": "Tract"})
+                      usecols = ["Tract"])
 divvy = pd.read_csv("../data/geocoded/divvy_geocoded.csv", dtype = str,
                     usecols = ["Tract"])
 
@@ -175,5 +174,6 @@ def produce_indexed_data(services_data: dict, pop_data: pd):
     
     return full_index_df
 
-indexed_data = produce_indexed_data(dataframes, census_data)
-indexed_data.to_csv("../data/index_data.csv", index = False)
+def run():
+    indexed_data = produce_indexed_data(dataframes, census_data)
+    indexed_data.to_csv("../data/index_data.csv", index = False)

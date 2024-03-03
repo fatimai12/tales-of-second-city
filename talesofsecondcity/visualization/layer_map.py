@@ -14,9 +14,9 @@ from dash import html
 def display_demo_chloropleth(col):
 
     # load geojson files
-    tiger_12 = gpd.read_file('../geocoded/original/tiger_12_final.geojson')
-    tiger_17 = gpd.read_file('../geocoded/original/tiger_17_final.geojson')
-    tiger_22 = gpd.read_file('../geocoded/original/tiger_22_final.geojson')
+    tiger_12 = gpd.read_file('../data/geocoded/tiger_12_final.geojson')
+    tiger_17 = gpd.read_file('../data/geocoded/tiger_17_final.geojson')
+    tiger_22 = gpd.read_file('../data/geocoded/tiger_22_final.geojson')
     city_boundaries = gpd.read_file('../data/original/Boundaries - City.geojson')
     neighborhoods = gpd.read_file('../data/original/Boundaries - Neighborhoods.geojson')
 

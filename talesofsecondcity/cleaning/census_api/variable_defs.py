@@ -8,7 +8,7 @@ Variable dictionaries used in census_scrape.py
 https://www.census.gov/data/developers/data-sets/acs-5year.html
 """
 
-# 2012 variable names 
+# 2012 variable names (under 18 not collected this year)
 
 variables_2012 = {"DP05_0001E" : "Total Pop (#)",
                   "DP02_0001E" : "Total HH (#)", 

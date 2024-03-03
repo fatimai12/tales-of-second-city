@@ -9,16 +9,15 @@ https://towardsdatascience.com/creating-choropleth-maps-with-pythons-folium-libr
 """
 import geopandas as gpd
 import folium
-from dash import html
 
 def display_demo_chloropleth(col):
 
     # load geojson files
-    tiger_12 = gpd.read_file('../data/geocoded/tiger_12_final.geojson')
-    tiger_17 = gpd.read_file('../data/geocoded/tiger_17_final.geojson')
-    tiger_22 = gpd.read_file('../data/geocoded/tiger_22_final.geojson')
-    city_boundaries = gpd.read_file('../data/original/Boundaries - City.geojson')
-    neighborhoods = gpd.read_file('../data/original/Boundaries - Neighborhoods.geojson')
+    tiger_12 = gpd.read_file('talesofsecondcity/data/geocoded/tiger_12_final.geojson')
+    tiger_17 = gpd.read_file('talesofsecondcity/data/geocoded/tiger_17_final.geojson')
+    tiger_22 = gpd.read_file('talesofsecondcity/data/geocoded/tiger_22_final.geojson')
+    city_boundaries = gpd.read_file('talesofsecondcity/data/original/Boundaries - City.geojson')
+    neighborhoods = gpd.read_file('talesofsecondcity/data/original/Boundaries - Neighborhoods.geojson')
 
     # drop census tracts outside of city boundaries
     tiger_12 = tiger_12.to_crs("EPSG:4326")
@@ -176,6 +175,5 @@ def display_demo_chloropleth(col):
     
     folium.LayerControl().add_to(base_map)
 
-    return html.Iframe(srcDoc = base_map)
 
-#    return base_map
+    return base_map

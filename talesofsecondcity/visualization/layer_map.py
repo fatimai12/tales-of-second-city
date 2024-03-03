@@ -31,7 +31,7 @@ def display_demo_chloropleth():
     #generate map & base layers
     base_map = folium.Map(location=[41.7377, -87.6976], zoom_start=11, overlay = False, name = "base")
     # folium.GeoJson(city_boundaries, name = "City Boundaries").add_to(base_map)
-    folium.GeoJson(city_boundaries, name = "Neigborhood Boundaries").add_to(base_map)
+    folium.GeoJson(neighborhoods, name = "Neigborhood Boundaries").add_to(base_map)
 
     # develop Choropleth maps
     map_12 = folium.Choropleth(

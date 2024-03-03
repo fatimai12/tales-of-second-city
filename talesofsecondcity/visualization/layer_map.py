@@ -9,8 +9,9 @@ https://towardsdatascience.com/creating-choropleth-maps-with-pythons-folium-libr
 """
 import geopandas as gpd
 import folium
+from dash import html
 
-def display_demo_chloropleth():
+def display_demo_chloropleth(col):
 
     # load geojson files
     tiger_12 = gpd.read_file('../data/original/tiger_12_final.geojson')
@@ -37,7 +38,7 @@ def display_demo_chloropleth():
         geo_data=tiger_12,
         name="Population: 2008-2012 ACS 5-year Estimates",
         data=tiger_12,
-        columns= ["GEOID","Total Pop (#)"],
+        columns= ["GEOID", col],
         key_on= "feature.properties.GEOID",
         fill_color= "YlGn",
         fill_opacity= 0.7,
@@ -51,7 +52,7 @@ def display_demo_chloropleth():
         geo_data=tiger_17,
         name="Population: 2013-2017 ACS 5-year Estimates",
         data=tiger_17,
-        columns= ["GEOID","Total Pop (#)"],
+        columns= ["GEOID", col],
         key_on="feature.properties.GEOID",
         fill_color="YlGn",
         fill_opacity=0.7,
@@ -65,7 +66,7 @@ def display_demo_chloropleth():
         geo_data=tiger_22,
         name="Population: 2018-2022 ACS 5-year Estimates",
         data=tiger_12,
-        columns= ["GEOID","Total Pop (#)"],
+        columns= ["GEOID", col],
         key_on="feature.properties.GEOID",
         fill_color="YlGn",
         fill_opacity=0.7,
@@ -165,4 +166,6 @@ def display_demo_chloropleth():
     
     folium.LayerControl().add_to(base_map)
 
-    return base_map
+    return html.Iframe(srcDoc = base_map)
+
+#    return base_map

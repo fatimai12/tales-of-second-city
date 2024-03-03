@@ -4,8 +4,11 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import geopandas as gpd
 import plotly.colors as colors
-import matplotlib.pyplot as plt
 from dash_bootstrap_templates import load_figure_template
+
+# Import map function
+from .visualization.layer_map import display_demo_chloropleth
+
 
 load_figure_template("SOLAR")
 
@@ -15,13 +18,13 @@ long=-87.6014
 app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 
 # Index data
-index_data = pd.read_csv("data/index_data.csv")
+index_data = pd.read_csv("talesofsecondcity/data/index_data.csv")
 
 
 def display_index_choropleth():
-    df = pd.read_csv('data/index_data.csv',dtype=str)
+    df = pd.read_csv('talesofsecondcity/data/index_data.csv',dtype=str)
     df['APS Index'] = pd.to_numeric(df['APS Index'])
-    census_tracts = gpd.read_file("data/original/Boundaries - Census Tracts - 2010.geojson")
+    census_tracts = gpd.read_file("talesofsecondcity/data/original/Boundaries - Census Tracts - 2010.geojson")
 
     fig = px.choropleth(
         data_frame = df,
@@ -131,6 +134,21 @@ app.layout = dbc.Container([
                         style = {"textAlign":"center", "color": "#FFEFD5", "fontSize": 25})
             ])
         ])
+    ]),
+    dbc.Row([
+        dbc.Col([
+            html.Div([
+                dcc.Dropdown(id = "map_variable", 
+                    options = [
+                    {"label": "Total Households", "value": "Total HH (#)"},
+                    {"label": "Race: White", "value": "Race: White"},
+                    ])
+            ]),
+            html.Div(
+                children = [
+                    html.Div(id = "Layer Map")
+            ])
+        ])
     ])
 
 
@@ -149,7 +167,15 @@ def update_graph(x_axis_name, y_axis_name):
                                  hover_name = "Tract")
     return index_bar_chart
 
+@callback(
+    Output("Layer Map", "figure"),
+    Input("map_variable", "value")
+)
 
+def generate_layer_map(variable_name):
+    layer_map = display_demo_chloropleth(variable_name)
+
+    return layer_map
 
 #if __name__ == '__main__':
 #    app.run_server(debug=True)

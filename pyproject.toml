@@ -18,6 +18,7 @@ dash-bootstrap-templates = "^1.1.2"
 census = "^0.8.21"
 states = "^0.2.1"
 us = "^3.1.1"
+geojson = "^3.1.0"
 
 
 [tool.poetry.group.dev.dependencies]

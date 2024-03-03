@@ -41,21 +41,26 @@ def acs_to_geopanda_merge():
     tiger_12_waterless = erase_water(tracts_tiger_12)
     tiger_17_waterless = erase_water(tracts_tiger_17)
     tiger_22_waterless = erase_water(tracts_tiger_22)
-
-
+    
     # merge acs data with census tracts geographies
     tiger_12_final = tiger_12_waterless.merge(
         acs5_2012, how = 'left', left_on = 'TRACTCE', right_on = 'tract').dropna()
     tiger_17_final = tiger_17_waterless.merge(
         acs5_2017, how = 'left', left_on = 'TRACTCE', right_on = 'tract').dropna()
-    tiger_22_final = tiger_22_waterless.merge(
-        acs5_2022, how = 'left', left_on = 'TRACTCE', right_on = 'tract').dropna()
+    
+    #get rid of tracts that changed, 44 dropped
+    tiger_22_dropped = gpd.sjoin(tiger_22_waterless, tiger_12_waterless,
+                                 how="inner", op="intersects")
+    tiger_22_dropped = tiger_22_dropped.drop_duplicates(subset='TRACTCE_left')
+
+    tiger_22_final = tiger_22_dropped.merge(
+        acs5_2022, how = 'left', left_on = 'TRACTCE_left', right_on = 'tract').dropna()
 
     # save files as geojsons to use in visualizations
-    tiger_12_final.to_file('../../data/original/tiger_12_final.geojson', 
+    tiger_12_final.to_file('../../data/geocoded/tiger_12_final.geojson', 
                            driver='GeoJSON')  
-    tiger_17_final.to_file('../../data/original/tiger_17_final.geojson', 
+    tiger_17_final.to_file('../../data/geocoded/tiger_17_final.geojson', 
                            driver='GeoJSON') 
-    tiger_22_final.to_file('../../data/original/tiger_22_final.geojson', 
+    tiger_22_final.to_file('../../data/geocoded/tiger_22_final.geojson', 
                            driver='GeoJSON') 
 

@@ -1,7 +1,7 @@
 """
 CAPP 30122
 Team: Tales of Second City
-Author: Suchi Tailor
+Author: Suchi Tailor and Fatima Irfan
 
 Code for querying the U.S. Census' API
 
@@ -113,4 +113,4 @@ def merge_dfs():
     merged_acs = pd.merge(merged_acs,data_2022,left_on="tract",right_on = "Tract Code_2022")
     merged_acs.drop(columns= ['Tract Code_2022'],inplace=True)
     
-    merged_acs.to_csv("../../data/full_demo_data.csv", index = False)   
+    return merged_acs

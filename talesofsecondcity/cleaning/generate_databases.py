@@ -6,6 +6,7 @@ Author: Victoria Beck and Fatima Irfan
 Generate final database with all public service and census data
 """
 import pandas as pd
+import geopandas as gpd
 from geocode_api import address_to_census_tract
 from geocode_api import address_to_census_tract
 from geocode_api.point_to_census_tract import geocode_missing_tracts, geocode_l_stops, find_lat_lon
@@ -37,9 +38,12 @@ clean_bus(bus_geocoded)
 #generate index file
 index.run()
 
-#generate demographics file
-census_scrape.merge_dfs()
+#generate demographics file with shapes
+full_acs_data = census_scrape.merge_dfs()
+census_tract_shapes = gpd.read_file("../data/geocoded/tiger_22_final.geojson")
+merged_demo = census_tract_shapes.merge(
+    full_acs_data, how = "left", right_on = 'tract', left_on = 'Tract Code'
+)
 
-
-
+merged_demo.to_csv('../data/full_demo_data.csv',index=False)
 

@@ -49,12 +49,11 @@ def acs_to_geopanda_merge():
         acs5_2017, how = 'left', left_on = 'TRACTCE', right_on = 'tract').dropna()
     
     #get rid of tracts that changed, 44 dropped
-    tiger_22_dropped = gpd.sjoin(tiger_22_waterless, tiger_12_waterless,
-                                 how="inner", predicate="intersects")
-    tiger_22_dropped = tiger_22_dropped.drop_duplicates(subset='TRACTCE_left')
+    tract_differences = list(set(tiger_22_waterless['TRACTCE']) - set(tiger_12_waterless['TRACTCE']))
+    tiger_22_dropped = tiger_22_waterless[~tiger_22_waterless['TRACTCE'].isin(tract_differences)]
 
     tiger_22_final = tiger_22_dropped.merge(
-        acs5_2022, how = 'right', left_on = 'TRACTCE_left', right_on = 'tract').dropna()
+        acs5_2022, how = 'right', left_on = 'TRACTCE', right_on = 'tract').dropna()
 
     # save files as geojsons to use in visualizations
     tiger_12_final.to_file('../../data/geocoded/tiger_12_final.geojson', 

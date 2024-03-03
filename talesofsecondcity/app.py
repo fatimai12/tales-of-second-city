@@ -168,7 +168,7 @@ def update_graph(x_axis_name, y_axis_name):
     return index_bar_chart
 
 @callback(
-    Output("Layer Map", "figure"),
+    Output("Layer Map", "children"),
     Input("map_variable", "value")
 )
 

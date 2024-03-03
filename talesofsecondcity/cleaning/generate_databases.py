@@ -6,12 +6,13 @@ Author: Victoria Beck and Fatima Irfan
 Generate final database with all public service and census data
 """
 import pandas as pd
-from geocode_api import point_to_census_tract, address_to_census_tract, clean_geocoded_data
+from geocode_api import address_to_census_tract
 from geocode_api import address_to_census_tract
 from geocode_api.point_to_census_tract import geocode_missing_tracts, geocode_l_stops, find_lat_lon
 from geocode_api.preprocess_data import preprocess
 from geocode_api.clean_geocoded_data import clean_libraries, clean_parks, clean_l_stops, clean_divvy, clean_bus
 from ..analysis import index
+from census_api import census_scrape
 
 preprocess()
 address_to_census_tract.run()
@@ -36,7 +37,9 @@ clean_bus(bus_geocoded)
 #generate index file
 index.run()
 
-#any ACS cleaning??
-#read in ACS files here and
-#NOW we can join all into a great big db
+#generate demographics file
+census_scrape.merge_dfs()
+
+
+
 

@@ -17,6 +17,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 # Index data
 index_data = pd.read_csv("data/index_data.csv")
 
+
 def display_index_choropleth():
     df = pd.read_csv('data/index_data.csv',dtype=str)
     df['APS Index'] = pd.to_numeric(df['APS Index'])
@@ -106,8 +107,7 @@ app.layout = dbc.Container([
                     id = "yaxis")
                     ]),
             dcc.Graph(
-                id = "Index graph",
-                figure  = index_bar_chart
+                id = "Index graph"
              )
         ], width = 6)
     ]),
@@ -148,6 +148,7 @@ def update_graph(x_axis_name, y_axis_name):
                                  color = "APS Index", 
                                  hover_name = "Tract")
     return index_bar_chart
+
 
 
 if __name__ == '__main__':

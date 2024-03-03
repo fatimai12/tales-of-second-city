@@ -94,3 +94,23 @@ def extract_2022_ACS5_data(key="7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     data_2022 = pd.DataFrame(data=data_2022.json()[1:], columns=col_names)
 
     data_2022.to_csv("../../data/original/acs5_data_2022.csv", index = False)
+
+def merge_dfs():
+    """
+    """
+    data_2012 = pd.read_csv("../../data/original/acs5_data_2012.csv", index_col = False)
+    data_2017 = pd.read_csv("../../data/original/acs5_data_2017.csv", index_col = False)
+    data_2017 = data_2017.iloc[:,1:]
+    data_2022 = pd.read_csv("../../data/original/acs5_data_2022.csv", index_col = False)
+    
+    data_2012.drop(columns = ['state','county'],inplace=True)
+    data_2017.drop(columns = ['NAME','state','county','Age: < 18'],inplace=True)
+    data_2022.drop(columns = ['State code','County code',
+                              'Name','Age: < 18'],inplace=True)
+    data_2022 = data_2022.add_suffix("_2022")
+
+    merged_acs = pd.merge(data_2012,data_2017,on="tract",suffixes=["_2012","_2017"])
+    merged_acs = pd.merge(merged_acs,data_2022,left_on="tract",right_on = "Tract Code_2022")
+    merged_acs.drop(columns= ['Tract Code_2022'],inplace=True)
+    
+    merged_acs.to_csv("../../data/full_demo_data.csv", index = False)   

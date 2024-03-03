@@ -57,7 +57,7 @@ variables_2017 = {"DP05_0001E" : "Total Pop (#)",
                   "DP05_0021PE" : "Age: 18+",
                   "DP05_0024PE" : "Age: 65+"}
 
-# 2012 variable names 
+# 2022 variable names 
 
 variables_2022 = {"DP05_0001E" : "Total Pop (#)",
                   "DP02_0001E" : "Total HH (#)", 

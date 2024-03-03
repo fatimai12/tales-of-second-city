@@ -112,5 +112,6 @@ def merge_dfs():
     merged_acs = pd.merge(data_2012,data_2017,on="tract",suffixes=["_2012","_2017"])
     merged_acs = pd.merge(merged_acs,data_2022,left_on="tract",right_on = "Tract Code_2022")
     merged_acs.drop(columns= ['Tract Code_2022'],inplace=True)
+    merged_acs["tract"] = merged_acs["tract"].astype(str)
     
     return merged_acs

@@ -39,9 +39,11 @@ index.run()
 #generate full demographics file with shapes
 full_acs_data = census_scrape.merge_dfs()
 census_tract_shapes = gpd.read_file("../data/geocoded/tiger_22_final.geojson")
+census_tract_shapes = census_tract_shapes.iloc[:, :12]
 merged_demo = census_tract_shapes.merge(
-    full_acs_data, how = "left", right_on = 'tract', left_on = 'Tract Code'
+    full_acs_data, how = "left", right_on = 'tract', left_on = 'TRACTCE'
 )
+merged_demo = merged_demo.rename(columns = {"NAME_y": "Name"})
 merged_demo.to_csv('../data/full_demo_data.csv',index=False)
 
 #generate public services with lat/long file

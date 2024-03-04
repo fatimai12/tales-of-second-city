@@ -98,7 +98,7 @@ def display_demo_chloropleth(col):
     # develop Choropleth maps
     map_12 = folium.Choropleth(
         geo_data=tiger_12,
-        name="Population: 2008-2012 ACS 5-year Estimates",
+        name="2008-2012 ACS 5-year Estimates",
         data=tiger_12,
         columns= ["GEOID", col],
         key_on= "feature.properties.GEOID",
@@ -108,11 +108,11 @@ def display_demo_chloropleth(col):
         highlight = True, 
         line_color = 'black',
         overlay = True,
-        legend_name= "Population: 2008-2012 ACS 5-year Estimates").add_to(base_map)
+        legend_name= "2008-2012 ACS 5-year Estimates").add_to(base_map)
     
     map_17 = folium.Choropleth(
         geo_data=tiger_17,
-        name="Population: 2013-2017 ACS 5-year Estimates",
+        name="2013-2017 ACS 5-year Estimates",
         data=tiger_17,
         columns= ["GEOID", col],
         key_on="feature.properties.GEOID",
@@ -122,12 +122,12 @@ def display_demo_chloropleth(col):
         highlight = False,
         overlay = True,
         line_color = 'black',
-        legend_name="Population: 2013-2017 ACS 5-year Estimates").add_to(base_map)
+        legend_name="2013-2017 ACS 5-year Estimates").add_to(base_map)
 
     map_22 = folium.Choropleth(
         geo_data=tiger_22,
-        name="Population: 2018-2022 ACS 5-year Estimates",
-        data=tiger_12,
+        name="2018-2022 ACS 5-year Estimates",
+        data=tiger_22,
         columns= ["GEOID", col],
         key_on="feature.properties.GEOID",
         fill_color="YlGn",
@@ -136,7 +136,7 @@ def display_demo_chloropleth(col):
         highlight = False,
         overlay = True,
         line_color = 'black',
-        legend_name="Population: 2018-2022 ACS 5-year Estimates").add_to(base_map)
+        legend_name="2018-2022 ACS 5-year Estimates").add_to(base_map)
         
     # Add Customized Tooltips to each map layer
     folium.features.GeoJson(

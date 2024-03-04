@@ -45,6 +45,11 @@ def run():
     divvy_geocode = divvy_geocode[["station_name","latitude", "longitude", "tractce10"]]
 
     # Clean up formatting to find tracts that are missing after batch geocoding
+    parks_geocode['latlong'] = parks_geocode['latitude'].astype(str) + '_' + parks_geocode['longitude'].astype(str)
+
+    parks_geocode = pd.merge(parks, parks_geocode, on="Common Identifier", how="left")
+
+
     parks_geocode = parks_geocode.rename(columns = {"id": "ID", "tract": "Tract"})
     bus_geocode = bus_geocode.rename(columns = {"tractce10": "Tract"})
     divvy_geocode = divvy_geocode.rename(columns = {"tractce10": "Tract"})

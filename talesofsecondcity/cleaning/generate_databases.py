@@ -14,6 +14,7 @@ from geocode_api.preprocess_data import preprocess
 from geocode_api.clean_geocoded_data import clean_libraries, clean_parks, clean_l_stops, clean_divvy, clean_bus
 from ..analysis import index
 from census_api import census_scrape
+from shapely.wkt import loads
 
 preprocess()
 address_to_census_tract.run()
@@ -38,13 +39,21 @@ index.run()
 
 #generate full demographics file with shapes
 full_acs_data = census_scrape.merge_dfs()
+full_acs_data["tract"] = full_acs_data["tract"].astype(str)
 census_tract_shapes = gpd.read_file("../data/geocoded/tiger_22_final.geojson")
+last_column = census_tract_shapes.iloc[:, -1]  # Select the last column
 census_tract_shapes = census_tract_shapes.iloc[:, :12]
+census_tract_shapes = pd.concat([census_tract_shapes, last_column], axis=1)
+
 merged_demo = census_tract_shapes.merge(
     full_acs_data, how = "left", right_on = 'tract', left_on = 'TRACTCE'
 )
 merged_demo = merged_demo.rename(columns = {"NAME_y": "Name"})
 merged_demo.to_csv('../data/full_demo_data.csv',index=False)
+
+merged_demo['geometry'] = merged_demo['geometry'].apply(loads)
+merged_demo_gdf = gpd.GeoDataFrame(merged_demo, geometry='geometry')
+merged_demo_gdf.to_file('../data/full_demo_data.geojson',driver='GeoJSON')
 
 #generate public services with lat/long file
 ps_with_type = [

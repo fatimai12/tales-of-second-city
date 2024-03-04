@@ -75,13 +75,13 @@ app.layout = dbc.Container([
                     index_data.columns.unique()[1:],
                     "Park Acres",
                     id = "xaxis")
-                    ], style = {"marginTop": 10, "marginBottom": 10}),
+                    ], style = {"marginTop": 5, "marginBottom": 5}),
             html.Div([
                 dcc.Dropdown(
                     index_data.columns.unique()[1:],
                     "Parks Score",
                     id = "yaxis")
-                    ], style = {"marginTop": 10, "marginBottom": 10}),
+                    ], style = {"marginTop": 5, "marginBottom": 5}),
             dcc.Graph(
                 id = "Index graph"
              )
@@ -108,7 +108,8 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Div([
             #     style={'text-align':'center', "color": "#FFEFD5", "fontSize": 25}),
-                html.H3('Demographic Factor % Change (from 2017 to 2022)'),
+                html.H3('Demographic Factor % Change (from 2017 to 2022)',
+                        style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
                 dcc.RadioItems(
                     id='factor', 
                     options=[
@@ -149,29 +150,18 @@ app.layout = dbc.Container([
                     {"label": "Total Population (#)", "value": "Total Pop (#)"},
                     {"label": "Total Households (#)", "value": "Total HH (#)"},
                     {"label": "Homeowners (%)", "value": "Home: Owner"},
-                    {"label": "Renters (%)", "value": "Home: Renter"},
                     {"label": "Race: White (%)", "value": "Race: White"},
                     {"label": "Race: Black/African-American (%)", "value": "Race: Black/AA"},
-                    {"label": "Race: American Indian/Alaskan (%)", "value": "Race: AI/Alaskan"},
-                    {"label": "Race: Asian (%)", "value": "Race: Asian"},
-                    {"label": "Race: Hawaiian/Pacific Islander (%)", "value": "Race: Hawaiian/PI"},
-                    {"label": "Race: Other (%)", "value": "Race: Other"},
                     {"label": "Ethnicity: Hispanic (%)", "value": "Ethnicty: Hisp."},
-                    {"label": "Ethnicity: Non-Hispanic (%)", "value": "Ethnicity: Non-Hisp."},
-                    {"label": "Highest level of education: Less than 9th Grade (%)", "value": "Edu: < 9th grade"},
-                    {"label": "Highest level of education: High School, No Diploma (%)", "value": "Edu: HS, no diploma"},
-                    {"label": "Highest level of education: High School Diploma (%)", "value": "Edu: HS Diploma"},
-                    {"label": "Highest level of education: Associate's Degree (%)", "value": "Edu: Associate's Degree"},
                     {"label": "Highest level of education: Bachelor's Degree (%)", "value": "Edu: Bachelor's Degree"},
-                    {"label": "Highest level of education: Graduate/Professional Degree (%)", "value": "Edu: Grad/Prof Degree"},
                     {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
-                    {"label": "Age 18+ (%)", "value": "Age: 18+"},
                     {"label": "Age 65+ (%)", "value": "Age: 65+"},
                     ], value = "Total Pop (#)", clearable = False),
             ]),
             html.Br(),
             html.Div([
-                html.Iframe(id = "Layer Map", srcDoc = None, width = "100%", height = "600px")
+                html.Iframe(id = "Layer Map", srcDoc = open('talesofsecondcity/visualization/layer_map.html','r').read(), 
+                            width = "100%", height = "600px")
             ])
         ])
     ]),

@@ -43,17 +43,28 @@ def acs_to_geopanda_merge():
     tiger_22_waterless = erase_water(tracts_tiger_22)
     
     # merge acs data with census tracts geographies
-    tiger_12_final = tiger_12_waterless.merge(
+    tiger_12 = tiger_12_waterless.merge(
         acs5_2012, how = 'left', left_on = 'TRACTCE', right_on = 'tract').dropna()
-    tiger_17_final = tiger_17_waterless.merge(
+    tiger_17 = tiger_17_waterless.merge(
         acs5_2017, how = 'left', left_on = 'TRACTCE', right_on = 'tract').dropna()
     
-    #get rid of tracts that changed, 44 dropped
+    # get rid of tracts that changed, 44 dropped
     tract_differences = list(set(tiger_22_waterless['TRACTCE']) - set(tiger_12_waterless['TRACTCE']))
     tiger_22_dropped = tiger_22_waterless[~tiger_22_waterless['TRACTCE'].isin(tract_differences)]
 
-    tiger_22_final = tiger_22_dropped.merge(
+    tiger_22 = tiger_22_dropped.merge(
         acs5_2022, how = 'right', left_on = 'TRACTCE', right_on = 'tract').dropna()
+    
+    # drop census tracts outside of city boundaries
+    tiger_12 = tiger_12.set_crs("EPSG:4326")
+    tiger_17 = tiger_17.set_crs("EPSG:4326")
+    tiger_22 = tiger_22.set_crs("EPSG:4326")
+
+    city_boundaries = gpd.read_file('../../data/original/Boundaries - City.geojson')
+
+    tiger_12_final = gpd.overlay(tiger_12, city_boundaries, how = "intersection")
+    tiger_17_final = gpd.overlay(tiger_17, city_boundaries, how = "intersection")
+    tiger_22_final = gpd.overlay(tiger_22, city_boundaries, how = "intersection")
 
     # save files as geojsons to use in visualizations
     tiger_12_final.to_file('../../data/geocoded/tiger_12_final.geojson', 

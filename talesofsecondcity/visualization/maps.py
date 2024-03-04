@@ -127,13 +127,21 @@ def display_demo_chloropleth(col):
     """
 
     #generate map & base layers
-    base_map = folium.Map(location=[lat, long], zoom_start=11, overlay = False, name = "base")
-    folium.GeoJson(city_boundaries, name = "city boundaries", fill = False, color = "black").add_to(base_map)
-    folium.GeoJson(neighborhoods, name = "Neigborhood Boundaries", 
-               zoom_on_click= True,
-               fill = False,     
-                style_function=lambda feature: {
-                    # "fillColor": "#ffff00",
+    base_map = folium.Map(location=[lat, long], 
+                          zoom_start=11, 
+                          overlay = False, 
+                          name = "base")
+    
+    folium.GeoJson(city_boundaries, 
+                   name = "city boundaries", 
+                   fill = False, 
+                   color = "black"
+                   ).add_to(base_map)
+    folium.GeoJson(neighborhoods, 
+                   name = "Neigborhood Boundaries", 
+                   zoom_on_click= True,
+                   fill = False,     
+                   style_function=lambda feature: {
                     "color": "maroon",
                     "weight": 3,
                     "dashArray": "5, 5",
@@ -153,7 +161,8 @@ def display_demo_chloropleth(col):
         line_color = 'black',
         overlay = True,
         nan_fill_color = 'Grey',
-        legend_name= "2008-2012 ACS 5-year Estimates of " + col).add_to(base_map)
+        legend_name= "2008-2012 ACS 5-year Estimates of " + col
+        ).add_to(base_map)
     
     map_17 = folium.Choropleth(
         geo_data=demo_geojson_city,
@@ -168,7 +177,8 @@ def display_demo_chloropleth(col):
         overlay = True,
         nan_fill_color = 'Grey',
         line_color = 'black',
-        legend_name="2013-2017 ACS 5-year Estimates of " + col).add_to(base_map)
+        legend_name="2013-2017 ACS 5-year Estimates of " + col
+        ).add_to(base_map)
 
     map_22 = folium.Choropleth(
         geo_data=demo_geojson_city,
@@ -183,14 +193,17 @@ def display_demo_chloropleth(col):
         overlay = True,
         nan_fill_color = 'Grey',
         line_color = 'black',
-        legend_name="2018-2022 ACS 5-year Estimates of " + col).add_to(base_map)
+        legend_name="2018-2022 ACS 5-year Estimates of " + col
+        ).add_to(base_map)
 
     # Add Customized Tooltips to each map layer
     folium.features.GeoJson(
         data=demo_geojson_city,
         name='2008 - 2012 Population Features',
         smooth_factor=2,
-        style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
+        style_function=lambda x: {'color':'black',
+                                  'fillColor':'transparent',
+                                  'weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
             fields=[col + "_2012"],
             aliases=[col], 
@@ -269,7 +282,25 @@ def ps_marker_map():
 
     # generate base map
     ps_data = gpd.read_file('talesofsecondcity/data/full_ps_data.csv')
-    ps_map = folium.Map(location=[41.7377, -87.6976], zoom_start=11, overlay = False, name = "ps_base")
+    ps_map = folium.Map(location=[41.7377, -87.6976], 
+                        zoom_start=11, 
+                        overlay = False, 
+                        name = "ps_base")
+    folium.GeoJson(city_boundaries, 
+                   name = "city boundaries", 
+                   fill = False, 
+                   color = "black"
+                   ).add_to(ps_map)
+    folium.GeoJson(neighborhoods, name = "Neigborhood Boundaries", 
+               zoom_on_click= True,
+               fill = False,     
+                style_function=lambda feature: {
+                    # "fillColor": "#ffff00",
+                    "color": "maroon",
+                    "weight": 3,
+                    "dashArray": "5, 5",
+                },
+            ).add_to(ps_map)
 
     # COMMENT OUT BELOW LINE WHEN INCLUDING BUS STOPS
     ps_data = ps_data.drop(ps_data[ps_data['service_type'] == 'bus stop'].index)

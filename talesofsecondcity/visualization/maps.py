@@ -12,14 +12,12 @@ import folium
 import pandas as pd
 import plotly.express as px
 
-# all_census_tracts = gpd.read_file("talesofsecondcity/data/geocoded/tiger_22_final.geojson")
-# all_census_tracts = all_census_tracts.to_crs("EPSG:4326")
 city_boundaries = gpd.read_file('talesofsecondcity/data/original/Boundaries - City.geojson')
-# city_census_tracts = gpd.overlay(all_census_tracts, city_boundaries, how = "intersection")
 demo_geojson = gpd.read_file("talesofsecondcity/data/full_demo_data.geojson",dtype="str")
 demo_geojson_city = gpd.overlay(demo_geojson, city_boundaries, how = "intersection")
+columns_to_convert = demo_geojson_city.columns[13:77]
+demo_geojson_city[columns_to_convert] = demo_geojson_city[columns_to_convert].apply(pd.to_numeric, errors='coerce')
 neighborhoods = gpd.read_file('talesofsecondcity/data/original/Boundaries - Neighborhoods.geojson')
-tiger_12 = gpd.read_file('talesofsecondcity/data/geocoded/tiger_12_final.geojson')
 
 lat=41.8227
 long=-87.6014
@@ -60,11 +58,11 @@ def display_change_over_time_choropleth(factor):
     df.drop(columns=['NAME_x','Name','NAMELSAD','MTFCC','FUNCSTAT'],inplace=True)
     df.iloc[:, ~df.columns.str.contains('geometry')] = df.iloc[:, ~df.columns.str.contains('geometry')].apply(pd.to_numeric)
     factor_2022 = factor + "_2022"
-    factor_2017 = factor + "_2017"
+    factor_2012 = factor + "_2012"
     new_var = "% Change in " + factor
     df[new_var] = (
         (df[factor_2022]/df['Total Pop (#)_2022']) - 
-        (df[factor_2017]/df['Total Pop (#)_2017'])
+        (df[factor_2012]/df['Total Pop (#)_2012'])
         ) * 100
 
     fig = px.choropleth(
@@ -113,21 +111,6 @@ def display_demo_chloropleth(col):
                     "dashArray": "5, 5",
                 },
             ).add_to(base_map)
-    
-    # map_12 = folium.Choropleth(
-    #     geo_data=demo_geojson_city,
-    #     name="2008-2012 ACS 5-year Estimates",
-    #     data=tiger_12,
-    #     columns= ["GEOID", col],
-    #     key_on= "feature.properties.GEOID",
-    #     fill_color= "YlGn",
-    #     fill_opacity= 0.7,
-    #     line_opacity= 0.2,
-    #     highlight = True,
-    #     line_color = 'black',
-    #     overlay = True,
-    #     nan_fill_color = 'Grey',
-    #     legend_name= "2008-2012 ACS 5-year Estimates").add_to(base_map)
 
     map_12 = folium.Choropleth(
         geo_data=demo_geojson_city,
@@ -181,14 +164,8 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=[
-                    # 'Total Pop (#)_2012',
-                    col + "_2012"
-                    ],
-            aliases=[
-                    # "Total Population (#):",
-                     col
-                    ], 
+            fields=[col + "_2012"],
+            aliases=[col], 
             localize=True,
             sticky=False,
             labels=True,
@@ -208,14 +185,8 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=[
-                    # 'Total Pop (#)_2017',
-                    col + "_2017"
-                    ],
-            aliases=[
-                    # "Total Population (#):",
-                     col
-                    ], 
+            fields=[col + "_2017"],
+            aliases=[col], 
             localize=True,
             sticky=False,
             labels=True,
@@ -235,10 +206,7 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=[
-                    # 'Total Pop (#)_2022',
-                    col + "_2022"
-                    ],
+            fields=[col + "_2022"],
             aliases=[
                     # "Total Population (#):",
                      col
@@ -262,4 +230,53 @@ def display_demo_chloropleth(col):
     
     return open("talesofsecondcity/visualization/layer_map.html", 'r').read()
 
-    # return base_map
+
+def ps_marker_map():
+
+    # generate base map
+    ps_data = gpd.read_file('talesofsecondcity/data/full_ps_data.csv')
+    ps_map = folium.Map(location=[41.7377, -87.6976], zoom_start=11, overlay = False, name = "ps_base")
+
+    # COMMENT OUT BELOW LINE WHEN INCLUDING BUS STOPS
+    ps_data = ps_data.drop(ps_data[ps_data['service_type'] == 'bus stop'].index)
+
+    # update for map readability
+    service_dict = {'bus stop' : 'Bus Stop',
+                    'divvy station' : 'Divvy Station', 
+                    'l stop': 'L Stop', 
+                    'park' : 'Park', 
+                    'library' : 'Library'}
+    ps_data["service_type"] = ps_data["service_type"].replace(service_dict)
+
+    # include below line if running with bus stops
+    # bus_stops = folium.FeatureGroup("Bus Stops").add_to(ps_map)
+    divvy_stations = folium.FeatureGroup("Divvy Bike Stations").add_to(ps_map)
+    l_stops = folium.FeatureGroup("L Stop").add_to(ps_map)
+    parks = folium.FeatureGroup("Parks").add_to(ps_map)
+    library = folium.FeatureGroup("Libraries").add_to(ps_map)
+
+    # Create markers for each location
+    feature_dict = {#'Bus Stop' : bus_stops, 
+                'Divvy Station' : divvy_stations,
+                'L Stop': l_stops, 
+                'Park' : parks, 
+                'Library' : library
+                }
+    
+    color_dict = {'Bus Stop' : 'red', 
+                'Divvy Station' : 'blue',
+                'L Stop': 'purple', 
+                'Park' : 'darkgreen', 
+                'Library' : 'orange'
+                }
+    
+    for _, row in ps_data.iterrows():
+        folium.Marker(
+            location = [row["latitude"], row["longitude"]],
+            tooltip = f'{row["service_type"]} : {row["Name"]}',
+            icon= folium.Icon(color = color_dict[row["service_type"]]),
+        ).add_to(feature_dict[row["service_type"]])
+
+    folium.LayerControl().add_to(ps_map)
+
+    return ps_map

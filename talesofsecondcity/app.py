@@ -154,6 +154,7 @@ app.layout = dbc.Container([
                     {"label": "Race: White (%)", "value": "Race: White"},
                     {"label": "Race: Black/African-American (%)", "value": "Race: Black/AA"},
                     {"label": "Ethnicity: Hispanic (%)", "value": "Ethnicty: Hisp."},
+                    {"label": "Highest level of education: High School Diploma (%)", "value": "Edu: HS Diploma"},
                     {"label": "Highest level of education: Bachelor's Degree (%)", "value": "Edu: Bachelor's Degree"},
                     {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
                     {"label": "Age 65+ (%)", "value": "Age: 65+"},

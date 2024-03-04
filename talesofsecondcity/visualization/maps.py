@@ -50,7 +50,8 @@ def display_change_over_time_choropleth(factor):
     df.iloc[:, ~df.columns.str.contains('geometry')] = df.iloc[:, ~df.columns.str.contains('geometry')].apply(pd.to_numeric)
     factor_2022 = factor + "_2022"
     factor_2017 = factor + "_2017"
-    diff = (
+    new_var = "% Change in " + factor
+    df[new_var] = (
         (df[factor_2022]/df['Total Pop (#)_2022']) - 
         (df[factor_2017]/df['Total Pop (#)_2017'])
         ) * 100
@@ -60,8 +61,9 @@ def display_change_over_time_choropleth(factor):
         geojson = demo_geojson_city,
         featureidkey = 'properties.TRACTCE',
         locations = 'tract',
-        color = diff,
-        range_color = (-max(abs(diff)), max(abs(diff))),
+        color = new_var,
+        range_color = (-max(abs(df[new_var])), 
+                       max(abs(df[new_var]))),
         color_continuous_scale = 'viridis',
         scope = 'usa',
         center = dict(lat = lat, lon = long),
@@ -70,8 +72,6 @@ def display_change_over_time_choropleth(factor):
     fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(autosize = True, geo = dict(projection_scale = 70),
                       margin=dict(t=0, b=0, l=0, r=0))
-    legend_title = "% Change in " + factor
-    fig.update_layout(legend_title_text=legend_title)
     return fig
 
 
@@ -158,12 +158,12 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=['Home: Owner_2012',
+            fields=['Total Pop (#)_2012',
                     'Home: Renter_2012',
                     'Median HH Income ($)_2012',
                     'Edu: HS, no diploma_2012',
                     ],
-            aliases=["Home Owners (%):",
+            aliases=["Total Population (#):",
                         "Home Renters (%):",
                         "Median HH Income ($)",
                         "No HS Diploma (%)",
@@ -187,15 +187,12 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=['Home: Owner_2017',
+            fields=['Total Pop (#)"_2017',
                     'Home: Renter_2017',
                     'Median HH Income ($)_2017',
                     'Edu: HS, no diploma_2017',
                     ],
-            aliases=["Home Owners (%):",
-                        "Home Renters (%):",
-                        "Median HH Income ($)",
-                        "No HS Diploma (%)",
+            aliases=["Total Population (#):",
                     ], 
             localize=True,
             sticky=False,
@@ -216,15 +213,9 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=['Home: Owner_2022',
-                    'Home: Renter_2022',
-                    'Median HH Income ($)_2022',
-                    'Edu: HS, no diploma_2022',
+            fields=['Total Pop (#)"_2022',
                     ],
-            aliases=["Home Owners (%):",
-                        "Home Renters (%):",
-                        "Median HH Income ($)",
-                        "No HS Diploma (%)",
+            aliases=["Total Population (#):",
                     ], 
             localize=True,
             sticky=False,

@@ -242,5 +242,8 @@ def display_demo_chloropleth(col):
     
     folium.LayerControl().add_to(base_map)
 
+    base_map.save("layer_map.html")
+    
+    return open("layer_map.html", 'r').read()
 
-    return base_map
+    # return base_map

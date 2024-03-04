@@ -160,7 +160,8 @@ app.layout = dbc.Container([
             ]),
             html.Br(),
             html.Div([
-                html.Iframe(id = "Layer Map", srcDoc = None, width = "100%", height = "600px")
+                html.Iframe(id = "Layer Map", srcDoc = open('talesofsecondcity/visualization/layer_map.html','r').read(), 
+                            width = "100%", height = "600px")
             ])
         ])
     ]),

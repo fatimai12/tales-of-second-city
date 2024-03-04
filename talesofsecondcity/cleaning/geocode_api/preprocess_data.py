@@ -3,7 +3,7 @@ CAPP 30122
 Team: Tales of Second City
 Author: Victoria Beck
 
-Clean parks data for use in geocode api
+Clean parks and libraries data for use in geocode api
 
 
 """
@@ -11,6 +11,9 @@ Clean parks data for use in geocode api
 import pandas as pd
 
 def preprocess():
+    """
+    Read in parks and libraries data and clean. Exclude rows without addresses.
+    """
 
     parks = pd.read_csv("../data/original/CPD_Parks.csv", dtype = str, 
                         skipinitialspace = True)

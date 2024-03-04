@@ -23,6 +23,9 @@ lat=41.8227
 long=-87.6014
 
 def display_index_choropleth():
+    """
+    Generate choropleth map that displays index value of each census tract
+    """
     df = pd.read_csv('talesofsecondcity/data/index_data.csv',dtype=str)
     df['APS Index'] = pd.to_numeric(df['APS Index'])
 
@@ -54,6 +57,16 @@ def display_index_choropleth():
     return fig
 
 def display_change_over_time_choropleth(factor):
+    """
+    Choropleth map representing change in select demographics between 2012 and 
+    2022
+
+    Inputs: 
+        Factor (str): variable selected in dash interaction
+
+    Output:
+        fig: map representing selected variable
+    """
     df = pd.read_csv('talesofsecondcity/data/full_demo_data.csv')
     df.drop(columns=['NAME_x','Name','NAMELSAD','MTFCC','FUNCSTAT'],inplace=True)
     df.iloc[:, ~df.columns.str.contains('geometry')] = df.iloc[:, ~df.columns.str.contains('geometry')].apply(pd.to_numeric)
@@ -97,6 +110,21 @@ def display_change_over_time_choropleth(factor):
 
 
 def display_demo_chloropleth(col):
+    """
+    Display folium map of select demographics in census tracts for timeframes 
+    extracted from three ACS datasets. Layers allow you to choose which ACS 
+    dataset/time-frame you are pulling from.
+
+    Includes layers that outline city and neighborhood boundaries. 
+
+    Saves map as an html for dash integration purposes. 
+
+    Inputs:
+        col (str): variable selected in dash interface
+    
+    Outputs:
+        html: html file containing the updated map
+    """
 
     #generate map & base layers
     base_map = folium.Map(location=[lat, long], zoom_start=11, overlay = False, name = "base")
@@ -232,6 +260,12 @@ def display_demo_chloropleth(col):
 
 
 def ps_marker_map():
+    """
+    Generates a folium map containing location markers for parks, libraries, 
+    divvy bike stations and L train stops. By default, excludes bus stops due to
+    number of bus stops crashing the app on author's computer. Code & comments
+    written out for users to opt in to include bus stops. 
+    """
 
     # generate base map
     ps_data = gpd.read_file('talesofsecondcity/data/full_ps_data.csv')
@@ -248,14 +282,14 @@ def ps_marker_map():
                     'library' : 'Library'}
     ps_data["service_type"] = ps_data["service_type"].replace(service_dict)
 
-    # include below line if running with bus stops
+    # INCLUDE BELOW LINE IF RUNNING NWITH BUS STOPS
     # bus_stops = folium.FeatureGroup("Bus Stops").add_to(ps_map)
     divvy_stations = folium.FeatureGroup("Divvy Bike Stations").add_to(ps_map)
     l_stops = folium.FeatureGroup("L Stop").add_to(ps_map)
     parks = folium.FeatureGroup("Parks").add_to(ps_map)
     library = folium.FeatureGroup("Libraries").add_to(ps_map)
 
-    # Create markers for each location
+    # Create markers for each location (REMOVE BELOW # IF INCLUDING BUS STOPS)
     feature_dict = {#'Bus Stop' : bus_stops, 
                 'Divvy Station' : divvy_stations,
                 'L Stop': l_stops, 

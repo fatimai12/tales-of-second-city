@@ -16,6 +16,7 @@ l_stops_df = pd.read_csv("../data/original/CTA_-_System_Information_-_List_of__L
 
 def geocode_l_stops():
     """
+    Create data frame containing latitudes and longitudes for l stops
     """
     geolocator = Nominatim(user_agent="talesofsecondcity") 
 

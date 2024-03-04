@@ -90,7 +90,7 @@ def display_change_over_time_choropleth(factor):
         scope = 'usa',
         center = dict(lat = lat, lon = long),
         basemap_visible = False,
-        title = 'Demographic Factor % Change (from 2017 to 2022)')
+        title = 'Demographic Factor % Change (from 2012 to 2022)')
 
     fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(autosize = True, geo = dict(projection_scale = 70),

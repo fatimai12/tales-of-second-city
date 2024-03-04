@@ -103,7 +103,7 @@ app.layout = dbc.Container([
                     figure = fig_idx,
                     style = {"width": "100%", "height": "600px"},
                     responsive = True)
-            ]), width=8),
+            ]), width=8,
 
     #change over time map
         dbc.Col([
@@ -156,12 +156,6 @@ app.layout = dbc.Container([
             ]),
             html.Br(),
             html.Div([
-<<<<<<< HEAD
-                html.Iframe(id = "Layer Map", srcDoc = open('talesofsecondcity/visualization/layer_map.html','r').read(),width = '100%',height='600')
-            ])
-        ])
-    ])
-=======
                 html.Iframe(id = "Layer Map", srcDoc = None, width = "100%", height = "600px")
             ])
         ])
@@ -191,7 +185,6 @@ app.layout = dbc.Container([
     ])
 
 
->>>>>>> c78e05fa904a942dbc3a80ac43a5ef543d11e414
 
 ])
 

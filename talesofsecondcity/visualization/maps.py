@@ -39,7 +39,8 @@ def display_index_choropleth():
         center = dict(lat = lat, lon = long),
         basemap_visible = False)
 
-    fig.update_layout(autosize = True, geo = dict(projection_scale = 70))
+    fig.update_layout(autosize = True, geo = dict(projection_scale = 70),
+                      margin=dict(t=0, b=0, l=0, r=0))
 
     return fig
 
@@ -63,7 +64,8 @@ def display_change_over_time_choropleth():
         center = dict(lat = lat, lon = long),
         basemap_visible = False)
 
-    fig.update_layout(autosize = True, geo = dict(projection_scale = 70))
+    fig.update_layout(autosize = True, geo = dict(projection_scale = 70),
+                      margin=dict(t=0, b=0, l=0, r=0))
 
     return fig
 

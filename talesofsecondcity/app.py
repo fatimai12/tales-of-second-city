@@ -62,7 +62,7 @@ app.layout = dbc.Container([
                      style = {"color": "#FFFFFF", "fontSize": 18}),
             dash_table.DataTable(data = index_data.to_dict("records"),
                                  fixed_columns = {"headers": True, "data": 1},
-                                 style_table={'minWidth': '100%'},
+                                 style_table={"minWidth": '100%'},
                                  page_size = 15,
                                  style_cell = {"backgroundColor": "#FFFAF0", "color": "#2F4F4F"},
                                  style_header = {"backgroundColor": "#BFD9BF", 
@@ -76,15 +76,13 @@ app.layout = dbc.Container([
                     index_data.columns.unique()[1:],
                     "Park Acres",
                     id = "xaxis")
-                    ]),
-            html.Br(),
+                    ], style = {"marginTop": 10, "marginBottom": 10}),
             html.Div([
                 dcc.Dropdown(
                     index_data.columns.unique()[1:],
                     "Parks Score",
                     id = "yaxis")
-                    ]),
-            html.Br(),
+                    ], style = {"marginTop": 10, "marginBottom": 10}),
             dcc.Graph(
                 id = "Index graph"
              )
@@ -95,14 +93,17 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-
-            html.H3('Public Service Access by Census Tract', 
-            style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
+            html.Div([
+                html.Br(),
+                html.H3('Public Service Access by Census Tract', 
+                style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
             
-            dcc.Graph(
-                id='map-idx',
-                figure = fig_idx)
-        ], width=8),
+                dcc.Graph(
+                    id='map-idx',
+                    figure = fig_idx,
+                    style = {"width": "100%", "height": "600px"},
+                    responsive = True)
+            ]), width=8),
 
     #change over time map
         dbc.Col([
@@ -115,7 +116,6 @@ app.layout = dbc.Container([
                 figure = fig_change)
         ], width=6)
     ]),
-
 
     dbc.Row([
         dbc.Col([
@@ -152,14 +152,46 @@ app.layout = dbc.Container([
                     {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
                     {"label": "Age 18+ (%)", "value": "Age: 18+"},
                     {"label": "Age 65+ (%)", "value": "Age: 65+"},
-                    ]),
+                    ], value = "Total Pop (#)", clearable = False),
             ]),
             html.Br(),
             html.Div([
+<<<<<<< HEAD
                 html.Iframe(id = "Layer Map", srcDoc = open('talesofsecondcity/visualization/layer_map.html','r').read(),width = '100%',height='600')
             ])
         ])
     ])
+=======
+                html.Iframe(id = "Layer Map", srcDoc = None, width = "100%", height = "600px")
+            ])
+        ])
+    ]),
+
+    #change over time map
+    dbc.Row([
+        dbc.Col([
+            html.Div([
+                html.H3('Demographic Factor Change', 
+                style={'text-align':'center', "color": "#FFEFD5", "fontSize": 25}),
+                
+                dcc.Graph(
+                    id='map-change',
+                    figure = fig_change,
+                    style = {"width": "100%", "height": "600px"},
+                    responsive = True)
+            ])
+        ], width = 12)
+    ], align='center'),
+
+    dbc.Row([
+        dbc.Col([
+            html.Footer("Victoria Beck, Fatima Irfan, Suchi Tailor, CAPP 122 Winter 2024",
+                        style = {"textAlign": "center", "marginTop": 20, "marginBottom": 5})
+        ])
+    ])
+
+
+>>>>>>> c78e05fa904a942dbc3a80ac43a5ef543d11e414
 
 ])
 
@@ -185,6 +217,7 @@ def generate_layer_map(variable_name):
     if not variable_name:
         variable_name = 'Total Pop (#)'
     layer_map = display_demo_chloropleth(variable_name)
+
     return layer_map
 
     # return html.Iframe(srcDoc = layer_map, style = {'width': '100%', 'height': '600px'})

@@ -108,7 +108,8 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Div([
             #     style={'text-align':'center', "color": "#FFEFD5", "fontSize": 25}),
-                html.H3('Demographic Factor % Change (from 2017 to 2022)'),
+                html.H3('Demographic Factor % Change (from 2017 to 2022)',
+                        style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
                 dcc.RadioItems(
                     id='factor', 
                     options=[
@@ -159,7 +160,8 @@ app.layout = dbc.Container([
             ]),
             html.Br(),
             html.Div([
-                html.Iframe(id = "Layer Map", srcDoc = None, width = "100%", height = "600px")
+                html.Iframe(id = "Layer Map", srcDoc = open('talesofsecondcity/visualization/layer_map.html','r').read(), 
+                            width = "100%", height = "600px")
             ])
         ])
     ]),

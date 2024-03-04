@@ -80,11 +80,10 @@ app.layout = dbc.Container([
                 dcc.Dropdown(
                     index_data.columns.unique()[1:],
                     "Parks Score",
-                    id = "yaxis")
-                    ], style = {"marginTop": 5, "marginBottom": 5}),
-            dcc.Graph(
-                id = "Index graph"
-             )
+                    id = "yaxis"),
+                dcc.Graph(
+                    id = "Index graph"
+                )], style = {"marginTop": 5, "marginBottom": 10}),
         ], width = 6)
     ]),
 
@@ -93,13 +92,13 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Div([
                 html.Br(),
-                html.H3('Public Service Access by Census Tract', 
-                style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
+                #html.H3('Public Service Access by Census Tract', 
+                #style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
                 
                 dcc.Graph(
                     id='map-idx',
                     figure = fig_idx,
-                    # style = {"width": "100%", "height": "600px"},
+                    style = {"width": "100%", "height": "600px"},
                     responsive = True)
             ])
         ], width = 6),
@@ -108,31 +107,33 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Div([
             #     style={'text-align':'center', "color": "#FFEFD5", "fontSize": 25}),
-                html.H3('Demographic Factor % Change (from 2012 to 2022)',
-                        style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
-                dcc.RadioItems(
-                    id='factor', 
-                    options=[
-                        {"label": "Homeowners (%)", "value": "Home: Owner"},
-                        {"label": "Race: White (%)", "value": "Race: White"},
-                        {"label": "Race: Black/African-American (%)", "value": "Race: Black/AA"},
-                        {"label": "Ethnicity: Hispanic (%)", "value": "Ethnicty: Hisp."},
-                        {"label": "Highest level of education: Bachelor's Degree (%)", "value": "Edu: Bachelor's Degree"},
-                        {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
-                        {"label": "Age 65+ (%)", "value": "Age: 65+"}
-                    ], value = "Home: Owner",
-                    inline=True
-                ),
-                
+                #html.H3('Demographic Factor % Change (from 2017 to 2022)',
+                #        style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
                 dcc.Graph(
                     id='map-change',
                     # figure = fig_change,
-                    # style = {"width": "100%", "height": "600px"},
+                    style = {"width": "100%", "height": "600px"},
                     responsive = True)
             ]),
         ], width = 6),
+    ], style = {"verticalAlign": "top"}),
+    dbc.Row([
+        dbc.Col([
+        dcc.RadioItems(
+            id='factor', 
+            options=[
+                {"label": "Homeowners (%)", "value": "Home: Owner"},
+                {"label": "Race: White (%)", "value": "Race: White"},
+                {"label": "Race: Black/African-American (%)", "value": "Race: Black/AA"},
+                {"label": "Ethnicity: Hispanic (%)", "value": "Ethnicty: Hisp."},
+                {"label": "Highest level of education: Bachelor's Degree (%)", "value": "Edu: Bachelor's Degree"},
+                {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
+                {"label": "Age 65+ (%)", "value": "Age: 65+"}
+            ], value = "Home: Owner",
+            inline=True
+        )
+        ], width = {"size": 6, "offset": 6})
     ]),
-
     dbc.Row([
         dbc.Col([
             html.Br(),
@@ -153,6 +154,7 @@ app.layout = dbc.Container([
                     {"label": "Race: White (%)", "value": "Race: White"},
                     {"label": "Race: Black/African-American (%)", "value": "Race: Black/AA"},
                     {"label": "Ethnicity: Hispanic (%)", "value": "Ethnicty: Hisp."},
+                    {"label": "Highest level of education: High School Diploma (%)", "value": "Edu: HS Diploma"},
                     {"label": "Highest level of education: Bachelor's Degree (%)", "value": "Edu: Bachelor's Degree"},
                     {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
                     {"label": "Age 65+ (%)", "value": "Age: 65+"},
@@ -195,7 +197,8 @@ def update_graph(x_axis_name, y_axis_name):
     index_bar_chart = px.scatter(index_data, x = x_axis_name, 
                                  y = y_axis_name, 
                                  color = "APS Index", 
-                                 hover_name = "Tract")
+                                 hover_name = "Tract",
+                                 title = "Public Service Accessibility in Chicago")
     return index_bar_chart
 
 @app.callback(

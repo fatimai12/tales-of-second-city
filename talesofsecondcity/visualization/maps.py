@@ -12,19 +12,12 @@ import folium
 import pandas as pd
 import plotly.express as px
 
-# all_census_tracts = gpd.read_file("talesofsecondcity/data/geocoded/tiger_22_final.geojson")
-# all_census_tracts = all_census_tracts.to_crs("EPSG:4326")
 city_boundaries = gpd.read_file('talesofsecondcity/data/original/Boundaries - City.geojson')
-# city_census_tracts = gpd.overlay(all_census_tracts, city_boundaries, how = "intersection")
 demo_geojson = gpd.read_file("talesofsecondcity/data/full_demo_data.geojson",dtype="str")
 demo_geojson_city = gpd.overlay(demo_geojson, city_boundaries, how = "intersection")
-# demo_geojson_city.iloc[:,13:76] = pd.to_numeric(demo_geojson_city.iloc[:,13:76])
-# demo_geojson_city[demo_geojson_city.iloc[:,13:76]] = demo_geojson_city[demo_geojson_city.iloc[:,13:76]].apply(pd.to_numeric)
 columns_to_convert = demo_geojson_city.columns[13:77]
 demo_geojson_city[columns_to_convert] = demo_geojson_city[columns_to_convert].apply(pd.to_numeric, errors='coerce')
 neighborhoods = gpd.read_file('talesofsecondcity/data/original/Boundaries - Neighborhoods.geojson')
-tiger_12 = gpd.read_file('talesofsecondcity/data/geocoded/tiger_12_final.geojson')
-demo_geojson_city
 
 lat=41.8227
 long=-87.6014
@@ -45,10 +38,21 @@ def display_index_choropleth():
         color_continuous_scale = 'viridis',
         scope = 'usa',
         center = dict(lat = lat, lon = long),
-        basemap_visible = False)
+        basemap_visible = False,
+        title = 'Public Service Access by Census Tract')
 
     fig.update_layout(autosize = True, geo = dict(projection_scale = 70),
-                      margin=dict(t=0, b=0, l=0, r=0))
+                      margin = dict(t=0, b=0, l=0, r=0),
+                      coloraxis_colorbar=dict(
+                          len=0.8,
+                          yanchor='top',
+                          y = 0.9,
+                          ypad = 0,
+                          thickness=10,
+                          xref = "container",
+                          yref = "container",
+                          orientation = "h"
+                    ))
 
     return fig
 
@@ -85,11 +89,23 @@ def display_change_over_time_choropleth(factor):
         color_continuous_scale = 'viridis',
         scope = 'usa',
         center = dict(lat = lat, lon = long),
-        basemap_visible = False)
+        basemap_visible = False,
+        title = 'Demographic Factor % Change (from 2017 to 2022)')
 
     fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(autosize = True, geo = dict(projection_scale = 70),
-                      margin=dict(t=0, b=0, l=0, r=0))
+                      margin=dict(t=0, b=0, l=0, r=0),
+                      coloraxis_colorbar=dict(
+                          len=0.8,
+                          xpad=0.5,
+                          yanchor='top',
+                          y = 0.9,
+                          ypad = 0,
+                          thickness=10,
+                          xref = "container",
+                          yref = "container",
+                          orientation = "h"
+                    ))
     return fig
 
 
@@ -123,21 +139,6 @@ def display_demo_chloropleth(col):
                     "dashArray": "5, 5",
                 },
             ).add_to(base_map)
-    
-    # map_12 = folium.Choropleth(
-    #     geo_data=demo_geojson_city,
-    #     name="2008-2012 ACS 5-year Estimates",
-    #     data=tiger_12,
-    #     columns= ["GEOID", col],
-    #     key_on= "feature.properties.GEOID",
-    #     fill_color= "YlGn",
-    #     fill_opacity= 0.7,
-    #     line_opacity= 0.2,
-    #     highlight = True,
-    #     line_color = 'black',
-    #     overlay = True,
-    #     nan_fill_color = 'Grey',
-    #     legend_name= "2008-2012 ACS 5-year Estimates").add_to(base_map)
 
     map_12 = folium.Choropleth(
         geo_data=demo_geojson_city,
@@ -191,14 +192,8 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=[
-                    # 'Total Pop (#)_2012',
-                    col + "_2012"
-                    ],
-            aliases=[
-                    # "Total Population (#):",
-                     col
-                    ], 
+            fields=[col + "_2012"],
+            aliases=[col], 
             localize=True,
             sticky=False,
             labels=True,
@@ -218,14 +213,8 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=[
-                    # 'Total Pop (#)_2017',
-                    col + "_2017"
-                    ],
-            aliases=[
-                    # "Total Population (#):",
-                     col
-                    ], 
+            fields=[col + "_2017"],
+            aliases=[col], 
             localize=True,
             sticky=False,
             labels=True,
@@ -245,10 +234,7 @@ def display_demo_chloropleth(col):
         smooth_factor=2,
         style_function=lambda x: {'color':'black','fillColor':'transparent','weight':0.5},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=[
-                    # 'Total Pop (#)_2022',
-                    col + "_2022"
-                    ],
+            fields=[col + "_2022"],
             aliases=[
                     # "Total Population (#):",
                      col

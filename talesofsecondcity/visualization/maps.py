@@ -18,8 +18,13 @@ city_boundaries = gpd.read_file('talesofsecondcity/data/original/Boundaries - Ci
 # city_census_tracts = gpd.overlay(all_census_tracts, city_boundaries, how = "intersection")
 demo_geojson = gpd.read_file("talesofsecondcity/data/full_demo_data.geojson",dtype="str")
 demo_geojson_city = gpd.overlay(demo_geojson, city_boundaries, how = "intersection")
+# demo_geojson_city.iloc[:,13:76] = pd.to_numeric(demo_geojson_city.iloc[:,13:76])
+# demo_geojson_city[demo_geojson_city.iloc[:,13:76]] = demo_geojson_city[demo_geojson_city.iloc[:,13:76]].apply(pd.to_numeric)
+columns_to_convert = demo_geojson_city.columns[13:77]
+demo_geojson_city[columns_to_convert] = demo_geojson_city[columns_to_convert].apply(pd.to_numeric, errors='coerce')
 neighborhoods = gpd.read_file('talesofsecondcity/data/original/Boundaries - Neighborhoods.geojson')
 tiger_12 = gpd.read_file('talesofsecondcity/data/geocoded/tiger_12_final.geojson')
+demo_geojson_city
 
 lat=41.8227
 long=-87.6014
@@ -49,11 +54,11 @@ def display_change_over_time_choropleth(factor):
     df.drop(columns=['NAME_x','Name','NAMELSAD','MTFCC','FUNCSTAT'],inplace=True)
     df.iloc[:, ~df.columns.str.contains('geometry')] = df.iloc[:, ~df.columns.str.contains('geometry')].apply(pd.to_numeric)
     factor_2022 = factor + "_2022"
-    factor_2017 = factor + "_2017"
+    factor_2012 = factor + "_2012"
     new_var = "% Change in " + factor
     df[new_var] = (
         (df[factor_2022]/df['Total Pop (#)_2022']) - 
-        (df[factor_2017]/df['Total Pop (#)_2017'])
+        (df[factor_2012]/df['Total Pop (#)_2012'])
         ) * 100
 
     fig = px.choropleth(

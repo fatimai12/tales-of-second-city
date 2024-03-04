@@ -159,7 +159,14 @@ app.layout = dbc.Container([
                 id='map-change',
                 figure = fig_change)
         ], width=12)
-    ], align='center')
+    ], align='center'),
+
+    dbc.Row([
+        dbc.Col([
+            html.Footer("Victoria Beck, Fatima Irfan, Suchi Tailor, CAPP 122 Winter 2024",
+                        style = {"textAlign": "center", "marginTop": 20, "marginBottom": 5})
+        ])
+    ])
 
 
 

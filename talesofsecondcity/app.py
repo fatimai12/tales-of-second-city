@@ -7,42 +7,16 @@ import plotly.colors as colors
 from dash_bootstrap_templates import load_figure_template
 
 # Import map function
-from .visualization.layer_map import display_demo_chloropleth
-
+from .visualization.maps import display_demo_chloropleth, display_index_choropleth
 
 load_figure_template("SOLAR")
-
-lat=41.8227
-long=-87.6014
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 
 # Index data
 index_data = pd.read_csv("talesofsecondcity/data/index_data.csv")
 
-
-def display_index_choropleth():
-    df = pd.read_csv('talesofsecondcity/data/index_data.csv',dtype=str)
-    df['APS Index'] = pd.to_numeric(df['APS Index'])
-    census_tracts = gpd.read_file("talesofsecondcity/data/original/Boundaries - Census Tracts - 2010.geojson")
-
-    fig = px.choropleth(
-        data_frame = df,
-        geojson = census_tracts,
-        featureidkey = 'properties.tractce10',
-        locations = 'Tract',
-        color = 'APS Index',
-        color_continuous_scale = 'viridis',
-        scope = 'usa',
-        center = dict(lat = lat, lon = long),
-        basemap_visible = False)
-
-    fig.update_layout(autosize = True, geo = dict(projection_scale = 70))
-
-    return fig
-
 fig_idx = display_index_choropleth()
-
 
 # App layout
 app.layout = dbc.Container([
@@ -130,7 +104,7 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Br(),
             html.Div([
-                html.H3(children = "Demographic Change 2002-2022", 
+                html.H3(children = "Distribution of Demographic Factors (2012, 2017, 2022)", 
                         style = {"textAlign":"center", "color": "#FFEFD5", "fontSize": 25})
             ])
         ])
@@ -179,28 +153,7 @@ def generate_layer_map(variable_name):
 
     # return html.Iframe(srcDoc = layer_map, style = {'width': '100%', 'height': '600px'})
 
+
 if __name__ == '__main__':
     app.run_server(debug=True)
     
-#layout
-# NAVBAR = dbc.Navbar(
-#     children=[
-#         html.A(
-#             # Use row and col to control vertical alignment of logo / brand
-#             dbc.Row(
-#                 [
-#                     dbc.Col(
-#                         dbc.NavbarBrand("Bank Customer Complaints", className="ml-2")
-#                     ),
-#                 ],
-#             ),
-#         )
-#     ],
-#     color="dark",
-#     dark=True,
-#     sticky="top",
-# )
-
-# BODY = ()
-
-# app.layout = html.Div(children=[NAVBAR, BODY])

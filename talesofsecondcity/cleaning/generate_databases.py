@@ -19,8 +19,7 @@ preprocess()
 address_to_census_tract.run()
 l_stops_geocoded = geocode_l_stops()
 
-#loops? or fine
-parks_with_missing = pd.read_csv("../data/geocoded/parks_geocoded.csv", index_col = False)
+sparks_with_missing = pd.read_csv("../data/geocoded/parks_geocoded.csv", index_col = False)
 bus_with_missing = pd.read_csv("../data/geocoded/bus_geocoded.csv", index_col = False)
 divvy_with_missing = pd.read_csv("../data/geocoded/divvy_geocoded.csv", index_col = False)
 
@@ -28,7 +27,6 @@ parks_geocoded = geocode_missing_tracts(parks_with_missing, True)
 bus_geocoded = geocode_missing_tracts(bus_with_missing, False)
 divvy_geocoded = geocode_missing_tracts(divvy_with_missing, False)
 
-#can use dict/mapping for cleaning???
 parks_final = clean_parks(parks_geocoded)
 libraries_final = clean_libraries()
 l_stops_final = clean_l_stops(l_stops_geocoded)
@@ -41,9 +39,11 @@ index.run()
 #generate full demographics file with shapes
 full_acs_data = census_scrape.merge_dfs()
 census_tract_shapes = gpd.read_file("../data/geocoded/tiger_22_final.geojson")
+census_tract_shapes = census_tract_shapes.iloc[:, :12]
 merged_demo = census_tract_shapes.merge(
-    full_acs_data, how = "left", right_on = 'tract', left_on = 'Tract Code'
+    full_acs_data, how = "left", right_on = 'tract', left_on = 'TRACTCE'
 )
+merged_demo = merged_demo.rename(columns = {"NAME_y": "Name"})
 merged_demo.to_csv('../data/full_demo_data.csv',index=False)
 
 #generate public services with lat/long file

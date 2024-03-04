@@ -16,6 +16,9 @@ all_census_tracts = gpd.read_file("talesofsecondcity/data/geocoded/tiger_22_fina
 all_census_tracts = all_census_tracts.to_crs("EPSG:4326")
 city_boundaries = gpd.read_file('talesofsecondcity/data/original/Boundaries - City.geojson')
 city_census_tracts = gpd.overlay(all_census_tracts, city_boundaries, how = "intersection")
+full_demo = gpd.read_file("talesofsecondcity/data/full_demo_data.geojson")
+city_full_demo = gpd.overlay(full_demo, city_boundaries, how = "intersection")
+
 lat=41.8227
 long=-87.6014
 
@@ -42,16 +45,19 @@ def display_change_over_time_choropleth():
     lat=41.8227
     long=-87.6014
 
-    df = pd.read_csv('talesofsecondcity/data/full_demo_data.csv',dtype=str)
-    df.drop(columns=['Name','NAMELSAD','MTFCC','FUNCSTAT'],inplace=True)
-    df = df.apply(pd.to_numeric)
-    df['change_in_pct_white_2012_to_2022'] = ((df['Race: White_2012']/df['Total Pop (#)_2012']) - (df['Race: White_2022']/df['Total Pop (#)_2022'])) * 100
+    df = pd.read_csv('talesofsecondcity/data/full_demo_data.csv')
+    df.drop(columns=['NAME_x','Name','NAMELSAD','MTFCC','FUNCSTAT'],inplace=True)
+    df.iloc[:, ~df.columns.str.contains('geometry')] = df.iloc[:, ~df.columns.str.contains('geometry')].apply(pd.to_numeric)
+    df['change_in_pct_white_2012_to_2022'] = (
+        (df['Race: White_2012']/df['Total Pop (#)_2012']) - 
+        (df['Race: White_2022']/df['Total Pop (#)_2022'])
+        ) * 100
 
     fig = px.choropleth(
         data_frame = df,
         geojson = city_census_tracts,
         featureidkey = 'properties.tract',
-        locations = 'TRACTCE',
+        locations = 'tract',
         color = 'change_in_pct_white_2012_to_2022',
         color_continuous_scale = 'viridis',
         scope = 'usa',
@@ -87,18 +93,33 @@ def display_demo_chloropleth(col):
             ).add_to(base_map)
 
     # develop Choropleth maps
+    # map_12 = folium.Choropleth(
+    #     geo_data=tiger_12,
+    #     name="2008-2012 ACS 5-year Estimates",
+    #     data=tiger_12,
+    #     columns= ["GEOID", col],
+    #     key_on= "feature.properties.GEOID",
+    #     fill_color= "YlGn",
+    #     fill_opacity= 0.7,
+    #     line_opacity= 0.2,
+    #     highlight = True, 
+    #     line_color = 'black',
+    #     overlay = True,
+    #     legend_name= "2008-2012 ACS 5-year Estimates").add_to(base_map)
+    
     map_12 = folium.Choropleth(
-        geo_data=tiger_12,
+        geo_data=city_full_demo,
         name="2008-2012 ACS 5-year Estimates",
-        data=tiger_12,
-        columns= ["GEOID", col],
-        key_on= "feature.properties.GEOID",
+        data=city_full_demo,
+        columns= ["GEOID_x", 'Race: White_2012'],
+        key_on= "feature.properties.GEOID_x",
         fill_color= "YlGn",
         fill_opacity= 0.7,
         line_opacity= 0.2,
-        highlight = True, 
+        highlight = True,
         line_color = 'black',
         overlay = True,
+        nan_fill_color = 'Grey',
         legend_name= "2008-2012 ACS 5-year Estimates").add_to(base_map)
     
     map_17 = folium.Choropleth(
@@ -112,6 +133,7 @@ def display_demo_chloropleth(col):
         line_opacity=0.2,
         highlight = False,
         overlay = True,
+        nan_fill_color = 'Grey',
         line_color = 'black',
         legend_name="2013-2017 ACS 5-year Estimates").add_to(base_map)
 
@@ -126,6 +148,7 @@ def display_demo_chloropleth(col):
         line_opacity=0.2,
         highlight = False,
         overlay = True,
+        nan_fill_color = 'Grey',
         line_color = 'black',
         legend_name="2018-2022 ACS 5-year Estimates").add_to(base_map)
         

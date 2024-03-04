@@ -12,9 +12,10 @@ from geocode_api import address_to_census_tract
 from geocode_api.point_to_census_tract import geocode_missing_tracts, geocode_l_stops
 from geocode_api.preprocess_data import preprocess
 from geocode_api.clean_geocoded_data import clean_libraries, clean_parks, clean_l_stops, clean_divvy, clean_bus
-from ..analysis import index
+from .analysis import index
 from census_api import census_scrape
 from shapely.wkt import loads
+import re
 
 preprocess()
 address_to_census_tract.run()
@@ -49,6 +50,8 @@ merged_demo = census_tract_shapes.merge(
     full_acs_data, how = "left", right_on = 'tract', left_on = 'TRACTCE'
 )
 merged_demo = merged_demo.rename(columns = {"NAME_y": "Name"})
+merged_demo = merged_demo.astype(str)
+merged_demo = merged_demo.replace('-666666666.0', '', regex = True)
 merged_demo.to_csv('../data/full_demo_data.csv',index=False)
 
 merged_demo['geometry'] = merged_demo['geometry'].apply(loads)

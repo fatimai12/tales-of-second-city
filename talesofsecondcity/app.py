@@ -163,9 +163,9 @@ def update_graph(x_axis_name, y_axis_name):
 
 def generate_layer_map(variable_name):
     layer_map = display_demo_chloropleth(variable_name)
-    layer_map.save("layer_map.html")
+    layer_map.save("talesofsecondcity/visualization/layer_map.html")
     
-    return open("layer_map.html", 'r').read()
+    return open("talesofsecondcity/visualization/layer_map.html", 'r').read()
 
     # return html.Iframe(srcDoc = layer_map, style = {'width': '100%', 'height': '600px'})
 

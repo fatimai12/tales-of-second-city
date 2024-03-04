@@ -76,7 +76,7 @@ def display_change_over_time_choropleth(factor):
 def display_demo_chloropleth(col):
 
     #generate map & base layers
-    base_map = folium.Map(location=[lat, long], zoom_start=11, overlay = False, name = "base", width = '50%', height = '50%')
+    base_map = folium.Map(location=[lat, long], zoom_start=11, overlay = False, name = "base")
     folium.GeoJson(city_boundaries, name = "city boundaries", fill = False, color = "black").add_to(base_map)
     folium.GeoJson(neighborhoods, name = "Neigborhood Boundaries", 
                zoom_on_click= True,
@@ -212,7 +212,7 @@ def ps_marker_map():
 
     # generate base map
     ps_data = gpd.read_file('talesofsecondcity/data/full_ps_data.csv')
-    ps_map = folium.Map(location=[41.7377, -87.6976], zoom_start=11, overlay = False, name = "ps_base", width = '50%', height = '50%')
+    ps_map = folium.Map(location=[41.7377, -87.6976], zoom_start=11, overlay = False, name = "ps_base")
 
     # COMMENT OUT BELOW LINE WHEN INCLUDING BUS STOPS
     ps_data = ps_data.drop(ps_data[ps_data['service_type'] == 'bus stop'].index)

@@ -44,13 +44,15 @@ def display_index_choropleth():
 
     return fig
 
-def display_change_over_time_choropleth():
+def display_change_over_time_choropleth(factor):
     df = pd.read_csv('talesofsecondcity/data/full_demo_data.csv')
     df.drop(columns=['NAME_x','Name','NAMELSAD','MTFCC','FUNCSTAT'],inplace=True)
     df.iloc[:, ~df.columns.str.contains('geometry')] = df.iloc[:, ~df.columns.str.contains('geometry')].apply(pd.to_numeric)
-    df['change_in_pct_white_2012_to_2022'] = (
-        (df['Race: White_2012']/df['Total Pop (#)_2012']) - 
-        (df['Race: White_2022']/df['Total Pop (#)_2022'])
+    factor_2022 = factor + "_2022"
+    factor_2017 = factor + "_2017"
+    diff = (
+        (df[factor_2022]/df['Total Pop (#)_2022']) - 
+        (df[factor_2017]/df['Total Pop (#)_2017'])
         ) * 100
 
     fig = px.choropleth(
@@ -58,15 +60,18 @@ def display_change_over_time_choropleth():
         geojson = demo_geojson_city,
         featureidkey = 'properties.TRACTCE',
         locations = 'tract',
-        color = 'change_in_pct_white_2012_to_2022',
+        color = diff,
+        range_color = (-max(abs(diff)), max(abs(diff))),
         color_continuous_scale = 'viridis',
         scope = 'usa',
         center = dict(lat = lat, lon = long),
         basemap_visible = False)
 
+    fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(autosize = True, geo = dict(projection_scale = 70),
                       margin=dict(t=0, b=0, l=0, r=0))
-
+    legend_title = "% Change in " + factor
+    fig.update_layout(legend_title_text=legend_title)
     return fig
 
 
@@ -234,7 +239,7 @@ def display_demo_chloropleth(col):
                 highlight_function=lambda x: {'weight':3,'fillColor':'grey'},
             ).add_to(map_22)  
     
-    folium.LayerControl().add_to(base_map)
+    folium.LayerControl(position = 'topright',collapsed=False).add_to(base_map)
 
     base_map.save("talesofsecondcity/visualization/layer_map.html")
     

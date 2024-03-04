@@ -17,7 +17,6 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 index_data = pd.read_csv("talesofsecondcity/data/index_data.csv")
 
 fig_idx = display_index_choropleth()
-fig_change = display_change_over_time_choropleth()
 
 # App layout
 app.layout = dbc.Container([
@@ -90,31 +89,47 @@ app.layout = dbc.Container([
     ]),
 
     # index map
-
     dbc.Row([
         dbc.Col([
             html.Div([
                 html.Br(),
                 html.H3('Public Service Access by Census Tract', 
                 style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
-            
+                
                 dcc.Graph(
                     id='map-idx',
                     figure = fig_idx,
-                    style = {"width": "100%", "height": "600px"},
+                    # style = {"width": "100%", "height": "600px"},
                     responsive = True)
-            ]), width=8,
+            ])
+        ], width = 6),
 
     #change over time map
         dbc.Col([
-
-            html.H3('Demographic Factor Change', 
-            style={'text-align':'center'}),
-            
-            dcc.Graph(
-                id='map-change',
-                figure = fig_change)
-        ], width=6)
+            html.Div([
+            #     style={'text-align':'center', "color": "#FFEFD5", "fontSize": 25}),
+                html.H3('Demographic Factor % Change (from 2017 to 2022)'),
+                dcc.RadioItems(
+                    id='factor', 
+                    options=[
+                        {"label": "Homeowners (%)", "value": "Home: Owner"},
+                        {"label": "Race: White (%)", "value": "Race: White"},
+                        {"label": "Race: Black/African-American (%)", "value": "Race: Black/AA"},
+                        {"label": "Ethnicity: Hispanic (%)", "value": "Ethnicty: Hisp."},
+                        {"label": "Highest level of education: Bachelor's Degree (%)", "value": "Edu: Bachelor's Degree"},
+                        {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
+                        {"label": "Age 65+ (%)", "value": "Age: 65+"}
+                    ], value = "Home: Owner",
+                    inline=True
+                ),
+                
+                dcc.Graph(
+                    id='map-change',
+                    # figure = fig_change,
+                    # style = {"width": "100%", "height": "600px"},
+                    responsive = True)
+            ]),
+        ], width = 6),
     ]),
 
     dbc.Row([
@@ -133,8 +148,8 @@ app.layout = dbc.Container([
                     options = [
                     {"label": "Total Population (#)", "value": "Total Pop (#)"},
                     {"label": "Total Households (#)", "value": "Total HH (#)"},
-                    {"label": "Homeowners (%)", "value": "Home: Renter"},
-                    {"label": "Renters (%)", "value": "Home: Owner"},
+                    {"label": "Homeowners (%)", "value": "Home: Owner"},
+                    {"label": "Renters (%)", "value": "Home: Renter"},
                     {"label": "Race: White (%)", "value": "Race: White"},
                     {"label": "Race: Black/African-American (%)", "value": "Race: Black/AA"},
                     {"label": "Race: American Indian/Alaskan (%)", "value": "Race: AI/Alaskan"},
@@ -161,22 +176,6 @@ app.layout = dbc.Container([
         ])
     ]),
 
-    #change over time map
-    dbc.Row([
-        dbc.Col([
-            html.Div([
-                html.H3('Demographic Factor Change', 
-                style={'text-align':'center', "color": "#FFEFD5", "fontSize": 25}),
-                
-                dcc.Graph(
-                    id='map-change',
-                    figure = fig_change,
-                    style = {"width": "100%", "height": "600px"},
-                    responsive = True)
-            ])
-        ], width = 12)
-    ], align='center'),
-
     dbc.Row([
         dbc.Col([
             html.Footer("Victoria Beck, Fatima Irfan, Suchi Tailor, CAPP 122 Winter 2024",
@@ -184,11 +183,19 @@ app.layout = dbc.Container([
         ])
     ])
 
-
+    
 
 ])
 
-@callback(
+@app.callback(
+    Output("map-change", "figure"), 
+    Input("factor", "value"))
+
+def generate_demographic_change_map(factor):
+    change_map = display_change_over_time_choropleth(factor)
+    return change_map
+
+@app.callback(
     Output("Index graph", "figure"),
     Input("xaxis", "value"),
     Input("yaxis", "value")
@@ -201,14 +208,12 @@ def update_graph(x_axis_name, y_axis_name):
                                  hover_name = "Tract")
     return index_bar_chart
 
-@callback(
+@app.callback(
     Output("Layer Map", "srcDoc"),
     Input("map_variable", "value")
 )
 
 def generate_layer_map(variable_name):
-    if not variable_name:
-        variable_name = 'Total Pop (#)'
     layer_map = display_demo_chloropleth(variable_name)
 
     return layer_map

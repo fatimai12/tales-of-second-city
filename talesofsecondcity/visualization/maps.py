@@ -37,10 +37,21 @@ def display_index_choropleth():
         color_continuous_scale = 'viridis',
         scope = 'usa',
         center = dict(lat = lat, lon = long),
-        basemap_visible = False)
+        basemap_visible = False,
+        title = 'Public Service Access by Census Tract')
 
     fig.update_layout(autosize = True, geo = dict(projection_scale = 70),
-                      margin=dict(t=0, b=0, l=0, r=0))
+                      margin = dict(t=0, b=0, l=0, r=0),
+                      coloraxis_colorbar=dict(
+                          len=0.8,
+                          yanchor='top',
+                          y = 0.9,
+                          ypad = 0,
+                          thickness=10,
+                          xref = "container",
+                          yref = "container",
+                          orientation = "h"
+                    ))
 
     return fig
 
@@ -67,11 +78,23 @@ def display_change_over_time_choropleth(factor):
         color_continuous_scale = 'viridis',
         scope = 'usa',
         center = dict(lat = lat, lon = long),
-        basemap_visible = False)
+        basemap_visible = False,
+        title = 'Demographic Factor % Change (from 2017 to 2022)')
 
     fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(autosize = True, geo = dict(projection_scale = 70),
-                      margin=dict(t=0, b=0, l=0, r=0))
+                      margin=dict(t=0, b=0, l=0, r=0),
+                      coloraxis_colorbar=dict(
+                          len=0.8,
+                          xpad=0.5,
+                          yanchor='top',
+                          y = 0.9,
+                          ypad = 0,
+                          thickness=10,
+                          xref = "container",
+                          yref = "container",
+                          orientation = "h"
+                    ))
     return fig
 
 

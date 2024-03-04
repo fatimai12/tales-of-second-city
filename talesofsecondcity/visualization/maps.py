@@ -279,4 +279,6 @@ def ps_marker_map():
 
     folium.LayerControl().add_to(ps_map)
 
-    return ps_map
+    ps_map.save("talesofsecondcity/visualization/ps_map.html")
+    
+    return open("talesofsecondcity/visualization/ps_map.html", 'r').read()

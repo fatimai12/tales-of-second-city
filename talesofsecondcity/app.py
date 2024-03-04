@@ -7,7 +7,7 @@ import plotly.colors as colors
 from dash_bootstrap_templates import load_figure_template
 
 # Import map function
-from .visualization.maps import display_demo_chloropleth, display_index_choropleth, display_change_over_time_choropleth
+from .visualization.maps import display_demo_chloropleth, display_index_choropleth, display_change_over_time_choropleth, ps_marker_map
 
 load_figure_template("SOLAR")
 
@@ -17,6 +17,9 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 index_data = pd.read_csv("talesofsecondcity/data/index_data.csv")
 
 fig_idx = display_index_choropleth()
+
+# Points map
+ps_map = ps_marker_map()
 
 # App layout
 app.layout = dbc.Container([
@@ -71,19 +74,19 @@ app.layout = dbc.Container([
         ], width = 6),
         dbc.Col([
             html.Div([
+                dcc.Graph(
+                    id = "Index graph"
+                ),
                 dcc.Dropdown(
                     index_data.columns.unique()[1:],
                     "Park Acres",
-                    id = "xaxis")
-                    ], style = {"marginTop": 5, "marginBottom": 5}),
-            html.Div([
+                    id = "xaxis"),
                 dcc.Dropdown(
                     index_data.columns.unique()[1:],
                     "Parks Score",
                     id = "yaxis"),
-                dcc.Graph(
-                    id = "Index graph"
-                )], style = {"marginTop": 5, "marginBottom": 10}),
+            ], style = {"marginTop": 0, "marginBottom": 0}),
+            html.Br()
         ], width = 6)
     ]),
 
@@ -159,14 +162,22 @@ app.layout = dbc.Container([
                     {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
                     {"label": "Age 65+ (%)", "value": "Age: 65+"},
                     ], value = "Total Pop (#)", clearable = False),
-            ]),
+            ], style = {"marginTop": 0, "marginBottom": 0}),
             html.Br(),
             html.Div([
-                html.Iframe(id = "Layer Map", srcDoc = open('talesofsecondcity/visualization/layer_map.html','r').read(), 
+                html.Iframe(id = "Layer Map", srcDoc = open("talesofsecondcity/visualization/layer_map.html","r").read(), 
+                            width = "100%", height = "600px")
+            ], style = {"marginTop": 0, "marginBottom": 0})
+        ], width = 6),
+        dbc.Col([
+            html.Br(),
+            html.Br(),
+            html.Div([
+                html.Iframe(id = "PS Map", srcDoc = open("talesofsecondcity/visualization/ps_map.html", "r").read(),
                             width = "100%", height = "600px")
             ])
-        ])
-    ]),
+        ], width = 6)
+    ], style = {"verticalAlign": "bottom"}),
 
     dbc.Row([
         dbc.Col([
@@ -212,6 +223,10 @@ def generate_layer_map(variable_name):
     return layer_map
 
     # return html.Iframe(srcDoc = layer_map, style = {'width': '100%', 'height': '600px'})
+
+
+
+
 
 
 if __name__ == '__main__':

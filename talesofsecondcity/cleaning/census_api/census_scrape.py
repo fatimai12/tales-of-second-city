@@ -17,6 +17,8 @@ import requests
 
 def extract_2012_ACS5_data(key="7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     """
+    Suchi Tailor
+
     Use the Census python package to interact with Census API and collect race,
     income, age, home ownership and educational attainment data from all Census
     tracts in Cook County, IL that were published in 2012.
@@ -40,6 +42,8 @@ def extract_2012_ACS5_data(key="7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
 
 def extract_2017_ACS5_data(key="7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     """
+    Suchi Tailor
+
     Use the Census python package to interact with Census API and collect race,
     income, age, home ownership and educational attainment data from all Census
     tracts in Cook County, IL that were published in 2017.
@@ -65,6 +69,8 @@ def extract_2017_ACS5_data(key="7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
 
 def extract_2022_ACS5_data(key="7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
     """
+    Suchi Tailor
+
     Create Census API query and collect race, income, age, home ownership and
     educational attainment data from all Census tracts in Cook County, IL that
     were published in 2012. -- this workaround function accomdates for
@@ -97,6 +103,16 @@ def extract_2022_ACS5_data(key="7afa3a5a9a46932f7041a1b98355987a68b69cbc"):
 
 def merge_dfs():
     """
+    Fatima Irfan
+
+    Merge together census data in each year to create one consolidated 
+    dataset.
+
+    Inputs: 
+        None
+
+    Outputs: 
+        merged_acs (pandas df): merged dataset
     """
     data_2012 = pd.read_csv("../../data/original/acs5_data_2012.csv", index_col = False)
     data_2017 = pd.read_csv("../../data/original/acs5_data_2017.csv", index_col = False)

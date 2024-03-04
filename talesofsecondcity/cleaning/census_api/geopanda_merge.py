@@ -15,9 +15,10 @@ import geojson
 
 def acs_to_geopanda_merge():
     """
-
     Merge census data to geopanda dataframes using pygris package.
 
+    Outputs: 
+        None - saves datasets as geojson files
     """
 
     # load acs data into pandas dataframe

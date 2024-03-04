@@ -73,16 +73,18 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Div([
                 dcc.Dropdown(
-                    index_data.columns.unique(),
+                    index_data.columns.unique()[1:],
                     "Park Acres",
                     id = "xaxis")
                     ]),
+            html.Br(),
             html.Div([
                 dcc.Dropdown(
-                    index_data.columns.unique(),
+                    index_data.columns.unique()[1:],
                     "Parks Score",
                     id = "yaxis")
                     ]),
+            html.Br(),
             dcc.Graph(
                 id = "Index graph"
              )
@@ -93,7 +95,7 @@ app.layout = dbc.Container([
         dbc.Col([
 
             html.H3('Public Service Access by Census Tract', 
-            style={'text-align':'center'}),
+            style={"text-align":"center","color": "#FFEFD5", "fontSize": 25}),
             
             dcc.Graph(
                 id='map-idx',
@@ -114,12 +116,32 @@ app.layout = dbc.Container([
             html.Div([
                 dcc.Dropdown(id = "map_variable", 
                     options = [
-                    {"label": "Total Households", "value": "Total HH (#)"},
-                    {"label": "Race: White", "value": "Race: White"},
-                    ])
+                    {"label": "Total Population (#)", "value": "Total Pop (#)"},
+                    {"label": "Total Households (#)", "value": "Total HH (#)"},
+                    {"label": "Homeowners (%)", "value": "Home: Renter"},
+                    {"label": "Renters (%)", "value": "Home: Owner"},
+                    {"label": "Race: White (%)", "value": "Race: White"},
+                    {"label": "Race: Black/African-American (%)", "value": "Race: Black/AA"},
+                    {"label": "Race: American Indian/Alaskan (%)", "value": "Race: AI/Alaskan"},
+                    {"label": "Race: Asian (%)", "value": "Race: Asian"},
+                    {"label": "Race: Hawaiian/Pacific Islander (%)", "value": "Race: Hawaiian/PI"},
+                    {"label": "Race: Other (%)", "value": "Race: Other"},
+                    {"label": "Ethnicity: Hispanic (%)", "value": "Ethnicty: Hisp."},
+                    {"label": "Ethnicity: Non-Hispanic (%)", "value": "Ethnicity: Non-Hisp."},
+                    {"label": "Highest level of education: Less than 9th Grade (%)", "value": "Edu: < 9th grade"},
+                    {"label": "Highest level of education: High School, No Diploma (%)", "value": "Edu: HS, no diploma"},
+                    {"label": "Highest level of education: High School Diploma (%)", "value": "Edu: HS Diploma"},
+                    {"label": "Highest level of education: Associate's Degree (%)", "value": "Edu: Associate's Degree"},
+                    {"label": "Highest level of education: Bachelor's Degree (%)", "value": "Edu: Bachelor's Degree"},
+                    {"label": "Highest level of education: Graduate/Professional Degree (%)", "value": "Edu: Grad/Prof Degree"},
+                    {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
+                    {"label": "Age 18+ (%)", "value": "Age: 18+"},
+                    {"label": "Age 65+ (%)", "value": "Age: 65+"},
+                    ]),
             ]),
+            html.Br(),
             html.Div([
-                html.Iframe(id = "Layer Map", srcDoc = None, style = {'width': '100%', 'height': '600px'})
+                html.Iframe(id = "Layer Map", srcDoc = open('layer_map.html','r').read(),width = '100%',height='600')
             ])
         ])
     ])
@@ -147,9 +169,8 @@ def update_graph(x_axis_name, y_axis_name):
 
 def generate_layer_map(variable_name):
     layer_map = display_demo_chloropleth(variable_name)
-    layer_map.save("layer_map.html")
-    
-    return open("layer_map.html", 'r').read()
+
+    return layer_map
 
     # return html.Iframe(srcDoc = layer_map, style = {'width': '100%', 'height': '600px'})
 

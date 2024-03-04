@@ -7,7 +7,7 @@ import plotly.colors as colors
 from dash_bootstrap_templates import load_figure_template
 
 # Import map function
-from .visualization.maps import display_demo_chloropleth, display_index_choropleth
+from .visualization.maps import display_demo_chloropleth, display_index_choropleth, display_change_over_time_choropleth
 
 load_figure_template("SOLAR")
 
@@ -17,6 +17,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 index_data = pd.read_csv("talesofsecondcity/data/index_data.csv")
 
 fig_idx = display_index_choropleth()
+fig_change = display_change_over_time_choropleth()
 
 # App layout
 app.layout = dbc.Container([
@@ -57,8 +58,7 @@ app.layout = dbc.Container([
     ]),
     dbc.Row([
         dbc.Col([
-            html.Div(children="Public Service Scores (out of 100) and Access \
-                     to Public Services Index (0 to  1) by Census Tract", 
+            html.Div(children="Public Service Scores (out of 100) and APS Index (0 to  1) by Census Tract", 
                      style = {"color": "#FFFFFF", "fontSize": 18}),
             dash_table.DataTable(data = index_data.to_dict("records"),
                                  fixed_columns = {"headers": True, "data": 1},
@@ -88,6 +88,7 @@ app.layout = dbc.Container([
              )
         ], width = 6)
     ]),
+
     # index map
     dbc.Row([
         dbc.Col([
@@ -100,6 +101,7 @@ app.layout = dbc.Container([
                 figure = fig_idx)
         ], width=12)
     ], align='center'),
+
     dbc.Row([
         dbc.Col([
             html.Br(),
@@ -122,7 +124,21 @@ app.layout = dbc.Container([
                 html.Iframe(id = "Layer Map", srcDoc = None, style = {'width': '100%', 'height': '600px'})
             ])
         ])
-    ])
+    ]),
+
+    #change over time map
+    dbc.Row([
+        dbc.Col([
+
+            html.H3('Demographic Factor Change', 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='map-change',
+                figure = fig_change)
+        ], width=12)
+    ], align='center')
+
 
 
 ])

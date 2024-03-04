@@ -12,18 +12,16 @@ import folium
 import pandas as pd
 import plotly.express as px
 
+all_census_tracts = gpd.read_file("talesofsecondcity/data/geocoded/tiger_22_final.geojson")
+all_census_tracts = all_census_tracts.to_crs("EPSG:4326")
+city_boundaries = gpd.read_file('talesofsecondcity/data/original/Boundaries - City.geojson')
+city_census_tracts = gpd.overlay(all_census_tracts, city_boundaries, how = "intersection")
+lat=41.8227
+long=-87.6014
 
 def display_index_choropleth():
-    lat=41.8227
-    long=-87.6014
-
     df = pd.read_csv('talesofsecondcity/data/index_data.csv',dtype=str)
     df['APS Index'] = pd.to_numeric(df['APS Index'])
-    all_census_tracts = gpd.read_file("talesofsecondcity/data/geocoded/tiger_22_final.geojson")
-    all_census_tracts = all_census_tracts.to_crs("EPSG:4326")
-    city_boundaries = gpd.read_file('talesofsecondcity/data/original/Boundaries - City.geojson')
-    city_census_tracts = gpd.overlay(all_census_tracts, city_boundaries, how = "intersection")
-
 
     fig = px.choropleth(
         data_frame = df,
@@ -31,6 +29,30 @@ def display_index_choropleth():
         featureidkey = 'properties.tract',
         locations = 'Tract',
         color = 'APS Index',
+        color_continuous_scale = 'viridis',
+        scope = 'usa',
+        center = dict(lat = lat, lon = long),
+        basemap_visible = False)
+
+    fig.update_layout(autosize = True, geo = dict(projection_scale = 70))
+
+    return fig
+
+def display_change_over_time_choropleth():
+    lat=41.8227
+    long=-87.6014
+
+    df = pd.read_csv('talesofsecondcity/data/full_demo_data.csv',dtype=str)
+    df.drop(columns=['Name','NAMELSAD','MTFCC','FUNCSTAT'],inplace=True)
+    df = df.apply(pd.to_numeric)
+    df['change_in_pct_white_2012_to_2022'] = ((df['Race: White_2012']/df['Total Pop (#)_2012']) - (df['Race: White_2022']/df['Total Pop (#)_2022'])) * 100
+
+    fig = px.choropleth(
+        data_frame = df,
+        geojson = city_census_tracts,
+        featureidkey = 'properties.tract',
+        locations = 'TRACTCE',
+        color = 'change_in_pct_white_2012_to_2022',
         color_continuous_scale = 'viridis',
         scope = 'usa',
         center = dict(lat = lat, lon = long),

@@ -83,7 +83,7 @@ def display_change_over_time_choropleth(factor):
 def display_demo_chloropleth(col):
 
     #generate map & base layers
-    base_map = folium.Map(location=[lat, long], zoom_start=11, overlay = False, name = "base")
+    base_map = folium.Map(location=[lat, long], zoom_start=11, overlay = False, name = "base", width = '50%', height = '50%')
     folium.GeoJson(city_boundaries, name = "city boundaries", fill = False, color = "black").add_to(base_map)
     folium.GeoJson(neighborhoods, name = "Neigborhood Boundaries", 
                zoom_on_click= True,
@@ -244,4 +244,53 @@ def display_demo_chloropleth(col):
     
     return open("talesofsecondcity/visualization/layer_map.html", 'r').read()
 
-    # return base_map
+
+def ps_marker_map():
+
+    # generate base map
+    ps_data = gpd.read_file('talesofsecondcity/data/full_ps_data.csv')
+    ps_map = folium.Map(location=[41.7377, -87.6976], zoom_start=11, overlay = False, name = "ps_base", width = '50%', height = '50%')
+
+    # COMMENT OUT BELOW LINE WHEN INCLUDING BUS STOPS
+    ps_data = ps_data.drop(ps_data[ps_data['service_type'] == 'bus stop'].index)
+
+    # update for map readability
+    service_dict = {'bus stop' : 'Bus Stop',
+                    'divvy station' : 'Divvy Station', 
+                    'l stop': 'L Stop', 
+                    'park' : 'Park', 
+                    'library' : 'Library'}
+    ps_data["service_type"] = ps_data["service_type"].replace(service_dict)
+
+    # include below line if running with bus stops
+    # bus_stops = folium.FeatureGroup("Bus Stops").add_to(ps_map)
+    divvy_stations = folium.FeatureGroup("Divvy Bike Stations").add_to(ps_map)
+    l_stops = folium.FeatureGroup("L Stop").add_to(ps_map)
+    parks = folium.FeatureGroup("Parks").add_to(ps_map)
+    library = folium.FeatureGroup("Libraries").add_to(ps_map)
+
+    # Create markers for each location
+    feature_dict = {#'Bus Stop' : bus_stops, 
+                'Divvy Station' : divvy_stations,
+                'L Stop': l_stops, 
+                'Park' : parks, 
+                'Library' : library
+                }
+    
+    color_dict = {'Bus Stop' : 'red', 
+                'Divvy Station' : 'blue',
+                'L Stop': 'purple', 
+                'Park' : 'darkgreen', 
+                'Library' : 'orange'
+                }
+    
+    for _, row in ps_data.iterrows():
+        folium.Marker(
+            location = [row["latitude"], row["longitude"]],
+            tooltip = f'{row["service_type"]} : {row["Name"]}',
+            icon= folium.Icon(color = color_dict[row["service_type"]]),
+        ).add_to(feature_dict[row["service_type"]])
+
+    folium.LayerControl().add_to(ps_map)
+
+    return ps_map

@@ -139,11 +139,11 @@ app.layout = dbc.Container([
                     {"label": "Median Household Income ($)", "value": "Median HH Income ($)"},
                     {"label": "Age 18+ (%)", "value": "Age: 18+"},
                     {"label": "Age 65+ (%)", "value": "Age: 65+"},
-                    ]),
+                    ], value = "Total Pop (#)", clearable = False),
             ]),
             html.Br(),
             html.Div([
-                html.Iframe(id = "Layer Map", srcDoc = open('layer_map.html','r').read(),width = '100%',height='600')
+                html.Iframe(id = "Layer Map", srcDoc = None ,width = '100%',height='600')
             ])
         ])
     ]),
@@ -153,7 +153,7 @@ app.layout = dbc.Container([
         dbc.Col([
 
             html.H3('Demographic Factor Change', 
-            style={'text-align':'center'}),
+            style={'text-align':'center', "color": "#FFEFD5", "fontSize": 25}),
             
             dcc.Graph(
                 id='map-change',
@@ -185,6 +185,7 @@ def update_graph(x_axis_name, y_axis_name):
 
 def generate_layer_map(variable_name):
     layer_map = display_demo_chloropleth(variable_name)
+
     return layer_map
 
     # return html.Iframe(srcDoc = layer_map, style = {'width': '100%', 'height': '600px'})

@@ -14,6 +14,7 @@ from geocode_api.preprocess_data import preprocess
 from geocode_api.clean_geocoded_data import clean_libraries, clean_parks, clean_l_stops, clean_divvy, clean_bus
 from ..analysis import index
 from census_api import census_scrape
+from shapely.wkt import loads
 
 preprocess()
 address_to_census_tract.run()
@@ -49,6 +50,10 @@ merged_demo = census_tract_shapes.merge(
 )
 merged_demo = merged_demo.rename(columns = {"NAME_y": "Name"})
 merged_demo.to_csv('../data/full_demo_data.csv',index=False)
+
+merged_demo['geometry'] = merged_demo['geometry'].apply(loads)
+merged_demo_gdf = gpd.GeoDataFrame(merged_demo, geometry='geometry')
+merged_demo_gdf.to_file('../data/full_demo_data.geojson',driver='GeoJSON')
 
 #generate public services with lat/long file
 ps_with_type = [

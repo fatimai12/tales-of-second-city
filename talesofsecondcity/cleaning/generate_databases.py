@@ -1,7 +1,7 @@
 """
 CAPP 30122
 Team: Tales of Second City
-Author: Victoria Beck and Fatima Irfan
+Author: Fatima Irfan
 
 Generate final database with all public service and census data
 """
@@ -21,7 +21,7 @@ preprocess()
 address_to_census_tract.run()
 l_stops_geocoded = geocode_l_stops()
 
-sparks_with_missing = pd.read_csv("../data/geocoded/parks_geocoded.csv", index_col = False)
+parks_with_missing = pd.read_csv("../data/geocoded/parks_geocoded.csv", index_col = False)
 bus_with_missing = pd.read_csv("../data/geocoded/bus_geocoded.csv", index_col = False)
 divvy_with_missing = pd.read_csv("../data/geocoded/divvy_geocoded.csv", index_col = False)
 
@@ -50,11 +50,11 @@ merged_demo = census_tract_shapes.merge(
     full_acs_data, how = "left", right_on = 'tract', left_on = 'TRACTCE'
 )
 merged_demo = merged_demo.rename(columns = {"NAME_y": "Name"})
-merged_demo = merged_demo.astype(str)
-merged_demo = merged_demo.replace('-666666666.0', '', regex = True)
+merged_demo.replace(-666666666.0, '',inplace=True)
+merged_demo = merged_demo[merged_demo['Total Pop (#)_2012'] != 0.0]
 merged_demo.to_csv('../data/full_demo_data.csv',index=False)
 
-merged_demo['geometry'] = merged_demo['geometry'].apply(loads)
+merged_demo['geometry'] = merged_demo['geometry'].astype(str).apply(loads)
 merged_demo_gdf = gpd.GeoDataFrame(merged_demo, geometry='geometry')
 merged_demo_gdf.to_file('../data/full_demo_data.geojson',driver='GeoJSON')
 

@@ -92,6 +92,7 @@ app.layout = dbc.Container([
     ]),
 
     # index map
+
     dbc.Row([
         dbc.Col([
 
@@ -101,8 +102,20 @@ app.layout = dbc.Container([
             dcc.Graph(
                 id='map-idx',
                 figure = fig_idx)
-        ], width=12)
-    ], align='center'),
+        ], width=8),
+
+    #change over time map
+        dbc.Col([
+
+            html.H3('Demographic Factor Change', 
+            style={'text-align':'center'}),
+            
+            dcc.Graph(
+                id='map-change',
+                figure = fig_change)
+        ], width=6)
+    ]),
+
 
     dbc.Row([
         dbc.Col([
@@ -143,25 +156,10 @@ app.layout = dbc.Container([
             ]),
             html.Br(),
             html.Div([
-                html.Iframe(id = "Layer Map", srcDoc = open('layer_map.html','r').read(),width = '100%',height='600')
+                html.Iframe(id = "Layer Map", srcDoc = open('talesofsecondcity/visualization/layer_map.html','r').read(),width = '100%',height='600')
             ])
         ])
-    ]),
-
-    #change over time map
-    dbc.Row([
-        dbc.Col([
-
-            html.H3('Demographic Factor Change', 
-            style={'text-align':'center'}),
-            
-            dcc.Graph(
-                id='map-change',
-                figure = fig_change)
-        ], width=12)
-    ], align='center')
-
-
+    ])
 
 ])
 
@@ -184,6 +182,8 @@ def update_graph(x_axis_name, y_axis_name):
 )
 
 def generate_layer_map(variable_name):
+    if not variable_name:
+        variable_name = 'Total Pop (#)'
     layer_map = display_demo_chloropleth(variable_name)
     return layer_map
 

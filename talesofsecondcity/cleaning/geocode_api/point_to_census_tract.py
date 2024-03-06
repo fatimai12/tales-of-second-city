@@ -16,7 +16,10 @@ l_stops_df = pd.read_csv("../data/original/CTA_-_System_Information_-_List_of__L
 
 def geocode_l_stops():
     """
-    Create data frame containing latitudes and longitudes for l stops
+    Create data frame containing latitudes and longitudes for L stops
+
+    Returns:
+        l_stops_df (pd): data frame with L stop coordinates
     """
     geolocator = Nominatim(user_agent="talesofsecondcity") 
 
@@ -32,7 +35,12 @@ def geocode_l_stops():
 
 def find_lat_lon(address):
     """
-    Find lat and long for missing parks
+    Find lat and long for missing parks that could not be previously geocoded.
+
+    Inputs:
+        address (str): address of park
+    Returns:
+        latitude, longitude (str): park coordinates
     """
     geolocator = Nominatim(user_agent = "tales_of_second_city", timeout = 5)
 
@@ -48,7 +56,11 @@ def find_lat_lon(address):
 
 def geocode_missing_tracts(df: pd, need_lat_lon: bool):
     """
-    Geocode data with missing census tracts
+    Geocode data with missing census tracts.
+
+    Inputs:
+        df (pd): Data frame with public service addresses
+        need_lat_lon (bool): True if the address needs coordinates assigned to it
     """
 
     missing_data = df[df["Tract"].isnull()]

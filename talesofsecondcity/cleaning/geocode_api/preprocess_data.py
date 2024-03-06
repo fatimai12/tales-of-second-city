@@ -4,8 +4,6 @@ Team: Tales of Second City
 Author: Victoria Beck
 
 Clean parks and libraries data for use in geocode api
-
-
 """
 
 import pandas as pd
@@ -13,6 +11,9 @@ import pandas as pd
 def preprocess():
     """
     Read in parks and libraries data and clean. Exclude rows without addresses.
+
+    Returns:
+        None, saves dataframes as cleaned CSVs
     """
 
     parks = pd.read_csv("../data/original/CPD_Parks.csv", dtype = str, 

@@ -1,3 +1,11 @@
+"""
+CAPP 30122
+Team: Tales of Second City
+Author: Victoria Beck
+
+Interface for web app.
+"""
+
 from dash import Dash, html, dcc, Input, Output, State, dash_table, callback
 import plotly.express as px
 import dash_bootstrap_components as dbc
@@ -187,10 +195,9 @@ app.layout = dbc.Container([
         ])
     ])
 
-    
-
 ])
 
+#regenerate maps based on user input
 @app.callback(
     Output("map-change", "figure"), 
     Input("factor", "value"))
@@ -222,13 +229,6 @@ def generate_layer_map(variable_name):
     layer_map = display_demo_chloropleth(variable_name)
 
     return layer_map
-
-    # return html.Iframe(srcDoc = layer_map, style = {'width': '100%', 'height': '600px'})
-
-
-
-
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)

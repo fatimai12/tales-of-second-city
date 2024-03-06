@@ -15,10 +15,11 @@ import plotly.express as px
 city_boundaries = gpd.read_file('talesofsecondcity/data/original/Boundaries - City.geojson')
 demo_geojson = gpd.read_file("talesofsecondcity/data/full_demo_data.geojson",dtype="str")
 demo_geojson_city = gpd.overlay(demo_geojson, city_boundaries, how = "intersection")
-columns_to_convert = demo_geojson_city.columns[13:77]
+columns_to_convert = demo_geojson_city.columns[13:77] #to numeric
 demo_geojson_city[columns_to_convert] = demo_geojson_city[columns_to_convert].apply(pd.to_numeric, errors='coerce')
 neighborhoods = gpd.read_file('talesofsecondcity/data/original/Boundaries - Neighborhoods.geojson')
 
+#center around Chicago
 lat=41.8227
 long=-87.6014
 
@@ -73,7 +74,7 @@ def display_change_over_time_choropleth(factor):
     factor_2022 = factor + "_2022"
     factor_2012 = factor + "_2012"
     new_var = "% Change in " + factor
-    df[new_var] = (
+    df[new_var] = ( #calculate change
         (df[factor_2022]/df['Total Pop (#)_2022']) - 
         (df[factor_2012]/df['Total Pop (#)_2012'])
         ) * 100
@@ -313,7 +314,7 @@ def ps_marker_map():
                     'library' : 'Library'}
     ps_data["service_type"] = ps_data["service_type"].replace(service_dict)
 
-    # INCLUDE BELOW LINE IF RUNNING NWITH BUS STOPS
+    # INCLUDE BELOW LINE IF RUNNING WITH BUS STOPS
     # bus_stops = folium.FeatureGroup("Bus Stops").add_to(ps_map)
     divvy_stations = folium.FeatureGroup("Divvy Bike Stations").add_to(ps_map)
     l_stops = folium.FeatureGroup("L Stop").add_to(ps_map)

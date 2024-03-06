@@ -16,6 +16,8 @@ import time
 
 def run():
     """
+    Assigns geocodes/census tracts to original or preprocessed
+    data with address and/or point information.
     """
 
     # Batch geocode as many locations as possible
@@ -34,6 +36,7 @@ def run():
 
     libraries_geocode.to_csv("../data/geocoded/libraries_geocoded.csv", index = False)
 
+    #Assign census tracts to bus stops and divvy using spatial join
     bus_stops = gpd.read_file("../data/original/CTA Bus Stops.geojson")
     bus_geocode = gpd.sjoin(bus_stops, census_tracts, how="left", predicate="within")
     bus_geocode = bus_geocode[["public_nam","geometry", "tractce10"]]
@@ -46,14 +49,14 @@ def run():
 
     # Clean up formatting to find tracts that are missing after batch geocoding
     parks_geocode['latlong'] = parks_geocode['latitude'].astype(str) + '_' + parks_geocode['longitude'].astype(str)
-
     parks_geocode = pd.merge(parks, parks_geocode, on="Common Identifier", how="left")
 
-
+    #Rename columns for ease of processing
     parks_geocode = parks_geocode.rename(columns = {"id": "ID", "tract": "Tract"})
     bus_geocode = bus_geocode.rename(columns = {"tractce10": "Tract"})
     divvy_geocode = divvy_geocode.rename(columns = {"tractce10": "Tract"})
 
+    #Output (partially) geocoded files
     parks_geocode.to_csv("../data/geocoded/parks_geocoded.csv", index = False)
     bus_geocode.to_csv("../data/geocoded/bus_geocoded.csv", index = False)
     divvy_geocode.to_csv("../data/geocoded/divvy_geocoded.csv", index = False)

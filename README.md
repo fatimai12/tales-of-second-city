@@ -7,9 +7,9 @@ This project seeks to understand access to public services (parks, libaries, tra
 
 ## How to run the application:
 
-We built a dash application for our project.  It can be run by following the below steps.
+We built a Dash application for our project.  It can be run by following the below steps.
 
-1. Clone the repo for tales-of-second-city using the url on Github
+1. Clone the repo for tales-of-second-city using the url on GitHub
 
 2. In the root directory, run *poetry install* to install dependencies
 

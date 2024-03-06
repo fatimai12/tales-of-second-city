@@ -17,7 +17,7 @@ import time
 def run():
     """
     Assigns geocodes/census tracts to original or preprocessed
-    data with address and/or point information.
+    data with address and/or lat/long information.
     """
 
     # Batch geocode as many locations as possible

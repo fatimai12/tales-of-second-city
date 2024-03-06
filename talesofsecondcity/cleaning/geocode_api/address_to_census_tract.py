@@ -18,6 +18,9 @@ def run():
     """
     Assigns geocodes/census tracts to original or preprocessed
     data with address and/or lat/long information.
+
+    Returns:
+        None, saves geocoded data as CSVs
     """
 
     # Batch geocode as many locations as possible

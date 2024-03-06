@@ -11,7 +11,12 @@ import re
 
 def clean_parks(df):
     """
-    Clean parks data
+    Clean parks data.
+
+    Inputs:
+        df (pd): data frame of geocoded park data
+    Returns:
+        df (pd): cleaned geocoded parks data
     """
     # Keep only the ID and tract columns
     df = df[["ID", "Tract", "latitude", "longitude"]]
@@ -34,7 +39,10 @@ def clean_parks(df):
 
 def clean_libraries():
     """
-    Clean libraries data
+    Clean libraries data.
+
+    Returns:
+        libraries (pd): cleaned geocoded libraries data
     """
     # Read in geocoded libraries data
     libraries = pd.read_csv("../data/geocoded/libraries_geocoded.csv", dtype = str)
@@ -53,9 +61,15 @@ def clean_libraries():
 
     return libraries
 
+
 def clean_l_stops(df):
     """
     Clean L stops data
+
+    Inputs:
+        df (pd): data frame of geocoded L stop data
+    Returns:
+        df (pd): cleaned geocoded L stop data
     """
     df[['latitude','longitude']] = df['Location'].str.strip("()").str.split(",", expand=True)
 
@@ -72,6 +86,11 @@ def clean_l_stops(df):
 def clean_divvy(df):
     """
     Clean Divvy data
+
+    Inputs:
+        df (pd): data frame of geocoded Divvy station data
+    Returns:
+        df (pd): cleaned geocoded Divvy station data
     """    
     df["Tract"] = df["Tract"].astype(str)
 
@@ -91,6 +110,11 @@ def clean_divvy(df):
 def clean_bus(df):
     """
     Clean bus data
+
+    Inputs:
+        df (pd): data frame of geocoded bus stop data
+    Returns:
+        df (pd): cleaned geocoded bus stop data
     """
 
     df["Tract"] = df["Tract"].astype(str)

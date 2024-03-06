@@ -46,12 +46,13 @@ app.layout = dbc.Container([
                                      "marginTop": 0}),
                 ]),
                 html.Div([
-                    html.Label("We are interested in visualizing and analyzing access \
-                               to public services across Chicago in addition to mapping \
-                               demographic change across the city.  We hope to be able to \
-                               track socioeconomic changes across census tracts and \
-                               determine which areas of the city have the highest \
-                               access to public services like libraries, parks, and transit.")
+                    html.Label("""We are interested in visualizing and analyzing access 
+                               to public services across Chicago, as well as finding
+                                any patterns in levels of access that relate to factors
+                                of demographic change. Using our set of tools, you are able to
+                               visualize socioeconomic change across census tracts in the past 5, 10, & 10 years  
+                               and visualize how different parts of the city score in terms of their 
+                               access to public services (like libraries, parks, and transit).""")
                 ], style = {"marginBottom": 20, "fontSize": 20, "color": "#FFFFFF"})
             ])
         

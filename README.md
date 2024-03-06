@@ -2,7 +2,7 @@
 
 ### Authors: Victoria Beck, Fatima Irfan, Suchi Tailor
 
-# Summary
+## Summary
 This project seeks to understand access to public services (parks, libaries, transit) in the city of Chicago and how they may relate to factors of socioeconomic change. By running the application, you will be able to explore these factors and their relationships on an interactive dashboard.
 
 ## How to run the application:
